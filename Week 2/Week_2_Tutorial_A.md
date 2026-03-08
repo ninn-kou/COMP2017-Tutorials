@@ -227,6 +227,7 @@ Pointers are useful for working with arrays, functions, and dynamic memory. The 
 
 #### A.5.1 Example in C: Treasure Hunter
 
+> [!IMPORTANT]
 > Refer to [`island_a.c`](./Codes/island_a.c), [`island_b.c`](./Codes/island_b.c) and [`island_c.c`](./Codes/island_c.c) for solutions.
 
 #### A.5.2 Arrays and Pointers
@@ -235,8 +236,10 @@ Following is the illustration of `int` array elements and their addresses.
 
 ![Array and Elements Addresses](../assets/img/array_and_addresses.svg)
 
-*We will discuss more about it in Tutorial B.*
+> [!NOTE]
+> We will discuss more about it in Tutorial B.
 
+> [!IMPORTANT]
 > Refer to [`array_addresses.c`](./Codes/array_addresses.c).
 
 **Output:**

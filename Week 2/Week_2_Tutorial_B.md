@@ -438,6 +438,7 @@ Practice the core workflow: make folders, create files (`touch`, `echo >` / `>>`
 
 ### B.7 "Arrays vs Pointers" & `sizeof`
 
+> [!IMPORTANT]
 > Refer to [`dec.c`](./Codes/dec.c) for source codes and more demonstrations.
 
 - `sizeof(ptr) = 8`: `ptr` is a pointer that `sizeof(ptr) = 8`.
@@ -541,6 +542,7 @@ Read it as: take row 5, then element 5 within that row, then take its address.
 
 What doesn't seem right is that `swap(x, y)` is passing the values of `x` and `y` into `swap`. In C, function arguments are passed by value, so `swap` only receives copies. Swapping those copies won't change variables in `main` function.
 
+> [!IMPORTANT]
 > Refer to [`swap.c`](./Codes/swap.c) for source codes.
 
 What we are going to do is
@@ -561,6 +563,7 @@ What we are going to do is
 
 `getchar` is low-level character input: it reads one character from `stdin` and returns an `int` so it can also return `EOF`; it's great for character-by-character processing, loops until EOF, or consuming leftover characters/newlines.
 
+> [!IMPORTANT]
 > Let's back to the Tutorial A's exercise and refer to codes [`repeat.c`](./Codes/repeat.c).
 
 #### B.10.2 Simple Output and Format Specifiers
