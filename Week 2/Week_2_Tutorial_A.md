@@ -7,7 +7,8 @@
 
 - [COMP2017 2026 S1 Week 2 Tutorial A](#comp2017-2026-s1-week-2-tutorial-a)
   - [A.1 Compiling C Code to Executables](#a1-compiling-c-code-to-executables)
-    - [A.1.1 Compiling Flags](#a11-compiling-flags)
+    - [A.1.1 What is the "\\n"?](#a11-what-is-the-n)
+    - [A.1.2 Compiling Flags](#a12-compiling-flags)
   - [A.2 C Documentations](#a2-c-documentations)
   - [A.3 C Types](#a3-c-types)
   - [A.4 Solution: Sum \& Average of `int` Array](#a4-solution-sum--average-of-int-array)
@@ -32,7 +33,17 @@ int main() {
 For this simple hello world codes file, we compile it by running
 `gcc -o hello hello.c` in shell.
 
-#### A.1.1 Compiling Flags
+#### A.1.1 What is the "\n"?
+
+\n likes a mark to tell your computer that you need to print a new line here.
+
+A carriage return (`\r`) makes the cursor jump to the first column (begin of the line) while the newline (`\n`) jumps to the next line and eventually to the beginning of that line. So to be sure to be at the first position within the next line one uses both.
+
+`\r`: `CR` (Carriage Return) → Used as a new line character in Mac OS before X;
+`\n`: `LF` (Line Feed) → Used as a new line character in Unix/Mac OS X;
+`\r\n`: `CR + LF` → Used as a new line character in Windows.
+
+#### A.1.2 Compiling Flags
 
 GCC flags are just command-line switches that change how the compiler behaves. A useful mental model is: `-std=...` chooses the language rules, `-W...` controls warnings, `-g` adds debugger information, `-O...` changes optimization, and `-f...` enables extra compiler/runtime features. GCC normally preprocesses, compiles, assembles, and links in one command.
 
