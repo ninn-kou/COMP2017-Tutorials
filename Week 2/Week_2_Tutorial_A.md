@@ -45,6 +45,9 @@ A carriage return (`\r`) makes the cursor jump to the first column (begin of the
 
 #### A.1.2 Compiling Flags
 
+> [!NOTE]
+> We will explain more details in [Week 3 Tutorial B](../Week%203/Week_3_Tutorial_B.md). Please refer to it for mor information.
+
 GCC flags are just command-line switches that change how the compiler behaves. A useful mental model is: `-std=...` chooses the language rules, `-W...` controls warnings, `-g` adds debugger information, `-O...` changes optimization, and `-f...` enables extra compiler/runtime features. GCC normally preprocesses, compiles, assembles, and links in one command.
 
 - `-Wall`: turn on a big bundle of common "this looks suspicious" warnings. Despite the name, it is **not** literally all warnings.
