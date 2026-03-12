@@ -41,6 +41,9 @@ If you have questions about the tutorial content, please feel free to get in tou
 - Week 2
   - [Tutorial A](./Week%202/Week_2_Tutorial_A.md)
   - [Tutorial B](./Week%202/Week_2_Tutorial_B.md)
+- Week 3
+  - [Tutorial A](./Week%203/Week_3_Tutorial_A.md)
+  - [Tutorial B](./Week%203/Week_3_Tutorial_B.md)
 
 ---
 
