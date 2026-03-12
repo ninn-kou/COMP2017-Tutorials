@@ -1,0 +1,663 @@
+<!-- ascii_table_mono_printing.svg -->
+<svg width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        text {
+            font-family: monospace;
+            font-size: 14px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+        text.bintext {
+            font-size: 12px;
+        }
+        text.asciitext {
+            font-size: 18px;
+             font-family: sans-serif;
+        }
+        text.titletext {
+            font-size: 28px;
+             font-family: sans-serif;
+        }
+    </style>
+    <text x="600.0" y="100" fill="black" class="titletext">ASCII Table</text>
+    <rect x="0" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="165" fill="black" class="dectext">0</text>
+    <text x="37.5" y="180" fill="black" class="hextext">0x00</text>
+    <text x="37.5" y="195" fill="black" class="bintext">0000 0000</text>
+    <text x="37.5" y="210" fill="black" class="asciitext">NUL</text>
+    <rect x="75" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="165" fill="black" class="dectext">1</text>
+    <text x="112.5" y="180" fill="black" class="hextext">0x01</text>
+    <text x="112.5" y="195" fill="black" class="bintext">0000 0001</text>
+    <text x="112.5" y="210" fill="black" class="asciitext">SOH</text>
+    <rect x="150" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="165" fill="black" class="dectext">2</text>
+    <text x="187.5" y="180" fill="black" class="hextext">0x02</text>
+    <text x="187.5" y="195" fill="black" class="bintext">0000 0010</text>
+    <text x="187.5" y="210" fill="black" class="asciitext">STX</text>
+    <rect x="225" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="165" fill="black" class="dectext">3</text>
+    <text x="262.5" y="180" fill="black" class="hextext">0x03</text>
+    <text x="262.5" y="195" fill="black" class="bintext">0000 0011</text>
+    <text x="262.5" y="210" fill="black" class="asciitext">ETX</text>
+    <rect x="300" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="165" fill="black" class="dectext">4</text>
+    <text x="337.5" y="180" fill="black" class="hextext">0x04</text>
+    <text x="337.5" y="195" fill="black" class="bintext">0000 0100</text>
+    <text x="337.5" y="210" fill="black" class="asciitext">EOT</text>
+    <rect x="375" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="165" fill="black" class="dectext">5</text>
+    <text x="412.5" y="180" fill="black" class="hextext">0x05</text>
+    <text x="412.5" y="195" fill="black" class="bintext">0000 0101</text>
+    <text x="412.5" y="210" fill="black" class="asciitext">ENQ</text>
+    <rect x="450" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="165" fill="black" class="dectext">6</text>
+    <text x="487.5" y="180" fill="black" class="hextext">0x06</text>
+    <text x="487.5" y="195" fill="black" class="bintext">0000 0110</text>
+    <text x="487.5" y="210" fill="black" class="asciitext">ACK</text>
+    <rect x="525" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="165" fill="black" class="dectext">7</text>
+    <text x="562.5" y="180" fill="black" class="hextext">0x07</text>
+    <text x="562.5" y="195" fill="black" class="bintext">0000 0111</text>
+    <text x="562.5" y="210" fill="black" class="asciitext">BEL</text>
+    <rect x="600" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="165" fill="black" class="dectext">8</text>
+    <text x="637.5" y="180" fill="black" class="hextext">0x08</text>
+    <text x="637.5" y="195" fill="black" class="bintext">0000 1000</text>
+    <text x="637.5" y="210" fill="black" class="asciitext">BS</text>
+    <rect x="675" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="165" fill="black" class="dectext">9</text>
+    <text x="712.5" y="180" fill="black" class="hextext">0x09</text>
+    <text x="712.5" y="195" fill="black" class="bintext">0000 1001</text>
+    <text x="712.5" y="210" fill="black" class="asciitext">HT</text>
+    <rect x="750" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="165" fill="black" class="dectext">10</text>
+    <text x="787.5" y="180" fill="black" class="hextext">0x0a</text>
+    <text x="787.5" y="195" fill="black" class="bintext">0000 1010</text>
+    <text x="787.5" y="210" fill="black" class="asciitext">LF \n</text>
+    <rect x="825" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="165" fill="black" class="dectext">11</text>
+    <text x="862.5" y="180" fill="black" class="hextext">0x0b</text>
+    <text x="862.5" y="195" fill="black" class="bintext">0000 1011</text>
+    <text x="862.5" y="210" fill="black" class="asciitext">VT</text>
+    <rect x="900" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="165" fill="black" class="dectext">12</text>
+    <text x="937.5" y="180" fill="black" class="hextext">0x0c</text>
+    <text x="937.5" y="195" fill="black" class="bintext">0000 1100</text>
+    <text x="937.5" y="210" fill="black" class="asciitext">FF</text>
+    <rect x="975" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="165" fill="black" class="dectext">13</text>
+    <text x="1012.5" y="180" fill="black" class="hextext">0x0d</text>
+    <text x="1012.5" y="195" fill="black" class="bintext">0000 1101</text>
+    <text x="1012.5" y="210" fill="black" class="asciitext">CR \r</text>
+    <rect x="1050" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="165" fill="black" class="dectext">14</text>
+    <text x="1087.5" y="180" fill="black" class="hextext">0x0e</text>
+    <text x="1087.5" y="195" fill="black" class="bintext">0000 1110</text>
+    <text x="1087.5" y="210" fill="black" class="asciitext">SO</text>
+    <rect x="1125" y="150" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="165" fill="black" class="dectext">15</text>
+    <text x="1162.5" y="180" fill="black" class="hextext">0x0f</text>
+    <text x="1162.5" y="195" fill="black" class="bintext">0000 1111</text>
+    <text x="1162.5" y="210" fill="black" class="asciitext">SI</text>
+    <rect x="0" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="240" fill="black" class="dectext">16</text>
+    <text x="37.5" y="255" fill="black" class="hextext">0x10</text>
+    <text x="37.5" y="270" fill="black" class="bintext">0001 0000</text>
+    <text x="37.5" y="285" fill="black" class="asciitext">DLE</text>
+    <rect x="75" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="240" fill="black" class="dectext">17</text>
+    <text x="112.5" y="255" fill="black" class="hextext">0x11</text>
+    <text x="112.5" y="270" fill="black" class="bintext">0001 0001</text>
+    <text x="112.5" y="285" fill="black" class="asciitext">DC1</text>
+    <rect x="150" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="240" fill="black" class="dectext">18</text>
+    <text x="187.5" y="255" fill="black" class="hextext">0x12</text>
+    <text x="187.5" y="270" fill="black" class="bintext">0001 0010</text>
+    <text x="187.5" y="285" fill="black" class="asciitext">DC2</text>
+    <rect x="225" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="240" fill="black" class="dectext">19</text>
+    <text x="262.5" y="255" fill="black" class="hextext">0x13</text>
+    <text x="262.5" y="270" fill="black" class="bintext">0001 0011</text>
+    <text x="262.5" y="285" fill="black" class="asciitext">DC3</text>
+    <rect x="300" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="240" fill="black" class="dectext">20</text>
+    <text x="337.5" y="255" fill="black" class="hextext">0x14</text>
+    <text x="337.5" y="270" fill="black" class="bintext">0001 0100</text>
+    <text x="337.5" y="285" fill="black" class="asciitext">DC4</text>
+    <rect x="375" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="240" fill="black" class="dectext">21</text>
+    <text x="412.5" y="255" fill="black" class="hextext">0x15</text>
+    <text x="412.5" y="270" fill="black" class="bintext">0001 0101</text>
+    <text x="412.5" y="285" fill="black" class="asciitext">NAK</text>
+    <rect x="450" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="240" fill="black" class="dectext">22</text>
+    <text x="487.5" y="255" fill="black" class="hextext">0x16</text>
+    <text x="487.5" y="270" fill="black" class="bintext">0001 0110</text>
+    <text x="487.5" y="285" fill="black" class="asciitext">SYN</text>
+    <rect x="525" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="240" fill="black" class="dectext">23</text>
+    <text x="562.5" y="255" fill="black" class="hextext">0x17</text>
+    <text x="562.5" y="270" fill="black" class="bintext">0001 0111</text>
+    <text x="562.5" y="285" fill="black" class="asciitext">ETB</text>
+    <rect x="600" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="240" fill="black" class="dectext">24</text>
+    <text x="637.5" y="255" fill="black" class="hextext">0x18</text>
+    <text x="637.5" y="270" fill="black" class="bintext">0001 1000</text>
+    <text x="637.5" y="285" fill="black" class="asciitext">CAN</text>
+    <rect x="675" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="240" fill="black" class="dectext">25</text>
+    <text x="712.5" y="255" fill="black" class="hextext">0x19</text>
+    <text x="712.5" y="270" fill="black" class="bintext">0001 1001</text>
+    <text x="712.5" y="285" fill="black" class="asciitext">EM</text>
+    <rect x="750" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="240" fill="black" class="dectext">26</text>
+    <text x="787.5" y="255" fill="black" class="hextext">0x1a</text>
+    <text x="787.5" y="270" fill="black" class="bintext">0001 1010</text>
+    <text x="787.5" y="285" fill="black" class="asciitext">SUB</text>
+    <rect x="825" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="240" fill="black" class="dectext">27</text>
+    <text x="862.5" y="255" fill="black" class="hextext">0x1b</text>
+    <text x="862.5" y="270" fill="black" class="bintext">0001 1011</text>
+    <text x="862.5" y="285" fill="black" class="asciitext">ESC</text>
+    <rect x="900" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="240" fill="black" class="dectext">28</text>
+    <text x="937.5" y="255" fill="black" class="hextext">0x1c</text>
+    <text x="937.5" y="270" fill="black" class="bintext">0001 1100</text>
+    <text x="937.5" y="285" fill="black" class="asciitext">FS</text>
+    <rect x="975" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="240" fill="black" class="dectext">29</text>
+    <text x="1012.5" y="255" fill="black" class="hextext">0x1d</text>
+    <text x="1012.5" y="270" fill="black" class="bintext">0001 1101</text>
+    <text x="1012.5" y="285" fill="black" class="asciitext">GS</text>
+    <rect x="1050" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="240" fill="black" class="dectext">30</text>
+    <text x="1087.5" y="255" fill="black" class="hextext">0x1e</text>
+    <text x="1087.5" y="270" fill="black" class="bintext">0001 1110</text>
+    <text x="1087.5" y="285" fill="black" class="asciitext">RS</text>
+    <rect x="1125" y="225" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="240" fill="black" class="dectext">31</text>
+    <text x="1162.5" y="255" fill="black" class="hextext">0x1f</text>
+    <text x="1162.5" y="270" fill="black" class="bintext">0001 1111</text>
+    <text x="1162.5" y="285" fill="black" class="asciitext">US</text>
+    <rect x="0" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="315" fill="black" class="dectext">32</text>
+    <text x="37.5" y="330" fill="black" class="hextext">0x20</text>
+    <text x="37.5" y="345" fill="black" class="bintext">0010 0000</text>
+    <text x="37.5" y="360" fill="black" class="asciitext">SPACE</text>
+    <rect x="75" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="315" fill="black" class="dectext">33</text>
+    <text x="112.5" y="330" fill="black" class="hextext">0x21</text>
+    <text x="112.5" y="345" fill="black" class="bintext">0010 0001</text>
+    <text x="112.5" y="360" fill="black" class="asciitext">!</text>
+    <rect x="150" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="315" fill="black" class="dectext">34</text>
+    <text x="187.5" y="330" fill="black" class="hextext">0x22</text>
+    <text x="187.5" y="345" fill="black" class="bintext">0010 0010</text>
+    <text x="187.5" y="360" fill="black" class="asciitext">"</text>
+    <rect x="225" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="315" fill="black" class="dectext">35</text>
+    <text x="262.5" y="330" fill="black" class="hextext">0x23</text>
+    <text x="262.5" y="345" fill="black" class="bintext">0010 0011</text>
+    <text x="262.5" y="360" fill="black" class="asciitext">#</text>
+    <rect x="300" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="315" fill="black" class="dectext">36</text>
+    <text x="337.5" y="330" fill="black" class="hextext">0x24</text>
+    <text x="337.5" y="345" fill="black" class="bintext">0010 0100</text>
+    <text x="337.5" y="360" fill="black" class="asciitext">$</text>
+    <rect x="375" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="315" fill="black" class="dectext">37</text>
+    <text x="412.5" y="330" fill="black" class="hextext">0x25</text>
+    <text x="412.5" y="345" fill="black" class="bintext">0010 0101</text>
+    <text x="412.5" y="360" fill="black" class="asciitext">%</text>
+    <rect x="450" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="315" fill="black" class="dectext">38</text>
+    <text x="487.5" y="330" fill="black" class="hextext">0x26</text>
+    <text x="487.5" y="345" fill="black" class="bintext">0010 0110</text>
+    <text x="487.5" y="360" fill="black" class="asciitext">&amp;</text>
+    <rect x="525" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="315" fill="black" class="dectext">39</text>
+    <text x="562.5" y="330" fill="black" class="hextext">0x27</text>
+    <text x="562.5" y="345" fill="black" class="bintext">0010 0111</text>
+    <text x="562.5" y="360" fill="black" class="asciitext">'</text>
+    <rect x="600" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="315" fill="black" class="dectext">40</text>
+    <text x="637.5" y="330" fill="black" class="hextext">0x28</text>
+    <text x="637.5" y="345" fill="black" class="bintext">0010 1000</text>
+    <text x="637.5" y="360" fill="black" class="asciitext">(</text>
+    <rect x="675" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="315" fill="black" class="dectext">41</text>
+    <text x="712.5" y="330" fill="black" class="hextext">0x29</text>
+    <text x="712.5" y="345" fill="black" class="bintext">0010 1001</text>
+    <text x="712.5" y="360" fill="black" class="asciitext">)</text>
+    <rect x="750" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="315" fill="black" class="dectext">42</text>
+    <text x="787.5" y="330" fill="black" class="hextext">0x2a</text>
+    <text x="787.5" y="345" fill="black" class="bintext">0010 1010</text>
+    <text x="787.5" y="360" fill="black" class="asciitext">*</text>
+    <rect x="825" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="315" fill="black" class="dectext">43</text>
+    <text x="862.5" y="330" fill="black" class="hextext">0x2b</text>
+    <text x="862.5" y="345" fill="black" class="bintext">0010 1011</text>
+    <text x="862.5" y="360" fill="black" class="asciitext">+</text>
+    <rect x="900" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="315" fill="black" class="dectext">44</text>
+    <text x="937.5" y="330" fill="black" class="hextext">0x2c</text>
+    <text x="937.5" y="345" fill="black" class="bintext">0010 1100</text>
+    <text x="937.5" y="360" fill="black" class="asciitext">,</text>
+    <rect x="975" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="315" fill="black" class="dectext">45</text>
+    <text x="1012.5" y="330" fill="black" class="hextext">0x2d</text>
+    <text x="1012.5" y="345" fill="black" class="bintext">0010 1101</text>
+    <text x="1012.5" y="360" fill="black" class="asciitext">-</text>
+    <rect x="1050" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="315" fill="black" class="dectext">46</text>
+    <text x="1087.5" y="330" fill="black" class="hextext">0x2e</text>
+    <text x="1087.5" y="345" fill="black" class="bintext">0010 1110</text>
+    <text x="1087.5" y="360" fill="black" class="asciitext">.</text>
+    <rect x="1125" y="300" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="315" fill="black" class="dectext">47</text>
+    <text x="1162.5" y="330" fill="black" class="hextext">0x2f</text>
+    <text x="1162.5" y="345" fill="black" class="bintext">0010 1111</text>
+    <text x="1162.5" y="360" fill="black" class="asciitext">/</text>
+    <rect x="0" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="390" fill="black" class="dectext">48</text>
+    <text x="37.5" y="405" fill="black" class="hextext">0x30</text>
+    <text x="37.5" y="420" fill="black" class="bintext">0011 0000</text>
+    <text x="37.5" y="435" fill="black" class="asciitext">0</text>
+    <rect x="75" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="390" fill="black" class="dectext">49</text>
+    <text x="112.5" y="405" fill="black" class="hextext">0x31</text>
+    <text x="112.5" y="420" fill="black" class="bintext">0011 0001</text>
+    <text x="112.5" y="435" fill="black" class="asciitext">1</text>
+    <rect x="150" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="390" fill="black" class="dectext">50</text>
+    <text x="187.5" y="405" fill="black" class="hextext">0x32</text>
+    <text x="187.5" y="420" fill="black" class="bintext">0011 0010</text>
+    <text x="187.5" y="435" fill="black" class="asciitext">2</text>
+    <rect x="225" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="390" fill="black" class="dectext">51</text>
+    <text x="262.5" y="405" fill="black" class="hextext">0x33</text>
+    <text x="262.5" y="420" fill="black" class="bintext">0011 0011</text>
+    <text x="262.5" y="435" fill="black" class="asciitext">3</text>
+    <rect x="300" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="390" fill="black" class="dectext">52</text>
+    <text x="337.5" y="405" fill="black" class="hextext">0x34</text>
+    <text x="337.5" y="420" fill="black" class="bintext">0011 0100</text>
+    <text x="337.5" y="435" fill="black" class="asciitext">4</text>
+    <rect x="375" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="390" fill="black" class="dectext">53</text>
+    <text x="412.5" y="405" fill="black" class="hextext">0x35</text>
+    <text x="412.5" y="420" fill="black" class="bintext">0011 0101</text>
+    <text x="412.5" y="435" fill="black" class="asciitext">5</text>
+    <rect x="450" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="390" fill="black" class="dectext">54</text>
+    <text x="487.5" y="405" fill="black" class="hextext">0x36</text>
+    <text x="487.5" y="420" fill="black" class="bintext">0011 0110</text>
+    <text x="487.5" y="435" fill="black" class="asciitext">6</text>
+    <rect x="525" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="390" fill="black" class="dectext">55</text>
+    <text x="562.5" y="405" fill="black" class="hextext">0x37</text>
+    <text x="562.5" y="420" fill="black" class="bintext">0011 0111</text>
+    <text x="562.5" y="435" fill="black" class="asciitext">7</text>
+    <rect x="600" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="390" fill="black" class="dectext">56</text>
+    <text x="637.5" y="405" fill="black" class="hextext">0x38</text>
+    <text x="637.5" y="420" fill="black" class="bintext">0011 1000</text>
+    <text x="637.5" y="435" fill="black" class="asciitext">8</text>
+    <rect x="675" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="390" fill="black" class="dectext">57</text>
+    <text x="712.5" y="405" fill="black" class="hextext">0x39</text>
+    <text x="712.5" y="420" fill="black" class="bintext">0011 1001</text>
+    <text x="712.5" y="435" fill="black" class="asciitext">9</text>
+    <rect x="750" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="390" fill="black" class="dectext">58</text>
+    <text x="787.5" y="405" fill="black" class="hextext">0x3a</text>
+    <text x="787.5" y="420" fill="black" class="bintext">0011 1010</text>
+    <text x="787.5" y="435" fill="black" class="asciitext">:</text>
+    <rect x="825" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="390" fill="black" class="dectext">59</text>
+    <text x="862.5" y="405" fill="black" class="hextext">0x3b</text>
+    <text x="862.5" y="420" fill="black" class="bintext">0011 1011</text>
+    <text x="862.5" y="435" fill="black" class="asciitext">;</text>
+    <rect x="900" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="390" fill="black" class="dectext">60</text>
+    <text x="937.5" y="405" fill="black" class="hextext">0x3c</text>
+    <text x="937.5" y="420" fill="black" class="bintext">0011 1100</text>
+    <text x="937.5" y="435" fill="black" class="asciitext">&lt;</text>
+    <rect x="975" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="390" fill="black" class="dectext">61</text>
+    <text x="1012.5" y="405" fill="black" class="hextext">0x3d</text>
+    <text x="1012.5" y="420" fill="black" class="bintext">0011 1101</text>
+    <text x="1012.5" y="435" fill="black" class="asciitext">=</text>
+    <rect x="1050" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="390" fill="black" class="dectext">62</text>
+    <text x="1087.5" y="405" fill="black" class="hextext">0x3e</text>
+    <text x="1087.5" y="420" fill="black" class="bintext">0011 1110</text>
+    <text x="1087.5" y="435" fill="black" class="asciitext">&gt;</text>
+    <rect x="1125" y="375" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="390" fill="black" class="dectext">63</text>
+    <text x="1162.5" y="405" fill="black" class="hextext">0x3f</text>
+    <text x="1162.5" y="420" fill="black" class="bintext">0011 1111</text>
+    <text x="1162.5" y="435" fill="black" class="asciitext">?</text>
+    <rect x="0" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="465" fill="black" class="dectext">64</text>
+    <text x="37.5" y="480" fill="black" class="hextext">0x40</text>
+    <text x="37.5" y="495" fill="black" class="bintext">0100 0000</text>
+    <text x="37.5" y="510" fill="black" class="asciitext">@</text>
+    <rect x="75" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="465" fill="black" class="dectext">65</text>
+    <text x="112.5" y="480" fill="black" class="hextext">0x41</text>
+    <text x="112.5" y="495" fill="black" class="bintext">0100 0001</text>
+    <text x="112.5" y="510" fill="black" class="asciitext">A</text>
+    <rect x="150" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="465" fill="black" class="dectext">66</text>
+    <text x="187.5" y="480" fill="black" class="hextext">0x42</text>
+    <text x="187.5" y="495" fill="black" class="bintext">0100 0010</text>
+    <text x="187.5" y="510" fill="black" class="asciitext">B</text>
+    <rect x="225" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="465" fill="black" class="dectext">67</text>
+    <text x="262.5" y="480" fill="black" class="hextext">0x43</text>
+    <text x="262.5" y="495" fill="black" class="bintext">0100 0011</text>
+    <text x="262.5" y="510" fill="black" class="asciitext">C</text>
+    <rect x="300" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="465" fill="black" class="dectext">68</text>
+    <text x="337.5" y="480" fill="black" class="hextext">0x44</text>
+    <text x="337.5" y="495" fill="black" class="bintext">0100 0100</text>
+    <text x="337.5" y="510" fill="black" class="asciitext">D</text>
+    <rect x="375" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="465" fill="black" class="dectext">69</text>
+    <text x="412.5" y="480" fill="black" class="hextext">0x45</text>
+    <text x="412.5" y="495" fill="black" class="bintext">0100 0101</text>
+    <text x="412.5" y="510" fill="black" class="asciitext">E</text>
+    <rect x="450" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="465" fill="black" class="dectext">70</text>
+    <text x="487.5" y="480" fill="black" class="hextext">0x46</text>
+    <text x="487.5" y="495" fill="black" class="bintext">0100 0110</text>
+    <text x="487.5" y="510" fill="black" class="asciitext">F</text>
+    <rect x="525" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="465" fill="black" class="dectext">71</text>
+    <text x="562.5" y="480" fill="black" class="hextext">0x47</text>
+    <text x="562.5" y="495" fill="black" class="bintext">0100 0111</text>
+    <text x="562.5" y="510" fill="black" class="asciitext">G</text>
+    <rect x="600" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="465" fill="black" class="dectext">72</text>
+    <text x="637.5" y="480" fill="black" class="hextext">0x48</text>
+    <text x="637.5" y="495" fill="black" class="bintext">0100 1000</text>
+    <text x="637.5" y="510" fill="black" class="asciitext">H</text>
+    <rect x="675" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="465" fill="black" class="dectext">73</text>
+    <text x="712.5" y="480" fill="black" class="hextext">0x49</text>
+    <text x="712.5" y="495" fill="black" class="bintext">0100 1001</text>
+    <text x="712.5" y="510" fill="black" class="asciitext">I</text>
+    <rect x="750" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="465" fill="black" class="dectext">74</text>
+    <text x="787.5" y="480" fill="black" class="hextext">0x4a</text>
+    <text x="787.5" y="495" fill="black" class="bintext">0100 1010</text>
+    <text x="787.5" y="510" fill="black" class="asciitext">J</text>
+    <rect x="825" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="465" fill="black" class="dectext">75</text>
+    <text x="862.5" y="480" fill="black" class="hextext">0x4b</text>
+    <text x="862.5" y="495" fill="black" class="bintext">0100 1011</text>
+    <text x="862.5" y="510" fill="black" class="asciitext">K</text>
+    <rect x="900" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="465" fill="black" class="dectext">76</text>
+    <text x="937.5" y="480" fill="black" class="hextext">0x4c</text>
+    <text x="937.5" y="495" fill="black" class="bintext">0100 1100</text>
+    <text x="937.5" y="510" fill="black" class="asciitext">L</text>
+    <rect x="975" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="465" fill="black" class="dectext">77</text>
+    <text x="1012.5" y="480" fill="black" class="hextext">0x4d</text>
+    <text x="1012.5" y="495" fill="black" class="bintext">0100 1101</text>
+    <text x="1012.5" y="510" fill="black" class="asciitext">M</text>
+    <rect x="1050" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="465" fill="black" class="dectext">78</text>
+    <text x="1087.5" y="480" fill="black" class="hextext">0x4e</text>
+    <text x="1087.5" y="495" fill="black" class="bintext">0100 1110</text>
+    <text x="1087.5" y="510" fill="black" class="asciitext">N</text>
+    <rect x="1125" y="450" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="465" fill="black" class="dectext">79</text>
+    <text x="1162.5" y="480" fill="black" class="hextext">0x4f</text>
+    <text x="1162.5" y="495" fill="black" class="bintext">0100 1111</text>
+    <text x="1162.5" y="510" fill="black" class="asciitext">O</text>
+    <rect x="0" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="540" fill="black" class="dectext">80</text>
+    <text x="37.5" y="555" fill="black" class="hextext">0x50</text>
+    <text x="37.5" y="570" fill="black" class="bintext">0101 0000</text>
+    <text x="37.5" y="585" fill="black" class="asciitext">P</text>
+    <rect x="75" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="540" fill="black" class="dectext">81</text>
+    <text x="112.5" y="555" fill="black" class="hextext">0x51</text>
+    <text x="112.5" y="570" fill="black" class="bintext">0101 0001</text>
+    <text x="112.5" y="585" fill="black" class="asciitext">Q</text>
+    <rect x="150" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="540" fill="black" class="dectext">82</text>
+    <text x="187.5" y="555" fill="black" class="hextext">0x52</text>
+    <text x="187.5" y="570" fill="black" class="bintext">0101 0010</text>
+    <text x="187.5" y="585" fill="black" class="asciitext">R</text>
+    <rect x="225" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="540" fill="black" class="dectext">83</text>
+    <text x="262.5" y="555" fill="black" class="hextext">0x53</text>
+    <text x="262.5" y="570" fill="black" class="bintext">0101 0011</text>
+    <text x="262.5" y="585" fill="black" class="asciitext">S</text>
+    <rect x="300" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="540" fill="black" class="dectext">84</text>
+    <text x="337.5" y="555" fill="black" class="hextext">0x54</text>
+    <text x="337.5" y="570" fill="black" class="bintext">0101 0100</text>
+    <text x="337.5" y="585" fill="black" class="asciitext">T</text>
+    <rect x="375" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="540" fill="black" class="dectext">85</text>
+    <text x="412.5" y="555" fill="black" class="hextext">0x55</text>
+    <text x="412.5" y="570" fill="black" class="bintext">0101 0101</text>
+    <text x="412.5" y="585" fill="black" class="asciitext">U</text>
+    <rect x="450" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="540" fill="black" class="dectext">86</text>
+    <text x="487.5" y="555" fill="black" class="hextext">0x56</text>
+    <text x="487.5" y="570" fill="black" class="bintext">0101 0110</text>
+    <text x="487.5" y="585" fill="black" class="asciitext">V</text>
+    <rect x="525" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="540" fill="black" class="dectext">87</text>
+    <text x="562.5" y="555" fill="black" class="hextext">0x57</text>
+    <text x="562.5" y="570" fill="black" class="bintext">0101 0111</text>
+    <text x="562.5" y="585" fill="black" class="asciitext">W</text>
+    <rect x="600" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="540" fill="black" class="dectext">88</text>
+    <text x="637.5" y="555" fill="black" class="hextext">0x58</text>
+    <text x="637.5" y="570" fill="black" class="bintext">0101 1000</text>
+    <text x="637.5" y="585" fill="black" class="asciitext">X</text>
+    <rect x="675" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="540" fill="black" class="dectext">89</text>
+    <text x="712.5" y="555" fill="black" class="hextext">0x59</text>
+    <text x="712.5" y="570" fill="black" class="bintext">0101 1001</text>
+    <text x="712.5" y="585" fill="black" class="asciitext">Y</text>
+    <rect x="750" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="540" fill="black" class="dectext">90</text>
+    <text x="787.5" y="555" fill="black" class="hextext">0x5a</text>
+    <text x="787.5" y="570" fill="black" class="bintext">0101 1010</text>
+    <text x="787.5" y="585" fill="black" class="asciitext">Z</text>
+    <rect x="825" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="540" fill="black" class="dectext">91</text>
+    <text x="862.5" y="555" fill="black" class="hextext">0x5b</text>
+    <text x="862.5" y="570" fill="black" class="bintext">0101 1011</text>
+    <text x="862.5" y="585" fill="black" class="asciitext">[</text>
+    <rect x="900" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="540" fill="black" class="dectext">92</text>
+    <text x="937.5" y="555" fill="black" class="hextext">0x5c</text>
+    <text x="937.5" y="570" fill="black" class="bintext">0101 1100</text>
+    <text x="937.5" y="585" fill="black" class="asciitext">\</text>
+    <rect x="975" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="540" fill="black" class="dectext">93</text>
+    <text x="1012.5" y="555" fill="black" class="hextext">0x5d</text>
+    <text x="1012.5" y="570" fill="black" class="bintext">0101 1101</text>
+    <text x="1012.5" y="585" fill="black" class="asciitext">]</text>
+    <rect x="1050" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="540" fill="black" class="dectext">94</text>
+    <text x="1087.5" y="555" fill="black" class="hextext">0x5e</text>
+    <text x="1087.5" y="570" fill="black" class="bintext">0101 1110</text>
+    <text x="1087.5" y="585" fill="black" class="asciitext">^</text>
+    <rect x="1125" y="525" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="540" fill="black" class="dectext">95</text>
+    <text x="1162.5" y="555" fill="black" class="hextext">0x5f</text>
+    <text x="1162.5" y="570" fill="black" class="bintext">0101 1111</text>
+    <text x="1162.5" y="585" fill="black" class="asciitext">_</text>
+    <rect x="0" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="615" fill="black" class="dectext">96</text>
+    <text x="37.5" y="630" fill="black" class="hextext">0x60</text>
+    <text x="37.5" y="645" fill="black" class="bintext">0110 0000</text>
+    <text x="37.5" y="660" fill="black" class="asciitext">`</text>
+    <rect x="75" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="615" fill="black" class="dectext">97</text>
+    <text x="112.5" y="630" fill="black" class="hextext">0x61</text>
+    <text x="112.5" y="645" fill="black" class="bintext">0110 0001</text>
+    <text x="112.5" y="660" fill="black" class="asciitext">a</text>
+    <rect x="150" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="615" fill="black" class="dectext">98</text>
+    <text x="187.5" y="630" fill="black" class="hextext">0x62</text>
+    <text x="187.5" y="645" fill="black" class="bintext">0110 0010</text>
+    <text x="187.5" y="660" fill="black" class="asciitext">b</text>
+    <rect x="225" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="615" fill="black" class="dectext">99</text>
+    <text x="262.5" y="630" fill="black" class="hextext">0x63</text>
+    <text x="262.5" y="645" fill="black" class="bintext">0110 0011</text>
+    <text x="262.5" y="660" fill="black" class="asciitext">c</text>
+    <rect x="300" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="615" fill="black" class="dectext">100</text>
+    <text x="337.5" y="630" fill="black" class="hextext">0x64</text>
+    <text x="337.5" y="645" fill="black" class="bintext">0110 0100</text>
+    <text x="337.5" y="660" fill="black" class="asciitext">d</text>
+    <rect x="375" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="615" fill="black" class="dectext">101</text>
+    <text x="412.5" y="630" fill="black" class="hextext">0x65</text>
+    <text x="412.5" y="645" fill="black" class="bintext">0110 0101</text>
+    <text x="412.5" y="660" fill="black" class="asciitext">e</text>
+    <rect x="450" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="615" fill="black" class="dectext">102</text>
+    <text x="487.5" y="630" fill="black" class="hextext">0x66</text>
+    <text x="487.5" y="645" fill="black" class="bintext">0110 0110</text>
+    <text x="487.5" y="660" fill="black" class="asciitext">f</text>
+    <rect x="525" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="615" fill="black" class="dectext">103</text>
+    <text x="562.5" y="630" fill="black" class="hextext">0x67</text>
+    <text x="562.5" y="645" fill="black" class="bintext">0110 0111</text>
+    <text x="562.5" y="660" fill="black" class="asciitext">g</text>
+    <rect x="600" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="615" fill="black" class="dectext">104</text>
+    <text x="637.5" y="630" fill="black" class="hextext">0x68</text>
+    <text x="637.5" y="645" fill="black" class="bintext">0110 1000</text>
+    <text x="637.5" y="660" fill="black" class="asciitext">h</text>
+    <rect x="675" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="615" fill="black" class="dectext">105</text>
+    <text x="712.5" y="630" fill="black" class="hextext">0x69</text>
+    <text x="712.5" y="645" fill="black" class="bintext">0110 1001</text>
+    <text x="712.5" y="660" fill="black" class="asciitext">i</text>
+    <rect x="750" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="615" fill="black" class="dectext">106</text>
+    <text x="787.5" y="630" fill="black" class="hextext">0x6a</text>
+    <text x="787.5" y="645" fill="black" class="bintext">0110 1010</text>
+    <text x="787.5" y="660" fill="black" class="asciitext">j</text>
+    <rect x="825" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="615" fill="black" class="dectext">107</text>
+    <text x="862.5" y="630" fill="black" class="hextext">0x6b</text>
+    <text x="862.5" y="645" fill="black" class="bintext">0110 1011</text>
+    <text x="862.5" y="660" fill="black" class="asciitext">k</text>
+    <rect x="900" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="615" fill="black" class="dectext">108</text>
+    <text x="937.5" y="630" fill="black" class="hextext">0x6c</text>
+    <text x="937.5" y="645" fill="black" class="bintext">0110 1100</text>
+    <text x="937.5" y="660" fill="black" class="asciitext">l</text>
+    <rect x="975" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="615" fill="black" class="dectext">109</text>
+    <text x="1012.5" y="630" fill="black" class="hextext">0x6d</text>
+    <text x="1012.5" y="645" fill="black" class="bintext">0110 1101</text>
+    <text x="1012.5" y="660" fill="black" class="asciitext">m</text>
+    <rect x="1050" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="615" fill="black" class="dectext">110</text>
+    <text x="1087.5" y="630" fill="black" class="hextext">0x6e</text>
+    <text x="1087.5" y="645" fill="black" class="bintext">0110 1110</text>
+    <text x="1087.5" y="660" fill="black" class="asciitext">n</text>
+    <rect x="1125" y="600" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="615" fill="black" class="dectext">111</text>
+    <text x="1162.5" y="630" fill="black" class="hextext">0x6f</text>
+    <text x="1162.5" y="645" fill="black" class="bintext">0110 1111</text>
+    <text x="1162.5" y="660" fill="black" class="asciitext">o</text>
+    <rect x="0" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="37.5" y="690" fill="black" class="dectext">112</text>
+    <text x="37.5" y="705" fill="black" class="hextext">0x70</text>
+    <text x="37.5" y="720" fill="black" class="bintext">0111 0000</text>
+    <text x="37.5" y="735" fill="black" class="asciitext">p</text>
+    <rect x="75" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="112.5" y="690" fill="black" class="dectext">113</text>
+    <text x="112.5" y="705" fill="black" class="hextext">0x71</text>
+    <text x="112.5" y="720" fill="black" class="bintext">0111 0001</text>
+    <text x="112.5" y="735" fill="black" class="asciitext">q</text>
+    <rect x="150" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="187.5" y="690" fill="black" class="dectext">114</text>
+    <text x="187.5" y="705" fill="black" class="hextext">0x72</text>
+    <text x="187.5" y="720" fill="black" class="bintext">0111 0010</text>
+    <text x="187.5" y="735" fill="black" class="asciitext">r</text>
+    <rect x="225" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="262.5" y="690" fill="black" class="dectext">115</text>
+    <text x="262.5" y="705" fill="black" class="hextext">0x73</text>
+    <text x="262.5" y="720" fill="black" class="bintext">0111 0011</text>
+    <text x="262.5" y="735" fill="black" class="asciitext">s</text>
+    <rect x="300" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="337.5" y="690" fill="black" class="dectext">116</text>
+    <text x="337.5" y="705" fill="black" class="hextext">0x74</text>
+    <text x="337.5" y="720" fill="black" class="bintext">0111 0100</text>
+    <text x="337.5" y="735" fill="black" class="asciitext">t</text>
+    <rect x="375" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="412.5" y="690" fill="black" class="dectext">117</text>
+    <text x="412.5" y="705" fill="black" class="hextext">0x75</text>
+    <text x="412.5" y="720" fill="black" class="bintext">0111 0101</text>
+    <text x="412.5" y="735" fill="black" class="asciitext">u</text>
+    <rect x="450" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="487.5" y="690" fill="black" class="dectext">118</text>
+    <text x="487.5" y="705" fill="black" class="hextext">0x76</text>
+    <text x="487.5" y="720" fill="black" class="bintext">0111 0110</text>
+    <text x="487.5" y="735" fill="black" class="asciitext">v</text>
+    <rect x="525" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="562.5" y="690" fill="black" class="dectext">119</text>
+    <text x="562.5" y="705" fill="black" class="hextext">0x77</text>
+    <text x="562.5" y="720" fill="black" class="bintext">0111 0111</text>
+    <text x="562.5" y="735" fill="black" class="asciitext">w</text>
+    <rect x="600" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="637.5" y="690" fill="black" class="dectext">120</text>
+    <text x="637.5" y="705" fill="black" class="hextext">0x78</text>
+    <text x="637.5" y="720" fill="black" class="bintext">0111 1000</text>
+    <text x="637.5" y="735" fill="black" class="asciitext">x</text>
+    <rect x="675" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="712.5" y="690" fill="black" class="dectext">121</text>
+    <text x="712.5" y="705" fill="black" class="hextext">0x79</text>
+    <text x="712.5" y="720" fill="black" class="bintext">0111 1001</text>
+    <text x="712.5" y="735" fill="black" class="asciitext">y</text>
+    <rect x="750" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="787.5" y="690" fill="black" class="dectext">122</text>
+    <text x="787.5" y="705" fill="black" class="hextext">0x7a</text>
+    <text x="787.5" y="720" fill="black" class="bintext">0111 1010</text>
+    <text x="787.5" y="735" fill="black" class="asciitext">z</text>
+    <rect x="825" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="862.5" y="690" fill="black" class="dectext">123</text>
+    <text x="862.5" y="705" fill="black" class="hextext">0x7b</text>
+    <text x="862.5" y="720" fill="black" class="bintext">0111 1011</text>
+    <text x="862.5" y="735" fill="black" class="asciitext">{</text>
+    <rect x="900" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="937.5" y="690" fill="black" class="dectext">124</text>
+    <text x="937.5" y="705" fill="black" class="hextext">0x7c</text>
+    <text x="937.5" y="720" fill="black" class="bintext">0111 1100</text>
+    <text x="937.5" y="735" fill="black" class="asciitext">|</text>
+    <rect x="975" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1012.5" y="690" fill="black" class="dectext">125</text>
+    <text x="1012.5" y="705" fill="black" class="hextext">0x7d</text>
+    <text x="1012.5" y="720" fill="black" class="bintext">0111 1101</text>
+    <text x="1012.5" y="735" fill="black" class="asciitext">}</text>
+    <rect x="1050" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1087.5" y="690" fill="black" class="dectext">126</text>
+    <text x="1087.5" y="705" fill="black" class="hextext">0x7e</text>
+    <text x="1087.5" y="720" fill="black" class="bintext">0111 1110</text>
+    <text x="1087.5" y="735" fill="black" class="asciitext">~</text>
+    <rect x="1125" y="675" width="75" height="75" fill="white" stroke="black" stroke-width="2px"/>
+    <text x="1162.5" y="690" fill="black" class="dectext">127</text>
+    <text x="1162.5" y="705" fill="black" class="hextext">0x7f</text>
+    <text x="1162.5" y="720" fill="black" class="bintext">0111 1111</text>
+    <text x="1162.5" y="735" fill="black" class="asciitext">DEL</text>
+</svg>
