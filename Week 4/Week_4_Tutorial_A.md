@@ -111,7 +111,7 @@ The helper function `match_direction` is the key idea. It starts at one cell and
 
 The C standard library provides many mathematical functions in `<math.h>`. To use these functions, include the header and, on typical GCC/Unix-like setups, link against the math library:
 
-```c
+```C
 #include <math.h>
 ```
 
@@ -137,7 +137,7 @@ The usual pattern in `math.h` is that the unsuffixed function uses `double`, the
 
 `exp2(x)` returns `2^x`, so it is a base-2 exponential function. If you specifically want powers of two, `exp2(x)` is often clearer than writing `pow(2.0, x)`.
 
-```c
+```C
 printf("%.1f\n", exp2(5.0));   // 32.0
 printf("%.1f\n", exp2(3.0));   // 8.0
 ```
@@ -146,7 +146,7 @@ printf("%.1f\n", exp2(3.0));   // 8.0
 
 `fdim(x, y)` returns the positive difference `max(x - y, 0)`. This is useful when you want to ask "how much bigger is `x` than `y`?" but never want a negative answer.
 
-```c
+```C
 printf("%.1f\n", fdim(5.5, 2.0));  // 3.5
 printf("%.1f\n", fdim(2.0, 5.5));  // 0.0
 ```
@@ -159,7 +159,7 @@ For the meaning for `fdim`, I found a discussion names "What does the fdim acron
 
 `fma(x, y, z)` computes `x * y + z` as one floating-point operation and then rounds once according to the current rounding mode. That single-rounding behavior is the main reason `fma()` exists; it can be more accurate than doing the multiply and add separately. POSIX `math.h` also defines `FP_FAST_FMA`-style macros that indicate whether the `fma` family is generally as fast as, or faster than, separate multiply and add operations.
 
-```c
+```C
 printf("%.1f\n", fma(2.0, 3.0, 4.0));  // 10.0
 ```
 
@@ -169,7 +169,7 @@ printf("%.1f\n", fma(2.0, 3.0, 4.0));  // 10.0
 
 This also connects nicely to the earlier warning about macro-based `MAX(a, b)`. `fmax()` and `fmin()` are real library functions with defined floating-point behavior, not text-substitution macros.
 
-```c
+```C
 printf("%.1f\n", fmax(3.2, 7.1));  // 7.1
 printf("%.1f\n", fmin(3.2, 7.1));  // 3.2
 ```
@@ -178,7 +178,7 @@ printf("%.1f\n", fmin(3.2, 7.1));  // 3.2
 
 `hypot(x, y)` returns `sqrt(x*x + y*y)`, which is the Euclidean distance from the origin to `(x, y)` or the **hypotenuse** of a right triangle. The important detail is that it performs the calculation without undue overflow or underflow in the intermediate steps, so it is usually better than manually writing `sqrt(x*x + y*y)`.
 
-```c
+```C
 printf("%.1f\n", hypot(3.0, 4.0));  // 5.0
 ```
 
@@ -186,7 +186,7 @@ printf("%.1f\n", hypot(3.0, 4.0));  // 5.0
 
 `lgamma(x)` returns the natural logarithm of the absolute value of the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function). The related `signgam` value stores the sign of the Gamma function, and the `_r` variants return that sign through an argument instead of a global variable. Also, for nonnegative integers `m`, the Gamma function satisfies `Gamma(m + 1) = m!`, which is why `lgamma(5.0)` is `log(24)`.
 
-```c
+```C
 printf("%.6f\n", lgamma(5.0));  // about 3.178054
 ```
 
@@ -203,14 +203,14 @@ printf("%.6f\n", lgamma(5.0));  // about 3.178054
 
 A small example for the `lround` family is:
 
-```c
+```C
 printf("%ld\n", lround(2.5));      // 3
 printf("%lld\n", llround(-2.5));   // -3
 ```
 
 ##### A small rounding-mode demo
 
-```c
+```C
 #include <stdio.h>
 #include <math.h>
 #include <fenv.h>
@@ -241,7 +241,7 @@ This makes the difference concrete: with downward rounding active, `lrint()` and
 
 `log1p(x)` returns a value equivalent to `log(1 + x)`, but it is computed in a way that stays accurate when `x` is very close to zero. This is one of the classic examples of why the math library contains special-purpose functions: the special function can be more numerically stable than the obvious formula.
 
-```c
+```C
 printf("%.20f\n", log(1.0 + 1e-16));
 printf("%.20f\n", log1p(1e-16));
 ```
@@ -284,7 +284,7 @@ For unsigned integers, each bit position represents a power of two. That is the 
 
 The `&` operator keeps a result bit set only when both input bits are `1`. The C standard defines the result of `a & b` as the bitwise AND of the converted operands.
 
-```c
+```C
 unsigned char a = 12;   // 00001100
 unsigned char b = 10;   // 00001010
 
@@ -293,7 +293,7 @@ unsigned char c = a & b; // 00001000 = 8
 
 This is why `&` is commonly used to test whether a particular flag bit is on.
 
-```c
+```C
 if (flags & MASK) {
     /* MASK bit is set */
 }
@@ -303,7 +303,7 @@ if (flags & MASK) {
 
 The `|` operator sets a result bit if at least one input bit is `1`. The `^` operator sets a result bit if exactly one input bit is `1`. These meanings are defined bit by bit in the standard after the usual arithmetic conversions.
 
-```c
+```C
 unsigned char a = 12;   // 00001100
 unsigned char b = 10;   // 00001010
 
@@ -317,7 +317,7 @@ A simple way to remember them is that OR is often used to turn bits on, while XO
 
 The `~` operator flips every bit of its operand. A subtle point is that C performs integer promotions before applying `~`, so the result type is the promoted type, not necessarily the original small integer type.
 
-```c
+```C
 unsigned char a = 12;           // 00001100
 unsigned int r = (~a) & 0xFFu;  // view only the low 8 bits
 
@@ -330,7 +330,7 @@ Masking with `0xFFu` is a simple way to show only the low 8 bits in an 8-bit cla
 
 For `E1 << E2`, the bits of the left operand move left and the vacated positions are filled with zeros. For `E1 >> E2`, the bits move right. After integer promotions, the result type is the type of the promoted left operand. For unsigned values, left shift corresponds to multiplying by `2^E2` with wraparound, and right shift corresponds to dividing by `2^E2` with the fractional part discarded. For negative signed values, right shift is implementation-defined.
 
-```c
+```C
 unsigned char a = 12;   // 00001100
 
 unsigned char left  = a << 1; // 00011000 = 24
@@ -344,7 +344,7 @@ unsigned char right = a >> 1; // 00000110 = 6
 
 C also provides assignment forms such as `&=`, `|=`, `^=`, `<<=`, and `>>=`. These are the bitwise equivalents of operators like `+=`. For example, `flags |= MASK` means `flags = flags | MASK`.
 
-```c
+```C
 flags |= MASK;   // set some bits
 flags &= MASK;   // keep only selected bits
 flags ^= MASK;   // toggle selected bits
@@ -356,7 +356,7 @@ These forms are very common in systems code because they are short and readable 
 
 Bitwise operators become very useful when one integer stores many independent yes/no values. A common pattern is to create a mask with `1u << n`, meaning “the bit at position `n`”. Then OR is used to set a bit, AND with a complemented mask is used to clear a bit, XOR is used to toggle a bit, and AND is used to test a bit. Those patterns follow directly from the meanings of `|`, `~`, `^`, and `&`.
 
-```c
+```C
 enum {
     FLAG_READ  = 1u << 0,
     FLAG_WRITE = 1u << 1,

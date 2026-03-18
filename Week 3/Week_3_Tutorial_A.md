@@ -52,7 +52,7 @@ For example:
 
 So when you write this in C:
 
-```c
+```C
 char c = 'A';
 ```
 
@@ -62,7 +62,7 @@ In C, the type `char` is really a small integer type used to store character cod
 
 For example:
 
-```c
+```C
 printf("%d\n", 'A');   // prints 65 on ASCII-based systems
 printf("%d\n", '0');   // prints 48
 printf("%d\n", '9');   // prints 57
@@ -96,13 +96,13 @@ That last `'\0'` tells C where the string ends.
 
 A C string is not a special built-in "string object." It is just a sequence of `char` values that ends with a null byte, written as `'\0'`. A string literal like `"cat"` has a zero byte appended to it by the compiler.
 
-```c
+```C
 char s[] = "cat";
 ```
 
 That is stored like this in memory:
 
-```c
+```C
 'c'   'a'   't'   '\0'
 ```
 
@@ -118,7 +118,7 @@ This is why string functions keep scanning characters until they reach `'\0'`.
 
 Good beginner rule:
 
-```c
+```C
 char s[] = "cat";        // okay to modify s
 const char *p = "cat";   // point at a literal, treat as read-only
 ```
@@ -131,7 +131,7 @@ Second, the array holding the string must have enough room for the characters **
 
 So this is correct:
 
-```c
+```C
 char name[6] = "Alice";
 ```
 
@@ -139,7 +139,7 @@ because `"Alice"` needs 5 letters plus 1 null terminator.
 
 This is wrong:
 
-```c
+```C
 char name[5] = "Alice";
 ```
 
@@ -147,7 +147,7 @@ because there is no room for `'\0'`.
 
 You don't need to explicitly declare the string size if you create them when initialize string like this.
 
-```c
+```C
 char name[] = "Alice";
 ```
 
@@ -184,13 +184,13 @@ in
 
 In C, you usually access them with this form of `main`:
 
-```c
+```C
 int main(int argc, char *argv[])
 ```
 
 You may also see:
 
-```c
+```C
 int main(int argc, char **argv)
 ```
 
@@ -228,7 +228,7 @@ So if the command is:
 
 then:
 
-```c
+```C
 argc == 7
 argv[0] == "./cla"
 argv[1] == "Echo"
@@ -239,7 +239,7 @@ argv[5] == "come"
 argv[6] == "in"
 ```
 
-```c
+```C
 argv[1] == "Echo"
 argv[1][0] == 'E'
 argv[1][1] == 'c'
@@ -249,7 +249,7 @@ A very important detail: `argv[0]` is usually the program name. That means the u
 
 That is why programs often loop like this:
 
-```c
+```C
 for (i = 1; i < argc; i++) {
     ...
 }
@@ -266,7 +266,7 @@ We start at `i = 1` because `argv[0]` is the program name and we do not want to 
 
 For each argument, we print:
 
-```c
+```C
 printf("%s", argv[i]);
 ```
 
@@ -274,7 +274,7 @@ We use `%s` because each `argv[i]` is a string.
 
 Then we print a space after it, except for the last one:
 
-```c
+```C
 if (i < argc - 1) {
     printf(" ");
 }
@@ -390,7 +390,7 @@ This happens because `a`, `b`, and `c` each have integer values in the character
 
 Therefore, we can update the `while` condition to ensure we only process digits:
 
-```c
+```C
 int atoi(const char s[]) {
     int i = 0;
     int n = 0;
@@ -495,7 +495,7 @@ That is what `isspace` is about. The function `isspace` from `<ctype.h>` checks 
 
 For example:
 
-```c
+```C
 isspace(' ')   // true
 isspace('\t')  // true
 isspace('\n')  // true
@@ -527,7 +527,7 @@ abc 123
 
 After `fgets`, the array looks like this:
 
-```c
+```C
 'a'  'b'  'c'  ' '  '1'  '2'  '3'  '\n'  '\0'
 ```
 
@@ -589,13 +589,13 @@ The middle space stays where it ends up naturally.
 
 For `atoi`, you convert a digit character into a number like this:
 
-```c
+```C
 digit = s[i] - '0';
 ```
 
 For `itoa`, you convert a number into a digit character like this:
 
-```c
+```C
 ch = digit + '0';
 ```
 
@@ -823,7 +823,7 @@ A few parts are especially important.
 > [!WARNING]
 > **A common mistake is using `==` directly on strings**, like this:
 >
-> ```c
+> ```C
 > if (part == word)
 > ```
 >
@@ -831,7 +831,7 @@ A few parts are especially important.
 
 Another classic mistake is forgetting the null terminator in the temporary substring:
 
-```c
+```C
 dest[i] = '\0';
 ```
 
