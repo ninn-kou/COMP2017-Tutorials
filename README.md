@@ -38,12 +38,15 @@ If you have questions about the tutorial content, please feel free to get in tou
 
 ### Tables
 
-- Week 2
-  - [Tutorial A](./Week%202/Week_2_Tutorial_A.md)
-  - [Tutorial B](./Week%202/Week_2_Tutorial_B.md)
-- Week 3
-  - [Tutorial A](./Week%203/Week_3_Tutorial_A.md)
-  - [Tutorial B](./Week%203/Week_3_Tutorial_B.md)
+- **Week 2**
+  - [Tutorial A](./Week%202/Week_2_Tutorial_A.md): Compiler, C Documents, C Types, Simple Pointers
+  - [Tutorial B](./Week%202/Week_2_Tutorial_B.md): Intro to Linux, Command Line, PATH, Common Linux Commands, `sizeof`, Pointer Arithmetic, Basic I/O
+- **Week 3**
+  - [Tutorial A](./Week%203/Week_3_Tutorial_A.md): ASCII Codes, String in C, Basic String Manipulations
+  - [Tutorial B](./Week%203/Week_3_Tutorial_B.md): Preprocessor, Compiler Flags, C String Standard Library `string.h`
+- **Week 4**
+  - [Tutorial A](./Week%204/Week_4_Tutorial_A.md): More String Manipulations, C Math Standard Library `math.h`, Bits, Bitwise Operators
+  - [Tutorial B](./Week%204/Week_4_Tutorial_B.md)
 
 ---
 
