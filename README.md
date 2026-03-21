@@ -46,7 +46,7 @@ If you have questions about the tutorial content, please feel free to get in tou
   - [Tutorial B](./Week%203/Week_3_Tutorial_B.md): Preprocessor, Compiler Flags, C String Standard Library `string.h`
 - **Week 4**
   - [Tutorial A](./Week%204/Week_4_Tutorial_A.md): More String Manipulations, C Math Standard Library `math.h`, Bits, Bitwise Operators
-  - [Tutorial B](./Week%204/Week_4_Tutorial_B.md)
+  - [Tutorial B](./Week%204/Week_4_Tutorial_B.md): Struct, Union
 
 ---
 
