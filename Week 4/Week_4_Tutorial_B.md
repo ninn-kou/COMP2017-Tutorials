@@ -28,9 +28,8 @@
     - [B.5.3 What Happens if You Read a Different Member?](#b53-what-happens-if-you-read-a-different-member)
     - [B.5.4 Initialising a Union](#b54-initialising-a-union)
   - [B.6 Exercise: Run-length Tuples](#b6-exercise-run-length-tuples)
-  - [B.7 Sizeof](#b7-sizeof)
-  - [B.8 Exercise: Cricket](#b8-exercise-cricket)
-  - [B.9 Exercise: A Shape Interface](#b9-exercise-a-shape-interface)
+  - [B.7 Exercise: Cricket](#b7-exercise-cricket)
+  - [B.8 Exercise: A Shape Interface](#b8-exercise-a-shape-interface)
 
 ---
 
@@ -612,13 +611,18 @@ This makes it clear which member is intended to be active.
 
 ---
 
-### B.7 Sizeof
+### B.7 Exercise: Cricket
+
+Because `first_name` and `last_name` are `char *`, the struct only stores pointers. That means we must allocate memory for each name before storing it. A clean solution is to read each name into a temporary array, then `malloc` exactly enough space and copy the name into the struct.
+
+> [!IMPORTANT]
+> Refer to [`batsman.c`](./Codes/batsman.c) for the code used in this section.
+
+`scanf("%100s %100s %d", ...)` reads a first name, a last name, and a score. The `%100s` prevents buffer overflow because the temporary arrays are size 101. `copy_name` allocates enough memory for the string and copies it. This is necessary because the struct fields are pointers, not built-in character arrays. When printing, `player->first_name[0]` gives the first initial, so `"Sam Konstas"` becomes `S. Konstas`. If the score is `0`, the program prints `Duck` instead of the number.
 
 ---
 
-### B.8 Exercise: Cricket
+### B.8 Exercise: A Shape Interface
 
----
-
-### B.9 Exercise: A Shape Interface
-
+> [!IMPORTANT]
+> Refer to [`nested.c`](./Codes/nested.c) for the code used in this section.
