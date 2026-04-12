@@ -445,7 +445,9 @@ Result:
 > It could be commonly confused with `list_add()`.
 
 ![Singly Linked List Insert Step 1](../assets/img/singly_insert_1.svg)
+
 ![Singly Linked List Insert Step 2](../assets/img/singly_insert_2.svg)
+
 ![Singly Linked List Insert Step 3](../assets/img/singly_insert_3.svg)
 
 #### B.3.4: `list_next()`
@@ -479,8 +481,11 @@ This function removes a specific node from the list. There are two cases:
 If it is the head, we move the head forward and free the old head; If it is not the head, we must find the node before it, then skip over the deleted node.
 
 ![Singly Linked List Remove Step 1](../assets/img/singly_remove_1.svg)
+
 ![Singly Linked List Remove Step 2](../assets/img/singly_remove_2.svg)
+
 ![Singly Linked List Remove Step 3](../assets/img/singly_remove_3.svg)
+
 ![Singly Linked List Remove Step 4](../assets/img/singly_remove_4.svg)
 
 ```c

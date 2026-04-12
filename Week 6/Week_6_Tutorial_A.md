@@ -12,12 +12,19 @@
 ### A.1 Doubly and Circular Linked List
 
 ![](../assets/img/DoublyList.svg)
+
 ![](../assets/img/doubly_insert_1.svg)
+
 ![](../assets/img/doubly_insert_2.svg)
+
 ![](../assets/img/doubly_insert_3.svg)
+
 ![](../assets/img/doubly_remove_1.svg)
+
 ![](../assets/img/doubly_remove_2.svg)
+
 ![](../assets/img/doubly_remove_3.svg)
+
 ![](../assets/img/doubly_remove_4.svg)
 
 ---
