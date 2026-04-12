@@ -10,8 +10,8 @@
     - [B.1.1 Declaring a Struct Variable](#b11-declaring-a-struct-variable)
     - [B.1.2 Initialising a Struct](#b12-initialising-a-struct)
     - [B.1.3 Accessing Fields](#b13-accessing-fields)
-    - [B.1.4 Pointers to structs](#b14-pointers-to-structs)
-    - [B.1.5 Worked example](#b15-worked-example)
+    - [B.1.4 Pointers to Structs](#b14-pointers-to-structs)
+    - [B.1.5 Worked Example](#b15-worked-example)
     - [B.1.6 Why Structs Must Have a Fixed Size?](#b16-why-structs-must-have-a-fixed-size)
     - [B.1.7 Structs and Other Structs](#b17-structs-and-other-structs)
     - [B.1.8 *Struct Padding*](#b18-struct-padding)
@@ -39,7 +39,7 @@ A `struct` lets us group several variables together into one larger value. Each 
 
 This is useful when several pieces of data belong together. For example, a point on a 2D grid has an `x` coordinate and a `y` coordinate, so it makes sense to store them in one struct instead of using two unrelated variables.
 
-```C
+```c
 struct coordinate {
     int x;
     int y;
@@ -54,7 +54,7 @@ It does not create a variable yet. It only says, "a `coordinate` consists of two
 
 Once the type exists, we can create variables of that type.
 
-```C
+```c
 struct coordinate point;
 ```
 
@@ -62,7 +62,7 @@ Now `point` is a variable with two fields inside it: `point.x` and `point.y`.
 
 **We can assign values to those fields using the dot operator `.`**
 
-```C
+```c
 point.x = 0;
 point.y = 0;
 
@@ -71,7 +71,7 @@ printf("%d %d\n", point.x, point.y);
 
 Expected output:
 
-```C
+```c
 0 0
 ```
 
@@ -81,13 +81,13 @@ The dot operator is used when we have the **actual** struct value.
 
 Like arrays, structs can be initialised using curly braces.
 
-```C
+```c
 struct coordinate point = { 0, 0 };
 ```
 
 This means `x = 0` and `y = 0`. A clearer version is to name the fields explicitly.
 
-```C
+```c
 struct coordinate point = { .x = 0, .y = 0 };
 ```
 
@@ -100,7 +100,7 @@ This is called a designated initializer. It is often easier to read, and it avoi
 
 Just like what how we initialized the struct, each field has a name, and we access it with the dot operator.
 
-```C
+```c
 point.x
 point.y
 ```
@@ -110,11 +110,11 @@ So if `point` stores `{3, 7}`, then:
 - `point.x` is `3`
 - `point.y` is `7`
 
-#### B.1.4 Pointers to structs
+#### B.1.4 Pointers to Structs
 
 We can also have pointers to structs, just like pointers to `int`, `char`, or any other type.
 
-```C
+```c
 struct coordinate* point_ptr = &point;
 ```
 
@@ -122,7 +122,7 @@ Now `point_ptr` stores the address of `point`.
 
 To access a field through a pointer, we could write:
 
-```C
+```c
 (*point_ptr).x
 ```
 
@@ -133,13 +133,13 @@ This means:
 
 Because this is common, C provides a shorthand:
 
-```C
+```c
 point_ptr->x
 ```
 
 These two are equivalent:
 
-```C
+```c
 (*point_ptr).x;
 point_ptr->x;
 ```
@@ -148,14 +148,14 @@ point_ptr->x;
 
 A common beginner mistake is forgetting the parentheses in `(*point_ptr).x`. Writing `*point_ptr.x` is wrong, because `.` is evaluated before `*`.
 
-#### B.1.5 Worked example
+#### B.1.5 Worked Example
 
 > [!IMPORTANT]
 > Refer to [`struct.c`](./Codes/struct.c) for the code used in this section.
 
 Output:
 
-```C
+```c
 point = (2, 4)
 point = (10, 20)
 ```
@@ -166,7 +166,7 @@ A struct must have a size the compiler can determine at compile time. This is im
 
 For example:
 
-```C
+```c
 struct coordinate {
     int x;
     int y;
@@ -179,7 +179,7 @@ Because the size must be known in advance, a struct cannot directly contain some
 
 For example, this is not allowed:
 
-```C
+```c
 int n = 5;
 struct bad_example {
     int arr[n];   // not allowed
@@ -190,7 +190,7 @@ The size of `arr` depends on `n`, so the compiler cannot determine the struct si
 
 Instead, the struct can store a pointer:
 
-```C
+```c
 struct better_example {
     int* arr;
 };
@@ -202,7 +202,7 @@ The pointer itself has a fixed size, so this is allowed. The actual array can li
 
 A struct can contain another struct, as long as that struct type is already known.
 
-```C
+```c
 struct coordinate {
     int x;
     int y;
@@ -220,7 +220,7 @@ However, a struct cannot directly contain itself, because that would make its si
 
 This is invalid:
 
-```C
+```c
 struct node {
     int value;
     struct node next;   // invalid
@@ -231,7 +231,7 @@ Why invalid? Because `struct node` would need to contain another full `struct no
 
 But a pointer to itself is allowed:
 
-```C
+```c
 struct node {
     int value;
     struct node* next;
@@ -278,13 +278,13 @@ padding    3        Added to make total size a multiple of 4
 
 An `enum` in C is a way to give names to **a set of integer constants**. It makes code easier to read than using raw numbers.
 
-```C
+```c
 enum TYPE { FIRE, WATER, FLYING, ROCK, ELECTRIC };
 ```
 
 Here, the names are assigned integer values automatically:
 
-```C
+```c
 FIRE = 0
 WATER = 1
 FLYING = 2
@@ -294,19 +294,19 @@ ELECTRIC = 4
 
 You can declare variables of that enum type like this:
 
-```C
+```c
 enum TYPE pikachu_type = ELECTRIC;
 ```
 
 This is much clearer than writing which using the "magic number":
 
-```C
+```c
 int pikachu_type = 4;
 ```
 
 You can also give specific values yourself:
 
-```C
+```c
 enum status { FAIL = -1, OK = 0, WARN = 1 };
 ```
 
@@ -314,7 +314,7 @@ enum status { FAIL = -1, OK = 0, WARN = 1 };
 
 `sizeof(enum TYPE)` is the number of bytes used to store an object of that enum type, not the number of enum constants. For an ordinary `enum`, C leaves the actual integer type implementation-defined: it must be compatible with some integer type wide enough to represent all the enumerator values.
 
-```C
+```c
 printf("%zu\n", sizeof(enum TYPE));
 ```
 
@@ -326,7 +326,7 @@ printf("%zu\n", sizeof(enum TYPE));
 
 The following questions are based on the following code snippet:
 
-```C
+```c
 enum TYPE { FIRE, WATER, FLYING, ROCK, ELECTRIC };
 
 struct pokemon {
@@ -351,7 +351,7 @@ struct pokemon {
 
 So after this:
 
-```C
+```c
 blank.name == NULL
 blank.type == 0   // which means FIRE
 ```
@@ -365,7 +365,7 @@ Because `FIRE` is the first enum constant, its value is `0`.
 
 #### B.3.3 What Does the Following Code Do?
 
-```C
+```c
 struct pokemon pikachu = { "Pikachu", ELECTRIC };
 struct pokemon *ptr = &pikachu;
 ptr->name = "Raichu";
@@ -376,13 +376,13 @@ ptr->type = ELECTRIC;
 
 After this code runs, `pikachu` becomes effectively:
 
-```C
+```c
 { "Raichu", ELECTRIC }
 ```
 
 A very important detail is that:
 
-```C
+```c
 const char* name;
 ```
 
@@ -394,19 +394,19 @@ That means:
 
 So this is allowed:
 
-```C
+```c
 ptr->name = "Raichu";
 ```
 
 but something like this would not be allowed:
 
-```C
+```c
 ptr->name[0] = 'R';   // invalid: modifying const data
 ```
 
 #### B.3.4 And What Does the Following Code Do?
 
-```C
+```c
 void evolve(struct pokemon mon) {
     mon.name = "Raichu";
     mon.type = ELECTRIC;
@@ -431,7 +431,7 @@ There is one more subtle idea worth noting.
 
 Because the struct contains a pointer, copying the struct copies the pointer value, not the string itself. So initially `mon.name` and `pikachu.name` point to the same string literal. But in `evolve`, this line:
 
-```C
+```c
 mon.name = "Raichu";
 ```
 
@@ -441,7 +441,7 @@ only changes the copied pointer inside `mon`. It does not change `pikachu.name`.
 
 The standard fix is to pass a pointer:
 
-```C
+```c
 void evolve(struct pokemon *mon) {
     mon->name = "Raichu";
     mon->type = ELECTRIC;
@@ -457,13 +457,13 @@ Now `mon` points to the original struct, so the function updates the real object
 
 After the call, `pikachu` is:
 
-```C
+```c
 { "Raichu", ELECTRIC }
 ```
 
 Another correct approach is to return the modified struct and assign it back:
 
-```C
+```c
 struct pokemon evolve(struct pokemon mon) {
     mon.name = "Raichu";
     mon.type = ELECTRIC;
@@ -491,7 +491,7 @@ A `union` is similar to a `struct`, but with one major difference:
 - In a `union`, all fields share the same region of memory.
 That means a union can hold different kinds of data, but only one member is meaningfully stored at a time.
 
-```C
+```c
 union number {
     int i;
     float f;
@@ -515,7 +515,7 @@ The size of a union is large enough to hold its largest member, possibly with pa
 
 So for:
 
-```C
+```c
 union number {
     int i;
     float f;
@@ -525,7 +525,7 @@ union number {
 
 we can assume:
 
-```C
+```c
 sizeof(union number) >= sizeof(double)
 ```
 
@@ -535,7 +535,7 @@ Let's go through this carefully.
 
 **Step 1**
 
-```C
+```c
 n.i = 10;
 ```
 
@@ -543,7 +543,7 @@ The shared memory now contains the bit pattern for the integer `10`. At this poi
 
 **Step 2**
 
-```C
+```c
 n.f = 10.05;
 ```
 
@@ -553,7 +553,7 @@ Now the same memory is overwritten with the bit pattern for the float `10.05`. T
 
 **Step 3**
 
-```C
+```c
 n.d = 12.02;
 ```
 
@@ -567,7 +567,7 @@ Now the same memory is overwritten again, this time with the bit pattern for the
 
 Suppose we do:
 
-```C
+```c
 n.d = 12.02;
 printf("%d\n", n.i);
 ```
@@ -584,19 +584,19 @@ For examplem, `(int)n.d` will force convert `12.02` to `12`, but `n.i` simply tr
 
 A union can also be initialised.
 
-```C
+```c
 union number n1 = { 10 };
 ```
 
 This initialises the first member, so it means:
 
-```C
+```c
 n1.i = 10;
 ```
 
 You can also use a designated initializer:
 
-```C
+```c
 union number n2 = { .d = 12.02 };
 ```
 

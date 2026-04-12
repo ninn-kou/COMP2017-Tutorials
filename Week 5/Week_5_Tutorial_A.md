@@ -7,13 +7,13 @@
 
 - [COMP2017 2026 S1 Week 5 Tutorial A](#comp2017-2026-s1-week-5-tutorial-a)
   - [A.1 Files](#a1-files)
-    - [A.1.1 Open the file: `fopen`](#a11-open-the-file-fopen)
-      - [File modes](#file-modes)
-      - [About the `x` specifier](#about-the-x-specifier)
-    - [A.1.2 Read from the file: `fscanf`](#a12-read-from-the-file-fscanf)
-    - [A.1.3 Write to the file: `fprintf`](#a13-write-to-the-file-fprintf)
-    - [A.1.4 Close the file: `fclose`](#a14-close-the-file-fclose)
-  - [Linux: “everything is a file”](#linux-everything-is-a-file)
+    - [A.1.1 Open the File: `fopen()`](#a11-open-the-file-fopen)
+      - [File Modes](#file-modes)
+      - [About the `x` Specifier](#about-the-x-specifier)
+    - [A.1.2 Read From the File: `fscanf()`](#a12-read-from-the-file-fscanf)
+    - [A.1.3 Write to the File: `fprintf()`](#a13-write-to-the-file-fprintf)
+    - [A.1.4 Close the File: `fclose()`](#a14-close-the-file-fclose)
+    - [A.1.5 Linux: "Everything is a File"](#a15-linux-everything-is-a-file)
   - [A.2 Exercise: Score to CSV](#a2-exercise-score-to-csv)
   - [A.3 Exercise: `cat`🐱](#a3-exercise-cat)
   - [A.4 Exercise: Replace Words](#a4-exercise-replace-words)
@@ -25,7 +25,7 @@
 
 In C, file I/O is stream-based. `fopen()` opens a file and returns a `FILE *`, `fscanf()` reads formatted text from that stream, `fprintf()` writes formatted text to that stream, and `fclose()` closes it. On Linux, the same file idea is reused for many kinds of resources, not just ordinary disk files, but also terminals, devices, pipes, and pseudo-filesystems such as `/proc`.
 
-#### A.1.1 Open the file: `fopen`
+#### A.1.1 Open the File: `fopen()`
 
 `fopen(path, mode)` opens a file and returns a `FILE *` stream. If it fails, it returns `NULL`. The mode says what kind of access you want, such as read, write, or append.
 
@@ -43,7 +43,7 @@ if (fp == NULL) {
 }
 ```
 
-##### File modes
+##### File Modes
 
 - `"r"` means read an existing file.
 - `"w"` means write to a file; create it if needed, or erase its old contents if it already exists.
@@ -57,7 +57,7 @@ fopen("log.txt", "a");   // append
 fopen("db.txt", "r+");   // read and write
 ```
 
-##### About the `x` specifier
+##### About the `x` Specifier
 
 Adding `x` to `w` or `w+` makes the open exclusive: if the file already exists, `fopen()` fails instead of overwriting it. This is useful when you want to create a brand new file safely.
 
@@ -65,7 +65,7 @@ Adding `x` to `w` or `w+` makes the open exclusive: if the file already exists, 
 FILE *fp = fopen("report.csv", "wx");
 ```
 
-#### A.1.2 Read from the file: `fscanf`
+#### A.1.2 Read From the File: `fscanf()`
 
 `fscanf(stream, format, ...)` reads formatted input from a stream. It is basically the file version of `scanf()`. A useful habit is to check the return value, because it tells you how many items were successfully matched and assigned.
 
@@ -83,7 +83,7 @@ if (fscanf(fp, "%19s %d", name, &mark) == 2) {
 }
 ```
 
-#### A.1.3 Write to the file: `fprintf`
+#### A.1.3 Write to the File: `fprintf()`
 
 `fprintf(stream, format, ...)` writes formatted output to a chosen stream. It is the file version of `printf()`. It writes according to the format string and returns the number of bytes printed, or a negative value on error.
 
@@ -96,7 +96,7 @@ fprintf(stdout, "Done\n");
 fprintf(stderr, "Bad input\n");
 ```
 
-#### A.1.4 Close the file: `fclose`
+#### A.1.4 Close the File: `fclose()`
 
 When you are finished, call `fclose(fp)`. It flushes buffered output and closes the stream. After that, you **should not** use the same `FILE *` again. `fclose()` returns `0` on success and `EOF` on error.
 
@@ -104,14 +104,13 @@ When you are finished, call `fclose(fp)`. It flushes buffered output and closes 
 fclose(fp);
 ```
 
-### Linux: “everything is a file”
+#### A.1.5 Linux: "Everything is a File"
 
 Linux exposes many different resources through the same file-style interface. The Linux VFS provides a common filesystem interface to user programs; filesystem objects include things like regular files, directories, and FIFOs, and `/proc` is a pseudo-filesystem that exposes kernel data structures as files.
 
-So in Linux, a “file” is not only a normal saved document on disk. It can also be a device, a terminal, a pipe, or a kernel-information entry. That is why the same basic ideas keep showing up: open, read, write, close.
+So in Linux, a "file" is not only a normal saved document on disk. It can also be a device, a terminal, a pipe, or a kernel-information entry. That is why the same basic ideas keep showing up: open, read, write, close.
 
 Let's see an example:
-
 
 ```text
 /home/student/notes.txt   ordinary file

@@ -36,17 +36,138 @@ If you have questions about the tutorial content, please feel free to get in tou
 
 ---
 
-### Tables
+### Table of Contents
 
-- **Week 2**
-  - [Tutorial A](./Week%202/Week_2_Tutorial_A.md): Compiler, C Documents, C Types, Simple Pointers
-  - [Tutorial B](./Week%202/Week_2_Tutorial_B.md): Intro to Linux, Command Line, PATH, Common Linux Commands, `sizeof`, Pointer Arithmetic, Basic I/O
-- **Week 3**
-  - [Tutorial A](./Week%203/Week_3_Tutorial_A.md): ASCII Codes, String in C, Basic String Manipulations
-  - [Tutorial B](./Week%203/Week_3_Tutorial_B.md): Preprocessor, Compiler Flags, C String Standard Library `string.h`
-- **Week 4**
-  - [Tutorial A](./Week%204/Week_4_Tutorial_A.md): More String Manipulations, C Math Standard Library `math.h`, Bits, Bitwise Operators
-  - [Tutorial B](./Week%204/Week_4_Tutorial_B.md): Struct, Union
+<table>
+  <thead>
+    <tr>
+      <th>Weeks</th>
+      <th>Tutorials</th>
+      <th>Ed Lessons</th>
+      <th>Contents</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Week 2</td>
+      <td><a href="./Week%202/Week_2_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99432/slides/682595">Week 1 All</a></td>
+      <td>
+        <ul>
+          <li>Compiler</li>
+          <li>C Documents</li>
+          <li>C Types</li>
+          <li>Simple Pointers</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="./Week%202/Week_2_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99433/slides/682616">Week 2 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Intro to Linux</li>
+          <li>Command Line</li>
+          <li>PATH</li>
+          <li>Common Linux Commands</li>
+          <li><code>sizeof</code></li>
+          <li>Pointer Arithmetic</li>
+          <li>Basic I/O</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 3</td>
+      <td><a href="./Week%203/Week_3_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99433/slides/682629">Week 2 Part 2</a></td>
+      <td>
+        <ul>
+          <li>ASCII Codes</li>
+          <li>String in C</li>
+          <li>Basic String Manipulations</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="./Week%203/Week_3_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99434/slides/682638">Week 3 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Preprocessor</li>
+          <li>Compiler Flags</li>
+          <li>C String Standard Library <code>string.h</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 4</td>
+      <td><a href="./Week%204/Week_4_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99434/slides/682646">Week 3 Part 2</a></td>
+      <td>
+        <ul>
+          <li>More String Manipulations</li>
+          <li>C Math Standard Library <code>math.h</code></li>
+          <li>Bits</li>
+          <li>Bitwise Operators</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="./Week%204/Week_4_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99435/slides/682658">Week 4 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Struct</li>
+          <li>Union</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 5</td>
+      <td><a href="./Week%205/Week_5_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99435/slides/682666">Week 4 Part 2</a></td>
+      <td>
+        <ul>
+          <li>File Operations</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="./Week%205/Week_5_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99436/slides/682676">Week 5 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Stack and Heap</li>
+          <li>Memory Management Functions</li>
+          <li>Singly Linked List</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 6</td>
+      <td><a href="./Week%206/Week_6_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99436/slides/682683">Week 5 Part 2</a></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><a href="./Week%206/Week_6_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99437/slides/682691">Week 6 Part 1</a></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 7</td>
+      <td><a href="./Week%207/Week_7_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99437/slides/716751">Week 6 Part 2</a></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><a href="./Week%207/Week_7_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99446/slides/727224">Week 7 All</a></td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ---
 

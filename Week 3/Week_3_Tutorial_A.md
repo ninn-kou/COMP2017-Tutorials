@@ -8,7 +8,7 @@
 - [COMP2017 2026 S1 Week 3 Tutorial A](#comp2017-2026-s1-week-3-tutorial-a)
   - [A.1 Characters and ASCII Codes](#a1-characters-and-ascii-codes)
   - [A.2 String in C](#a2-string-in-c)
-    - [A.2.1 What a C string actually is](#a21-what-a-c-string-actually-is)
+    - [A.2.1 What a C string Actually Is?](#a21-what-a-c-string-actually-is)
     - [A.2.2 The Two Most Important String Ideas](#a22-the-two-most-important-string-ideas)
   - [A.3 Command Line Arguments](#a3-command-line-arguments)
     - [A.3.1 Exercise: `cla.c`](#a31-exercise-clac)
@@ -19,7 +19,7 @@
       - [Step 3: Check the Sign](#step-3-check-the-sign)
       - [Step 4: Skip Leading Spaces](#step-4-skip-leading-spaces)
     - [A.4.2 Exercise: Your Own `reverse`](#a42-exercise-your-own-reverse)
-      - [Why `fgets` and not `scanf`?](#why-fgets-and-not-scanf)
+      - [Why `fgets` and Not `scanf`?](#why-fgets-and-not-scanf)
       - [How a Line Looks in Memory](#how-a-line-looks-in-memory)
       - [Our Main Idea](#our-main-idea)
       - [Step by Step Attempt](#step-by-step-attempt)
@@ -52,7 +52,7 @@ For example:
 
 So when you write this in C:
 
-```C
+```c
 char c = 'A';
 ```
 
@@ -62,7 +62,7 @@ In C, the type `char` is really a small integer type used to store character cod
 
 For example:
 
-```C
+```c
 printf("%d\n", 'A');   // prints 65 on ASCII-based systems
 printf("%d\n", '0');   // prints 48
 printf("%d\n", '9');   // prints 57
@@ -92,17 +92,17 @@ That last `'\0'` tells C where the string ends.
 
 ### A.2 String in C
 
-#### A.2.1 What a C string actually is
+#### A.2.1 What a C string Actually Is?
 
 A C string is not a special built-in "string object." It is just a sequence of `char` values that ends with a null byte, written as `'\0'`. A string literal like `"cat"` has a zero byte appended to it by the compiler.
 
-```C
+```c
 char s[] = "cat";
 ```
 
 That is stored like this in memory:
 
-```C
+```c
 'c'   'a'   't'   '\0'
 ```
 
@@ -118,7 +118,7 @@ This is why string functions keep scanning characters until they reach `'\0'`.
 
 Good beginner rule:
 
-```C
+```c
 char s[] = "cat";        // okay to modify s
 const char *p = "cat";   // point at a literal, treat as read-only
 ```
@@ -131,7 +131,7 @@ Second, the array holding the string must have enough room for the characters **
 
 So this is correct:
 
-```C
+```c
 char name[6] = "Alice";
 ```
 
@@ -139,7 +139,7 @@ because `"Alice"` needs 5 letters plus 1 null terminator.
 
 This is wrong:
 
-```C
+```c
 char name[5] = "Alice";
 ```
 
@@ -147,7 +147,7 @@ because there is no room for `'\0'`.
 
 You don't need to explicitly declare the string size if you create them when initialize string like this.
 
-```C
+```c
 char name[] = "Alice";
 ```
 
@@ -184,13 +184,13 @@ in
 
 In C, you usually access them with this form of `main`:
 
-```C
+```c
 int main(int argc, char *argv[])
 ```
 
 You may also see:
 
-```C
+```c
 int main(int argc, char **argv)
 ```
 
@@ -228,7 +228,7 @@ So if the command is:
 
 then:
 
-```C
+```c
 argc == 7
 argv[0] == "./cla"
 argv[1] == "Echo"
@@ -239,7 +239,7 @@ argv[5] == "come"
 argv[6] == "in"
 ```
 
-```C
+```c
 argv[1] == "Echo"
 argv[1][0] == 'E'
 argv[1][1] == 'c'
@@ -249,7 +249,7 @@ A very important detail: `argv[0]` is usually the program name. That means the u
 
 That is why programs often loop like this:
 
-```C
+```c
 for (i = 1; i < argc; i++) {
     ...
 }
@@ -266,7 +266,7 @@ We start at `i = 1` because `argv[0]` is the program name and we do not want to 
 
 For each argument, we print:
 
-```C
+```c
 printf("%s", argv[i]);
 ```
 
@@ -274,7 +274,7 @@ We use `%s` because each `argv[i]` is a string.
 
 Then we print a space after it, except for the last one:
 
-```C
+```c
 if (i < argc - 1) {
     printf(" ");
 }
@@ -355,7 +355,7 @@ However, how can we convert each character into a digit? By considering how char
 
 Therefore, we can write:
 
-```C
+```c
 int atoi(const char s[]) {
     int i = 0;
     int n = 0;
@@ -374,7 +374,7 @@ int atoi(const char s[]) {
 
 What happens if we try the following in the `main` function?
 
-```C
+```c
 printf("%d\n", atoi("a"));
 printf("%d\n", atoi("abc"));
 ```
@@ -390,7 +390,7 @@ This happens because `a`, `b`, and `c` each have integer values in the character
 
 Therefore, we can update the `while` condition to ensure we only process digits:
 
-```C
+```c
 int atoi(const char s[]) {
     int i = 0;
     int n = 0;
@@ -411,7 +411,7 @@ What happens if the string starts with a sign (`+` or `-`)? In this case, the `w
 
 We can add a preprocessing step to check for a sign and move the index forward if one is found.
 
-```C
+```c
 int atoi(const char s[]) {
     int i = 0;
     int sign = 1;
@@ -439,7 +439,7 @@ int atoi(const char s[]) {
 
 Our code looks good so far, but it still cannot handle some "special" characters such as leading whitespace. Therefore, we need one more improvement.
 
-```C
+```c
 int atoi(const char s[]) {
     int i = 0;
     int sign = 1;
@@ -483,7 +483,7 @@ abc 123    // Input
 321 cba    // Output
 ```
 
-##### Why `fgets` and not `scanf`?
+##### Why `fgets` and Not `scanf`?
 
 `scanf("%s", line)` stops reading at the first whitespace character. In C, whitespace includes:
 
@@ -495,7 +495,7 @@ That is what `isspace` is about. The function `isspace` from `<ctype.h>` checks 
 
 For example:
 
-```C
+```c
 isspace(' ')   // true
 isspace('\t')  // true
 isspace('\n')  // true
@@ -527,7 +527,7 @@ abc 123
 
 After `fgets`, the array looks like this:
 
-```C
+```c
 'a'  'b'  'c'  ' '  '1'  '2'  '3'  '\n'  '\0'
 ```
 
@@ -589,13 +589,13 @@ The middle space stays where it ends up naturally.
 
 For `atoi`, you convert a digit character into a number like this:
 
-```C
+```c
 digit = s[i] - '0';
 ```
 
 For `itoa`, you convert a number into a digit character like this:
 
-```C
+```c
 ch = digit + '0';
 ```
 
@@ -649,7 +649,7 @@ So we have a basic plan looks like:
 
 ##### Step 1: `string_compare()`
 
-```C
+```c
 int string_compare(const char s1[], const char s2[]) {
     int i = 0;
 
@@ -666,7 +666,7 @@ int string_compare(const char s1[], const char s2[]) {
 
 ##### Step 2: String Length
 
-```C
+```c
 int string_length(const char s[]) {
     int i = 0;
 
@@ -726,7 +726,7 @@ At that point `string_compare(part, word)` says they are equal, so the line shou
 
 That is the main search pattern: "try every starting position."
 
-```C
+```c
 void copy_part(const char src[], int start, int len, char dest[]) {
     int i;
 
@@ -767,7 +767,7 @@ int contains_word(const char line[], const char word[]) {
 > [!IMPORTANT]
 > Refer to [`wordsearch.c`](./Codes/wordsearch.c) for the code used in this section.
 
-```C
+```c
 int main(int argc, char *argv[]) {
     char line[MAX_LINE];
     char *word;
@@ -794,13 +794,13 @@ int main(int argc, char *argv[]) {
 
 `trim_newline(line)` removes the `'\n'` that `fgets` usually keeps. That makes printing easier. Without trimming, this:
 
-```C
+```c
 printf("Found: %s\n", line);
 ```
 
 would usually print an extra blank line, because `line` already ends with `'\n'`.
 
-```C
+```c
 void trim_newline(char s[]) {
     int i = 0;
 
@@ -823,7 +823,7 @@ A few parts are especially important.
 > [!WARNING]
 > **A common mistake is using `==` directly on strings**, like this:
 >
-> ```C
+> ```c
 > if (part == word)
 > ```
 >
@@ -831,7 +831,7 @@ A few parts are especially important.
 
 Another classic mistake is forgetting the null terminator in the temporary substring:
 
-```C
+```c
 dest[i] = '\0';
 ```
 

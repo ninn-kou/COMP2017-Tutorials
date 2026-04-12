@@ -39,7 +39,7 @@ In C, lines starting with # are usually handled by the preprocessor before the p
 
 `#define` is used to create constants or macros. **It does simple text replacement.**
 
-```C
+```c
 #define PI 3.14159
 #define SIZE 100
 ```
@@ -56,7 +56,7 @@ After preprocessing, every `PI` in the code is replaced with `3.14159`, and ever
 
 Let us check the following macro in "Lesson Week 3 - TRACE".
 
-```C
+```c
 #include <stdio.h>
 
 #define SQUARE(x) x * x
@@ -70,7 +70,7 @@ int main() {
 
 What is the output of this program, and why does this unexpected result occur? Please manually expand the macro to explain your reasoning. Additionally, **how can we fix the issue?**
 
-```C
+```c
 #define SQUARE(x) ((x) * (x))
 ```
 
@@ -80,7 +80,7 @@ This should be written carefully with brackets, because macros can cause bugs if
 
 You see this macro in a codebase:
 
-```C
+```c
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 ```
 
@@ -94,7 +94,7 @@ A student writes `MAX(i++, j++)`. What can go wrong? Give at least two distinct 
 
 `#include` is used to include header files. Header files usually contain function declarations and useful definitions.
 
-```C
+```c
 #include <stdio.h>
 #include <string.h>
 ```
@@ -106,7 +106,7 @@ A student writes `MAX(i++, j++)`. What can go wrong? Give at least two distinct 
 
 A function declaration, also called a function prototype, tells the compiler that a function exists before it sees the full function body.
 
-```C
+```c
 #include <stdio.h>
 
 int add(int a, int b);   // function declaration
@@ -143,7 +143,7 @@ int add(int a, int b) {
 
 A very useful first example is the difference between `-Wall`, `-Wextra`, and `-Werror`.
 
-```C
+```c
 /* warnings.c */
 int f(int x) {
     return 42;
@@ -173,7 +173,7 @@ The next group is language-standard and conformance flags. `-std=c23` means “c
 
 Use this example to show the difference:
 
-```C
+```c
 /* pedantic.c */
 int main(void) {
     int x = ({ int y = 3; y + 1; });
@@ -200,7 +200,7 @@ That example makes the idea of "GNU dialect versus strict ISO dialect" very conc
 
 #### B.2.3 `-Wpointer-arith` and `-Wvla`
 
-```C
+```c
 /* pointerarith.c */
 int main(void) {
     void *p = 0;
@@ -219,7 +219,7 @@ gcc -std=c23 -Wpedantic pointerarith.c -c
 
 This shows that plain GNU mode may accept the code quietly, but `-Wpointer-arith` warns, and `-Wpedantic` also warns because GCC treats this as a non-ISO construct.
 
-```C
+```c
 /* vla.c */
 int f(int n) {
     int a[n];
@@ -241,7 +241,7 @@ This shows that `-Wvla` is useful when you want to avoid VLAs even if the compil
 
 `-g` tells GCC to emit debug information so a debugger such as GDB can map machine code back to source lines and variables.
 
-```C
+```c
 /* debug.c */
 int add(int a, int b) {
     int sum = a + b;
@@ -270,7 +270,7 @@ You will see that the build with `-g` contains debug sections, while the plain b
 
 `-O3` is an aggressive optimization level: GCC says it enables everything in `-O2` plus additional loop and interprocedural optimizations. GCC also warns that optimization can make debugging harder because variables can disappear, statements can move, and control flow may no longer match the source one-to-one. GCC's own docs recommend `-Og` together with `-g` for the normal edit-compile-debug cycle when you are not using some other optimization level.
 
-```C
+```c
 /* opt.c */
 static int square(int x) {
     return x * x;
@@ -298,7 +298,7 @@ One subtle but important teaching point is that some warnings depend on optimiza
 
 This example shows that interaction well:
 
-```C
+```c
 /* arrbounds.c */
 int main(void) {
     int a[2] = {1, 2};
@@ -321,7 +321,7 @@ You could often find it surprising that `-Wall` alone may say nothing at `-O0`, 
 
 The last big group we are going to learn is runtime instrumentation. `-fsanitize=address` enables AddressSanitizer, which GCC describes as a fast memory error detector for out-of-bounds accesses and use-after-free bugs. `-fsanitize=undefined` enables UndefinedBehaviorSanitizer, which instruments various computations to catch undefined behavior at runtime. GCC also says that for more useful sanitizer output you should compile with `-g`, and for better stack traces it is often helpful to use `-O0`, `-O1`, or `-Og`. **GCC further notes that sanitizers can increase false positives around some warnings and recommends against combining `-Werror` with sanitizers.**
 
-```C
+```c
 /* asan.c */
 #include <stdlib.h>
 
@@ -352,7 +352,7 @@ For `--coverage`, GCC says this flag instruments code for coverage analysis and 
 
 A simple coverage example is:
 
-```C
+```c
 /* coverage.c */
 #include <stdio.h>
 
@@ -416,7 +416,7 @@ A C string is not a separate built-in type. It is a sequence of `char` values th
 
 `strcpy()` copies the source string into the destination, including the terminating `'\0'`. The destination buffer must already be large enough, and overlapping source and destination objects give undefined behavior.
 
-```C
+```c
 char src[] = "hello";
 char dst[10];
 
@@ -426,7 +426,7 @@ printf("%s\n", dst);
 
 `strncpy()` is different. It copies at most `n` bytes. If the source string is shorter than `n`, it pads the rest of the destination with null bytes. If the source does not contain a `'\0'` in the first `n` bytes, the result is **not** null-terminated. Overlap is also undefined here.
 
-```C
+```c
 char name[5];
 strncpy(name, "Daniel", sizeof name);
 ```
@@ -439,14 +439,14 @@ A good rule is this: use `strcpy()` only when you know the destination is large 
 
 `strlen()` returns the number of bytes in a string before the terminating `'\0'`. It does not count the terminator itself.
 
-```C
+```c
 char word[] = "tofu";
 printf("%zu\n", strlen(word));
 ```
 
 `strnlen()` does a bounded version of that check. It returns the smaller of the actual string length and `maxlen`, and it never looks past the first `maxlen` bytes. The `strlen(3)` page explicitly notes that when a buffer may not contain a terminating null byte, `strnlen()` should be used instead.
 
-```C
+```c
 char buf[5] = {'a', 'b', 'c', 'd', 'e'};
 printf("%zu\n", strnlen(buf, sizeof buf));
 ```
@@ -457,7 +457,7 @@ This example is useful because `buf` is a character array, but it is not a C str
 
 `strcmp()` compares two strings and returns `0` when they are equal, a negative value when the first string is less than the second, and a positive value when the first is greater. `strncmp()` is the same idea, except it compares only the first `n` bytes at most.
 
-```C
+```c
 printf("%d\n", strcmp("abc", "abc"));
 printf("%d\n", strcmp("abc", "abd"));
 printf("%d\n", strncmp("comp2017", "comp1000", 4));
@@ -465,7 +465,7 @@ printf("%d\n", strncmp("comp2017", "comp1000", 4));
 
 This is where many beginners go wrong: `if (strcmp(a, b))` means "if they are different," not "if they are equal." Another important detail is that POSIX guarantees only the sign of a nonzero result, so students should test `== 0`, `< 0`, or `> 0`, not `== 1` or `== -1`.
 
-```C
+```c
 if (strncmp("tutorial", "tut", 3) == 0) {
     printf("same first 3 characters\n");
 }
@@ -477,7 +477,7 @@ That shows why `strncmp()` is useful, but also why it is not a full equality tes
 
 `strchr()` finds the first occurrence of a character in a string, and `strrchr()` finds the last. If the character is `'\0'`, they can return a pointer to the terminator itself. `strstr()` finds the first occurrence of one string inside another.
 
-```C
+```c
 char text[] = "banana";
 printf("%s\n", strchr(text, 'n'));
 printf("%s\n", strstr(text, "ana"));
@@ -487,7 +487,7 @@ printf("%s\n", strstr(text, "ana"));
 
 A very practical use of `strcspn()` is removing the newline left by `fgets()`:
 
-```C
+```c
 char line[100];
 fgets(line, sizeof line, stdin);
 line[strcspn(line, "\n")] = '\0';
@@ -497,7 +497,7 @@ That works because `strcspn(line, "\n")` finds the position of the first newline
 
 `strtok()` breaks a string into tokens separated by delimiter characters. On the first call, you pass the string; on later calls, you pass `NULL` to continue tokenizing the same string. It modifies the original string by overwriting delimiters with `'\0'`, cannot be used on constant strings, and returns only nonempty tokens. `strtok_r()` is the reentrant version.
 
-```C
+```c
 char s[] = "red,green,blue";
 char *tok = strtok(s, ",");
 

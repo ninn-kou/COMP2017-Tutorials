@@ -9,31 +9,44 @@
 
 ---
 
-### A.1 Exercise: Circular Linked List
+### A.1 Doubly and Circular Linked List
+
+![](../assets/img/DoublyList.svg)
+![](../assets/img/doubly_insert_1.svg)
+![](../assets/img/doubly_insert_2.svg)
+![](../assets/img/doubly_insert_3.svg)
+![](../assets/img/doubly_remove_1.svg)
+![](../assets/img/doubly_remove_2.svg)
+![](../assets/img/doubly_remove_3.svg)
+![](../assets/img/doubly_remove_4.svg)
+
+---
+
+### A.2 Exercise: Circular Linked List
 
 > [!IMPORTANT]
 > Refer to [`circular.c`](./Codes/circular.c) for the code used in this section.
 
 ---
 
-### A.2 Exercise: Detect Cycle in Linked List
+### A.3 Exercise: Detect Cycle in Linked List
 
 > <https://leetcode.com/problems/linked-list-cycle/description/>
 
 ---
 
-### A.3 Exercise: Dynamic Array
+### A.4 Exercise: Dynamic Array
 
 > [!IMPORTANT]
 > Refer to [`dyn_array.c`](./Codes/dyn_array.c) for the code used in this section.
 
 ---
 
-### A.4 Void Pointers
+### A.5 Void Pointers
 
 ---
 
-### A.5 Generic Lists
+### A.6 Generic Lists
 
 > [!IMPORTANT]
 > Refer to [`generic_list.c`](./Codes/generic_list.c) for the code used in this section.

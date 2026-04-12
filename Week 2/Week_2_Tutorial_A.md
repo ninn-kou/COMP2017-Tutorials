@@ -21,7 +21,7 @@
 
 ### A.1 Compiling C Code to Executables
 
-```C
+```c
 #include <stdio.h>
 
 int main() {
@@ -121,7 +121,7 @@ In C, a type tells the compiler what a value represents. It affects four big thi
 
 The basic built-in types are the ones you see first. `char` stores a character or a small integer value. Integer types include `short`, `int`, `long`, and `long long`, and each can be `signed` or `unsigned`. Floating-point types are `float`, `double`, and `long double`. There is also `_Bool` for true/false values, and `void`, which means “no value” or “unknown type” in some contexts.
 
-```C
+```c
 char grade = 'A';
 int age = 20;
 unsigned int count = 100;
@@ -131,7 +131,7 @@ _Bool passed = 1;
 
 C also has derived types, built from other types. A pointer stores an address, an array stores a sequence of values of the same type, and a function has a return type and parameter types. C also lets you define your own grouped types with `struct`, memory-sharing types with `union`, and named integer constants with `enum`.
 
-```C
+```c
 int x = 42;
 int *p = &x;          // pointer to int
 int nums[3] = {1,2,3}; // array of int
@@ -155,7 +155,7 @@ So the main idea is simple: **in C, a type is the compiler’s way of knowing wh
 1. `int / int = int`
 2. Compile each time you changed your codes!
 
-```C
+```c
 // Tutor: Hao Ren (hao.ren@sydney.edu.au)
 // sum-and-average.c
 // 2 March 2026
@@ -200,7 +200,7 @@ int main() {
 
 In C, a pointer is a variable that stores the address of another variable. Think of a normal variable as a box holding a value, and a pointer as a label showing where that box is in memory.
 
-```C
+```c
 int x = 42;
 int *p = &x;
 ```
@@ -212,14 +212,14 @@ Here, `x` stores the value `42`.
 
 So in this example:
 
-```C
+```c
 printf("x = %d\n", x);      // 42
 printf("*p = %d\n", *p);    // 42
 ```
 
 You can also use a pointer to change the original variable:
 
-```C
+```c
 *p = 100;
 printf("x = %d\n", x);      // 100
 ```
@@ -274,7 +274,7 @@ array     = 0x16b4f2ca0, which becomes &array[0] in this expression
 
 In C, an array stores multiple values of the **same type** in order. You can think of it as a row of boxes, where each box holds one value. The boxes are numbered with indexes, starting at `0`.
 
-```C
+```c
 int numbers[5] = {10, 20, 30, 40, 50};
 
 printf("%d\n", numbers[0]);  // 10
@@ -285,13 +285,13 @@ Here, `numbers[0]` is the first element, `numbers[1]` is the second, and so on. 
 
 Arrays are also used with characters to make strings:
 
-```C
+```c
 char word[] = "cat";
 ```
 
 This looks like 3 letters, but C actually stores it as:
 
-```C
+```c
 {'c', 'a', 't', '\0'}
 ```
 
