@@ -147,7 +147,14 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td rowspan="2">Week 6</td>
       <td><a href="./Week%206/Week_6_Tutorial_A.md">Tutorial A</a></td>
       <td><a href="https://edstem.org/au/courses/31567/lessons/99436/slides/682683">Week 5 Part 2</a></td>
-      <td>—</td>
+      <td>
+        <ul>
+          <li>Doubly Linked List</li>
+          <li>Circular Linked List</li>
+          <li>Void Pointers</li>
+          <li>More Exercises about Dynamic Memory Programming</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%206/Week_6_Tutorial_B.md">Tutorial B</a></td>
