@@ -158,7 +158,14 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td rowspan="2">Week 7</td>
       <td><a href="./Week%207/Week_7_Tutorial_A.md">Tutorial A</a></td>
       <td><a href="https://edstem.org/au/courses/31567/lessons/99437/slides/716751">Week 6 Part 2</a></td>
-      <td>—</td>
+      <td>
+        <ul>
+          <li>Function Pointer Exercises</li>
+          <li>Signals</li>
+          <li>Signal Safety</li>
+          <li><code>signal()</code> and <code>sigaction()</code></li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%207/Week_7_Tutorial_B.md">Tutorial B</a></td>
