@@ -5,7 +5,24 @@
   <tr><td><b>Email</b></td><td><a href="hao.ren@sydney.edu.au">hao.ren@sydney.edu.au</a></td></tr>
 </tbody></table>
 
-[TOC]
+- [COMP2017 2026 S1 Week 6 Tutorial B](#comp2017-2026-s1-week-6-tutorial-b)
+  - [B.1 Device I/O, File Descriptors, and System Calls](#b1-device-io-file-descriptors-and-system-calls)
+    - [B.1.1 Two-layers I/O Model](#b11-two-layers-io-model)
+    - [B.1.2 File Descriptors](#b12-file-descriptors)
+    - [B.1.3 Opening Files: `open()` and `fopen()`](#b13-opening-files-open-and-fopen)
+    - [B.1.4 Reading: `read()` and `fread()`](#b14-reading-read-and-fread)
+    - [B.1.5 Writing: `write()` and `fwrite()`](#b15-writing-write-and-fwrite)
+    - [B.1.6 Closing: `close()` and `fclose()`](#b16-closing-close-and-fclose)
+    - [B.1.7 `fcntl()`, Flags, and Device Control](#b17-fcntl-flags-and-device-control)
+  - [B.2 Exercise: `cat`🐱🐱](#b2-exercise-cat)
+  - [B.3 Non blocking STDIN](#b3-non-blocking-stdin)
+    - [B.3.1 How It Works](#b31-how-it-works)
+  - [B.4 Function Pointers](#b4-function-pointers)
+    - [B.4.1 Function Pointer Syntax in C](#b41-function-pointer-syntax-in-c)
+    - [B.4.2 The Function Signature Is Part of The Type](#b42-the-function-signature-is-part-of-the-type)
+    - [B.4.3 One Example Usage: Dispatch Tables](#b43-one-example-usage-dispatch-tables)
+    - [B.4.4 `typedef` with Function Pointers](#b44-typedef-with-function-pointers)
+  - [B.5 Exercise: Sorting with `qsort`](#b5-exercise-sorting-with-qsort)
 
 ---
 
@@ -15,13 +32,13 @@
 
 The lower layer is the Unix/POSIX file-descriptor interface, which uses calls like `open()`, `read()`, `write()`, `close()`, and `fcntl()`. The higher layer is the C standard I/O library, which gives you buffered `FILE *` streams and functions like `fopen()`, `fread()`, `fwrite()`, `fprintf()`, and `fclose()`. In ordinary C programs, system calls are usually reached through libc wrapper functions, so calling `read()` or `open()` looks like a normal function call even though it is entering the kernel. A useful man-page rule is that the syscall interfaces here live in section 2, while the C library stream interfaces live in section 3.
 
-A slightly more precise version of “everything is a file” is: Unix exposes many resources through the same file or stream model. The `stdio` manual says a stream is associated with an external file, which may be a physical device, and `open()` can also open device special files. That is why ordinary disk files, terminals, pipes, and many devices can all be handled with the same core ideas: open, read, write, close.
+A slightly more precise version of "everything is a file" is: Unix exposes many resources through the same file or stream model. The `stdio` manual says a stream is associated with an external file, which may be a physical device, and `open()` can also open device special files. That is why ordinary disk files, terminals, pipes, and many devices can all be handled with the same core ideas: open, read, write, close.
 
 #### B.1.2 File Descriptors
 
-A **file descriptor** is the low-level handle for an open file-like object. It is just a small nonnegative integer that indexes an entry in the process’s table of open file descriptors. One important correction to the slide: `open()` returns the **lowest-numbered file descriptor not currently open** for the process, not the “next largest” number. So if `0`, `1`, `2`, `4`, and `6` are already open, the next successful `open()` returns `3`. `open()` also creates an **open file description**, which is where the file offset and file status flags are stored.
+A **file descriptor** is the low-level handle for an open file-like object. It is just a small nonnegative integer that indexes an entry in the process's table of open file descriptors. One important correction to the slide: `open()` returns the **lowest-numbered file descriptor not currently open** for the process, not the "next largest" number. So if `0`, `1`, `2`, `4`, and `6` are already open, the next successful `open()` returns `3`. `open()` also creates an **open file description**, which is where the file offset and file status flags are stored.
 
-At program startup, three standard streams already exist: `stdin`, `stdout`, and `stderr`. Their underlying file descriptors are `0`, `1`, and `2`, and the macros `STDIN_FILENO`, `STDOUT_FILENO`, and `STDERR_FILENO` are defined with those values in `<unistd.h>`. The `stdin(3)` page also says that `stdin`, `stdout`, and `stderr` are macros of type “pointer to `FILE`”, so they belong to the high-level stream layer even though they sit on top of those familiar descriptor numbers.
+At program startup, three standard streams already exist: `stdin`, `stdout`, and `stderr`. Their underlying file descriptors are `0`, `1`, and `2`, and the macros `STDIN_FILENO`, `STDOUT_FILENO`, and `STDERR_FILENO` are defined with those values in `<unistd.h>`. The `stdin(3)` page also says that `stdin`, `stdout`, and `stderr` are macros of type "pointer to `FILE`", so they belong to the high-level stream layer even though they sit on top of those familiar descriptor numbers.
 
 - `int fd` is the low-level kernel-facing handle.
 - `FILE *fp` is the higher-level C library stream.
@@ -42,7 +59,7 @@ int fd = open("file.txt", O_RDONLY);
 FILE *fp = fopen("file.txt", "r");
 ```
 
-The two layers line up closely. `fopen()` mode strings correspond to `open()` flags: `"r"` behaves like `O_RDONLY`, `"w"` like `O_WRONLY | O_CREAT | O_TRUNC`, `"a"` like `O_WRONLY | O_CREAT | O_APPEND`, and the `+` modes map to `O_RDWR` variants. That makes `fopen()` feel less “magical”: it is a friendlier wrapper around the same underlying idea.
+The two layers line up closely. `fopen()` mode strings correspond to `open()` flags: `"r"` behaves like `O_RDONLY`, `"w"` like `O_WRONLY | O_CREAT | O_TRUNC`, `"a"` like `O_WRONLY | O_CREAT | O_APPEND`, and the `+` modes map to `O_RDWR` variants. That makes `fopen()` feel less "magical": it is a friendlier wrapper around the same underlying idea.
 
 > [!NOTE]
 > `open()` returns the **lowest-numbered unused** descriptor, not the "next biggest" number.
@@ -63,7 +80,7 @@ size_t n = fread(buf, 1, 100, fp);
 
 #### B.1.5 Writing: `write()` and `fwrite()`
 
-At the descriptor layer, `write(fd, buf, count)` writes up to `count` bytes and returns the number of bytes actually written, or `-1` on error. Just like `read()`, `write()` may complete only part of the job, so serious low-level code often needs a loop that keeps writing until all bytes are sent. This matters a lot for pipes, sockets, and some device-style I/O. The Linux `write(2)` man page says this explicitly: “a successful `write()` may transfer fewer than `count` bytes”, and in that case the caller should call `write()` again for the remaining bytes.
+At the descriptor layer, `write(fd, buf, count)` writes up to `count` bytes and returns the number of bytes actually written, or `-1` on error. Just like `read()`, `write()` may complete only part of the job, so serious low-level code often needs a loop that keeps writing until all bytes are sent. This matters a lot for pipes, sockets, and some device-style I/O. The Linux `write(2)` man page says this explicitly: "a successful `write()` may transfer fewer than `count` bytes", and in that case the caller should call `write()` again for the remaining bytes.
 
 At the stream layer, `fwrite(ptr, size, n, fp)` returns the number of **items** written, not necessarily bytes unless `size == 1`. Because `stdio` is buffered, the bytes may first sit in a user-space stream buffer instead of immediately reaching the underlying descriptor. That is why `fflush(fp)` exists: it forces buffered output for that stream through its underlying write function.
 
@@ -80,7 +97,7 @@ fflush(fp);
 
 At the descriptor layer, `close(fd)` closes the file descriptor so it no longer refers to the file and may later be reused. It returns `0` on success and `-1` on error. If it is the last descriptor referring to the underlying open file description, the associated resources are freed.
 
-At the stream layer, `fclose(fp)` is stronger than just “close the stream”: it first flushes buffered output for that stream and then closes the underlying file descriptor. So that you do **not** need to say “`fwrite(...); fflush(fp); fclose(fp);`” as the normal closing pattern. `fflush()` is useful when you want data pushed out **before** you are done, but `fclose()` already performs that flush-and-close behavior.
+At the stream layer, `fclose(fp)` is stronger than just "close the stream": it first flushes buffered output for that stream and then closes the underlying file descriptor. So that you do **not** need to say "`fwrite(...); fflush(fp); fclose(fp);`" as the normal closing pattern. `fflush()` is useful when you want data pushed out **before** you are done, but `fclose()` already performs that flush-and-close behavior.
 
 ```c
 /* low-level */
@@ -92,7 +109,7 @@ fclose(fp);
 
 #### B.1.7 `fcntl()`, Flags, and Device Control
 
-This is where raw file-descriptor I/O starts to matter more. `fcntl()` is the general “manipulate file descriptor” call, and one of its jobs is getting and setting file status flags with `F_GETFL` and `F_SETFL`. `open()` also accepts flags such as `O_NONBLOCK`, and the manual says that when possible, a descriptor opened in nonblocking mode will not cause the caller to wait in `open()` or later I/O operations. On Linux, though, `O_NONBLOCK` has no real effect for regular files and block devices, so it matters most for terminals, pipes, FIFOs, sockets, and similar resources.
+This is where raw file-descriptor I/O starts to matter more. `fcntl()` is the general "manipulate file descriptor" call, and one of its jobs is getting and setting file status flags with `F_GETFL` and `F_SETFL`. `open()` also accepts flags such as `O_NONBLOCK`, and the manual says that when possible, a descriptor opened in nonblocking mode will not cause the caller to wait in `open()` or later I/O operations. On Linux, though, `O_NONBLOCK` has no real effect for regular files and block devices, so it matters most for terminals, pipes, FIFOs, sockets, and similar resources.
 
 *We will then see an example in the nonblocking-stdin exercise.*
 
@@ -137,12 +154,173 @@ This program makes `stdin` nonblocking using `fcntl`. Each loop iteration tries 
 
 A useful terminal detail: on a normal terminal, input is usually in **canonical mode** by default, so input becomes available line by line, usually after you press Enter. That means this program is nonblocking, but it is still line-based unless you also change the terminal mode with `termios`.
 
-The restore step at the end is worth keeping. After `fork()`, the child and parent descriptors refer to the same open file description and therefore share file status flags. Restoring the original flags avoids leaving the invoking shell’s stdin in nonblocking mode after your program exits.
+The restore step at the end is worth keeping. After `fork()`, the child and parent descriptors refer to the same open file description and therefore share file status flags. Restoring the original flags avoids leaving the invoking shell's stdin in nonblocking mode after your program exits.
 
 ---
 
 ### B.4 Function Pointers
 
+A function pointer is a variable that stores the address of a function. That means a function can be treated a bit like data: you can store it in a variable, pass it to another function, return it from a function, and call it later. For example, if we have:
+
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+then the address of `add` can be stored in a function pointer variable.
+
+```c
+int (*op)(int, int) = add;
+```
+
+Now `op` points to the function `add`, so this works:
+
+```c
+int result = op(1, 3);
+printf("%d\n", result);   // 4
+```
+
+In short, **a function pointer lets us choose which function to run at runtime.**
+
+#### B.4.1 Function Pointer Syntax in C
+
+```c
+int (*op)(int, int);
+```
+
+Read it from the middle out:
+
+- `op` is the name
+- `*op` means `op` is a pointer
+- `(int, int)` means it points to a function taking two `int` arguments
+- the leading `int` means that function returns `int`
+
+So the full meaning is: **`op` is a pointer to a function that takes two `int`s and returns an `int`.** This is why the parentheses matter.
+
+Moreover, if we see
+
+```c
+int *op(int, int);
+```
+
+This does **not** mean function pointer. It means `op` is a function taking two `int`s and returning `int *`.
+
+
+For `add` and `&add`, both mean the same thing in practice in following codes.
+
+```c
+int (*op)(int, int) = add;
+int (*op2)(int, int) = &add;
+```
+
+That is because the function name `add` can be used as the function's address.
+
+Also, both of these calls work:
+
+```c
+op(1, 3);    // the simpler form is usually preferred
+(*op)(1, 3);
+```
+
+#### B.4.2 The Function Signature Is Part of The Type
+
+The function pointer type must match the function's signature.
+
+For example:
+
+```c
+int add(int a, int b);
+```
+
+matches:
+
+```c
+int (*op)(int, int);
+```
+
+But this does **not** match:
+
+```c
+double (*op)(int, int);
+```
+
+because the return type is different.
+
+And this does not match either:
+
+```c
+int (*op)(double, double);
+```
+
+because the parameter types are different.
+
+So function pointers are strongly tied to the function signature. That is why the compiler can help catch mistakes.
+
+#### B.4.3 One Example Usage: Dispatch Tables
+
+Instead of a big `if` or `switch`, you can store several function pointers in an array and call the right one by index.
+
+```c
+#include <stdio.h>
+
+int add(int a, int b) { return a + b; }
+int sub(int a, int b) { return a - b; }
+int mul(int a, int b) { return a * b; }
+
+int main(void) {
+    int (*ops[])(int, int) = { add, sub, mul };
+
+    printf("%d\n", ops[0](4, 2));  // 6
+    printf("%d\n", ops[1](4, 2));  // 2
+    printf("%d\n", ops[2](4, 2));  // 8
+}
+```
+
+This is called table-driven design or dispatch-by-table.
+
+#### B.4.4 `typedef` with Function Pointers
+
+Without , function pointer syntax can get ugly.
+
+Example:
+
+```c
+int (*op)(int, int);
+```
+
+With `typedef`:
+
+- It improves readability.
+- It reduces repeated complicated syntax.
+- It makes parameter lists cleaner.
+- It makes code easier to maintain when the type appears many times.
+
+For example:
+
+```c
+typedef void (*callback_fn)(int);
+
+void for_each(int *arr, int size, callback_fn action);
+```
+
+That is much nicer than writing the full function-pointer syntax every time.
+
+However, these usages also lead to some disadvantages:
+
+- It can hide the fact that the variable is a pointer.
+- You may forget they are dealing with a function pointer and not a normal function.
+- Sometimes it makes it slightly harder to understand the exact signature unless they jump back to the typedef definition.
+
+So the balanced recommendation is:
+
+**Use `typedef` when the function pointer type is used often, but make sure students still understand the raw syntax first.**
+
 ---
 
 ### B.5 Exercise: Sorting with `qsort`
+
+> [!IMPORTANT]
+> Refer to [`fish.c`](./Codes/fish.c) for the code used in this section.
+
+`qsort()` sorts an array using a comparator function supplied by the programmer. The comparator receives two `const void *` pointers, so they must be cast back to the real element type before use. In this exercise, the comparator first orders fish by `length`, then uses `tastiness` as a tie-breaker, and finally uses `strcmp()` on `name` if the first two fields are equal. This ensures a total ordering, which is important because if elements compare equal, `qsort()` does not guarantee their relative order.

@@ -159,7 +159,14 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td><a href="./Week%206/Week_6_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="https://edstem.org/au/courses/31567/lessons/99437/slides/682691">Week 6 Part 1</a></td>
-      <td>—</td>
+      <td>
+        <ul>
+          <li>Device I/O and File Descriptors</li>
+          <li>System Calls</li>
+          <li>Non-blocking `STDIN`</li>
+          <li>Function Pointers</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td rowspan="2">Week 7</td>
