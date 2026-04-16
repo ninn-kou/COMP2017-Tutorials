@@ -184,11 +184,40 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td><a href="./Week%207/Week_7_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="https://edstem.org/au/courses/31567/lessons/99446/slides/727224">Week 7 All</a></td>
-      <td>—</td>
+      <td>
+        <ul>
+          <li>Compilation: C Compiling Process</li>
+          <li>Linkage</li>
+          <li><code>extern</code> and <code>static</code></li>
+          <li><code>const</code> and <code>restrict</code></li>
+          <li>Advanced C Programming Exercises</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 8</td>
+      <td><del>Tutorial A</del></td>
+      <td><del>N/A</del></td>
+      <td><u><i>Assignment P1 Code Interview</u></i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%208/Week_8_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Week 8 Part 1</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 9</td>
+      <td><a href="./Week%209/Week_9_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="">Week 8 Part 2</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%209/Week_9_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Week 9 Part 1</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
   </tbody>
 </table>
-
 
 ---
 

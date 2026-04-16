@@ -220,7 +220,7 @@ The most important practical rule is this: **Inside a signal handler, only call 
 
 The `signal-safety(7)` man page says many functions are not async-signal-safe, especially nonreentrant ones, and it explicitly uses `printf()` as the classic example of what can go wrong. Stdio functions maintain internal buffers and bookkeeping state; if a signal interrupts `printf()` and the handler calls `printf()` again, the second call may operate on inconsistent internal state and produce undefined behavior. That is why `printf`, `fprintf`, `fgets`, `malloc`, `realloc`, and `free` are all bad choices inside a signal handler.
 
-This is why examples often use `write()` instead. `write()` is on the async-signal-safe list, and it writes directly to a file descriptor without stdio buffering.
+This is why our examples often use `write()` instead. `write()` is on the async-signal-safe list, and it writes directly to a file descriptor without stdio buffering.
 
 #### A.3.5 The Recommended Pattern: Set a Flag And Let Main Code Do The Work
 
@@ -268,13 +268,13 @@ The important point is that the unsafe work, such as `printf()`, happens **after
 
 `SA_SIGINFO` switches from `sa_handler` to `sa_sigaction` and gives the handler extra information. `SA_RESTART` asks the system to automatically restart certain interrupted system calls. `SA_NODEFER` prevents the delivered signal from being automatically blocked while its handler runs. These are all part of why `sigaction()` is more powerful than `signal()`.
 
-For a beginner tutorial, `SA_SIGINFO` is the most important one to introduce first, because it explains why the handler signature changes from one argument to three. `SA_RESTART` is the next most useful flag to mention, because signals can interrupt blocking system calls.
+For a beginners, `SA_SIGINFO` is the most important one to introduce first, because it explains why the handler signature changes from one argument to three. `SA_RESTART` is the next most useful flag to mention, because signals can interrupt blocking system calls.
 
 ---
 
 ### A.4 Exercise: Protected Calculator
 
-For this exercise, the signal you want is `SIGFPE`: on typical Unix/Linux systems, integer division by zero may generate `SIGFPE`, although the C standard itself treats integer divide-by-zero as undefined behavior. `sigaction()` is the standard way to install the handler, and `write()` plus `_exit()` are both async-signal-safe, which makes them suitable inside the handler. `printf()`, `fprintf()`, `perror()`, and `exit()` are not the right choice inside the handler.
+The signal you want is might be `SIGFPE`: on typical Unix/Linux systems, integer division by zero may generate `SIGFPE`, although the C standard itself treats integer divide-by-zero as undefined behavior. `sigaction()` is the standard way to install the handler, and `write()` plus `_exit()` are both async-signal-safe, which makes them suitable inside the handler. `printf()`, `fprintf()`, `perror()`, and `exit()` are not the right choice inside the handler.
 
 > [!IMPORTANT]
 > Refer to [`calculator.c`](./Codes/calculator.c) for the code used in this section.
