@@ -5,7 +5,49 @@
   <tr><td><b>Email</b></td><td><a href="hao.ren@sydney.edu.au">hao.ren@sydney.edu.au</a></td></tr>
 </tbody></table>
 
-[TOC]
+- [COMP2017 2026 S1 Week 9 Tutorial A](#comp2017-2026-s1-week-9-tutorial-a)
+  - [A.1 Exercise: "DO YOUR HOMEWORK" Parent/Child Signal Dialogue](#a1-exercise-do-your-homework-parentchild-signal-dialogue)
+    - [A.1.1 Think Before You Go: Why `pause()` Can be Buggy](#a11-think-before-you-go-why-pause-can-be-buggy)
+    - [A.1.2 Design Pattern](#a12-design-pattern)
+    - [A.1.3 Step 1: Create the Signal Set](#a13-step-1-create-the-signal-set)
+    - [A.1.4 Step 2: Fork the Child Process](#a14-step-2-fork-the-child-process)
+    - [A.1.5 Step 3: Use Signals to Pass Turns](#a15-step-3-use-signals-to-pass-turns)
+  - [A.2 Safe Fork + Exec](#a2-safe-fork--exec)
+    - [A.2.1 `popen()` and `pclose()`](#a21-popen-and-pclose)
+    - [A.2.2 `posix_spawn()`](#a22-posix_spawn)
+  - [A.3 Exercise: Logger](#a3-exercise-logger)
+    - [A.3.1 Try This Exercise by Yourself! Hints: Design Choice](#a31-try-this-exercise-by-yourself-hints-design-choice)
+    - [A.3.2 Step 1: Parse `--cmd` and `--out`](#a32-step-1-parse---cmd-and---out)
+    - [A.3.3 Step 2: Start the Command with `popen()`](#a33-step-2-start-the-command-with-popen)
+    - [A.3.4 Step 3: Copy the Output into a File](#a34-step-3-copy-the-output-into-a-file)
+    - [A.3.5 Extension: Also Capturing `stderr`](#a35-extension-also-capturing-stderr)
+  - [A.4 Exercise: Parallel Search](#a4-exercise-parallel-search)
+    - [A.4.1 Step 1: Fork One Child per File](#a41-step-1-fork-one-child-per-file)
+    - [A.4.2 Step 2: Use `exec` in the Child](#a42-step-2-use-exec-in-the-child)
+    - [A.4.3 Step 3: Parent Waits for All Children](#a43-step-3-parent-waits-for-all-children)
+  - [A.5 `sigaction()`](#a5-sigaction)
+    - [A.5.1 Core Concept](#a51-core-concept)
+    - [A.5.2 The `struct sigaction`](#a52-the-struct-sigaction)
+    - [A.5.3 Simple Handler: `sa_handler`](#a53-simple-handler-sa_handler)
+    - [A.5.4 Extended Handler: `sa_sigaction` and `SA_SIGINFO`](#a54-extended-handler-sa_sigaction-and-sa_siginfo)
+    - [A.5.3 `sa_mask`: Signals Blocked While the Handler Runs](#a53-sa_mask-signals-blocked-while-the-handler-runs)
+    - [A.5.4 Signal Mask versus `sa_mask`](#a54-signal-mask-versus-sa_mask)
+    - [A.5.5 Useful Flags](#a55-useful-flags)
+      - [`SA_SIGINFO`](#sa_siginfo)
+      - [`SA_RESTART`](#sa_restart)
+      - [`SA_NOCLDSTOP`](#sa_nocldstop)
+      - [`SA_NODEFER`](#sa_nodefer)
+    - [A.5.6 Important Safety Rule: Keep Handlers Small](#a56-important-safety-rule-keep-handlers-small)
+    - [A.5.7 `SIGKILL` and `SIGSTOP`](#a57-sigkill-and-sigstop)
+  - [A.6 Exercise: `SIGCHLD` - Tracking Children](#a6-exercise-sigchld---tracking-children)
+    - [A.6.1 Hints: What Is Our Core Idea?](#a61-hints-what-is-our-core-idea)
+    - [A.6.2 Summary](#a62-summary)
+  - [A.7 Exercise: `SIGSEGV` I - Coredump](#a7-exercise-sigsegv-i---coredump)
+    - [A.7.1 Core Concept](#a71-core-concept)
+    - [A.7.2 Do Not Return from the Handler](#a72-do-not-return-from-the-handler)
+    - [A.7.3 Summary](#a73-summary)
+  - [A.8 Exercise: `SIGSEGV` II - Page Fault](#a8-exercise-sigsegv-ii---page-fault)
+    - [A.8.1 Core Idea to My Solution](#a81-core-idea-to-my-solution)
 
 ---
 
@@ -315,7 +357,7 @@ r: my program reads from the command's stdout
 w: my program writes to the command's stdin
 ```
 
-#### A.3.4 Step 3: Copy the output into a file
+#### A.3.4 Step 3: Copy the Output into a File
 
 The logger should copy the output from the command into the output file.
 
@@ -795,19 +837,184 @@ The operating system does not allow a process to handle `SIGKILL`.
 
 ---
 
-### A.6 Exercise: SIGCHLD - Tracking Children
+### A.6 Exercise: `SIGCHLD` - Tracking Children
+
+> [!WARNING]
+> The signal is called `SIGCHLD`, not `SIGCHILD`.
 
 > [!IMPORTANT]
 > Refer to [`sigchld.c`](./Codes/sigchld.c) for the solution to this exercise.
 
+The goal is to fork three children and let the parent track them using `SIGCHLD`.
+
+Each child does this:
+
+```text
+sleep for a different number of seconds
+then exit with a different status
+```
+
+The parent does not wait for all children in a normal blocking `wait()` loop. Instead, it installs a `SIGCHLD` handler. When a child finishes, the kernel sends `SIGCHLD` to the parent, and the handler reaps that child with `waitpid()`.
+
+#### A.6.1 Hints: What Is Our Core Idea?
+
+We use `sigaction()` with `SA_SIGINFO` so the handler receives a `siginfo_t *`, which can tell us:
+1. which child changed state
+2. whether it exited normally or was killed by a signal
+3. the exit status or signal number
+
+We also use `SA_NOCLDSTOP` so the parent is not notified just because a child was stopped.
+
+Instead of using plain `pause()` forever, we could uses a `children_left` counter and `sigsuspend()`. This lets the parent stop once all children have been reaped.
+
+#### A.6.2 Summary
+
+`SIGCHLD` lets a parent notice when children finish. With `sigaction()` and `SA_SIGINFO`, the handler can inspect `siginfo_t` to find the child PID and whether the child exited normally or died from a signal.
+
+The handler reaps the child using `waitpid()`, which prevents zombies. `SA_NOCLDSTOP` avoids unnecessary notifications when children merely stop.
+
+The parent forks all three children, then waits for the handler to process them. Once all three have been reaped, the parent exits cleanly.
+
 ---
 
-### A.7
+### A.7 Exercise: `SIGSEGV` I - Coredump
+
+The goal is to install a custom `SIGSEGV` handler so that when the program segfaults, it prints useful debugging information immediately. Normally, a segmentation fault just terminates the program and may create a core dump. With `sigaction()` and `SA_SIGINFO`, the handler can inspect a `siginfo_t *` and print more detail.
+
+> [!IMPORTANT]
+> Refer to [`coredump.c`](./Codes/coredump.c) for the solution to this exercise.
+
+#### A.7.1 Core Concept
+
+`SIGSEGV` happens when a process makes an invalid memory access.
+
+Common causes include:
+
+```text
+dereferencing NULL
+accessing an unmapped address
+writing to read-only memory
+accessing memory after it has been unmapped
+```
+
+With `SA_SIGINFO`, the handler receives this extra information:
+
+```c
+info->si_addr    // the address that caused the fault
+info->si_code    // explains the kind of fault
+```
+
+The two important `SIGSEGV` codes here are:
+
+```text
+SEGV_MAPERR   address is not mapped
+SEGV_ACCERR   address is mapped, but permissions were wrong
+```
+
+For example:
+
+```c
+int *p = NULL;
+*p = 42;
+```
+
+usually gives `SEGV_MAPERR` because address `0x0` is not mapped.
+
+And writing to a read-only `mmap()` page usually gives `SEGV_ACCERR` because the page exists, but writing to it is not allowed.
+
+#### A.7.2 Do Not Return from the Handler
+
+After a `SIGSEGV`, the program is sitting at the faulting instruction.
+
+If the handler returns, the program normally retries the same bad instruction:
+
+```text
+fault
+handler runs
+handler returns
+same bad memory access happens again
+fault again
+```
+
+So the handler should terminate the process.
+
+Use `_exit(1)` instead of `exit(1)`. Beacuse `_exit()` terminates immediately, and `exit()` may run cleanup handlers and flush stdio buffers, which is not ideal from inside a signal handler.
+
+#### A.7.3 Summary
+
+`SIGSEGV` is sent when a process performs an invalid memory access. Installing a handler with `sigaction()` and `SA_SIGINFO` lets the program inspect the fault using `siginfo_t`.
+
+The key fields are:
+
+```text
+info->si_addr   address that caused the fault
+info->si_code   reason for the fault
+```
+
+`SEGV_MAPERR` means the address was not mapped.
+`SEGV_ACCERR` means the address existed, but the requested access was not permitted.
+
+After printing the diagnostic message, the handler should call `_exit()` instead of returning.
 
 ---
 
-### A.8
+### A.8 Exercise: `SIGSEGV` II - Page Fault
 
----
+The goal is to deliberately create a memory region that exists in the process address space, but cannot be accessed. We do that with:
 
-### A.9
+```c
+mmap(NULL, page_size, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+```
+
+This creates a page with no permissions: no read, no write, and no execute. So when we touch it, the hardware raises a page fault. The kernel sees that the page exists, but the access is not allowed, so it sends the process `SIGSEGV` with `SEGV_ACCERR`. The handler then changes the page permission using `mprotect()`. After the handler returns, the faulting instruction is retried and succeeds.
+
+> [!IMPORTANT]
+> Refer to [`page_fault.c`](./Codes/page_fault.c) for the solution to this exercise.
+
+> [!NOTE]
+> In the previous SIGSEGV exercise, the handler called `_exit(1)` because the fault could not be fixed. But in this exercise, the handler does not exit. Instead, it fixes the memory permission:
+>
+> ```c
+> mprotect(page, page_size, PROT_READ | PROT_WRITE);
+> ```
+>
+> Then it returns. This only works because the handler knows exactly what caused the fault and how to make the access valid.
+
+#### A.8.1 Core Idea to My Solution
+
+`mmap()` adds a new region to the process address space. Here, we ask for one page:
+
+```c
+page = mmap(NULL,
+            page_size,
+            PROT_NONE,
+            MAP_PRIVATE | MAP_ANONYMOUS,
+            -1,
+            0);
+```
+
+The page exists, but it has no access permission. So `page[0] = 42` faults.
+
+The kernel delivers `SIGSEGV`, and the handler receives extra information through `siginfo_t *info`. The two key fields are:
+
+```c
+info->si_addr    // gives the address that caused the fault
+info->si_code    // tells us the reason
+```
+
+Furthermore, for this exercise:
+
+```text
+SEGV_MAPERR means the address was not mapped
+SEGV_ACCERR means the address was mapped, but access was not allowed
+```
+
+Because the page was created with `PROT_NONE`, the expected result is `SEGV_ACCERR`.
+
+The handler then fixes the permission:
+
+```c
+mprotect(page, page_size, PROT_READ | PROT_WRITE);
+```
+
+After the handler returns, the CPU retries the original instruction `page[0] = 42` And this time the page is writable, so the program continues.

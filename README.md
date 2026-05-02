@@ -214,12 +214,30 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td rowspan="2">Week 9</td>
       <td><a href="./Week%209/Week_9_Tutorial_A.md">Tutorial A</a></td>
-      <td><a href="">Week 8 Part 2</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99438/slides/682709">Week 8 Part 2</a></td>
+      <td>
+        <ul>
+          <li>Safe <code>fork() + exec*()</code></li>
+          <li>More About <code>sigaction()</code></li>
+          <li>Process Exercises</li>
+          <li>Advanced Signal Manipulation Exercises</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%209/Week_9_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="">Week 9 Part 1</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 10</td>
+      <td><a href="./Week%2010/Week_10_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="">Week 9 Part 2</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%2010/Week_10_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Week 10 Part 1</a></td>
       <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
   </tbody>
