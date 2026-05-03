@@ -226,8 +226,15 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%209/Week_9_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Week 9 Part 1</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99439/slides/682717">Week 9 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Inter-Process Communication (IPC)</li>
+          <li>Message Passing: Pipes and <code>pipe()</code> in C</li>
+          <li>File Descriptor Table</li>
+          <li>IPC Exercises</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td rowspan="2">Week 10</td>
