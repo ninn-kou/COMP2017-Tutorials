@@ -239,12 +239,43 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td rowspan="2">Week 10</td>
       <td><a href="./Week%2010/Week_10_Tutorial_A.md">Tutorial A</a></td>
-      <td><a href="">Week 9 Part 2</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99439/slides/682723">Week 9 Part 2</a></td>
+      <td>
+        <ul>
+          <li>Asynchronous I/O: Interrupt-Based vs <code>epoll</code>-Based</li>
+          <li><code>select()</code>, <code>poll()</code>, and <code>epoll()</code></li>
+          <li><code>socketpair()</code></li>
+          <li>Shared Memory</li>
+          <li>Semaphore</li>
+          <li>Advanced IPC Exercises</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%2010/Week_10_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="">Week 10 Part 1</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+        <tr>
+      <td rowspan="2">Week 11</td>
+      <td><a href="./Week%2011/Week_11_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="">Week 10 Part 2</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%2011/Week_11_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Week 11 Part 1</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+        <tr>
+      <td rowspan="2">Week 12</td>
+      <td><a href="./Week%2012/Week_12_Tutorial_A.md">Tutorial A</a></td>
+      <td><a href="">Week 11 Part 2</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%2012/Week_12_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Week 12 Part 1</a></td>
       <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
   </tbody>
