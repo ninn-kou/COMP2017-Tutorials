@@ -9,9 +9,9 @@
 
 ---
 
-### B.1 Threads
+### B.1 Threads and POSIX Threads (`pthreads`)
 
-A thread is a path of execution inside a process. Every running process has at least one thread. That first thread is often called the main thread. When we write a normal C program like this:
+A **thread** is a path of execution inside a process. Every process starts with at least one thread, called the **main thread**. In a normal C program, the main thread starts running the program and eventually reaches `main()`:
 
 ```c
 int main(void) {
@@ -19,8 +19,6 @@ int main(void) {
     return 0;
 }
 ```
-
-we are already using one thread. There is one line of execution: start at `main`, run statements in order, then exit.
 
 A multi-threaded program has multiple execution paths inside the same process:
 
@@ -30,19 +28,9 @@ one virtual address space
 multiple threads running inside it
 ```
 
-Each thread can run independently, but the threads share the same process memory.
+Threads are lighter than processes because they share the same process memory, but this also means one thread can affect the others. If one thread corrupts shared memory or calls `exit()`, the whole process can be affected.
 
-#### B.1.1 What a Thread Actually Is
-
-A thread is an execution context that the operating system can schedule. For a thread to run, the CPU needs to know things like:
-
-```text
-which instruction should run next
-what values are currently in registers
-where this thread's stack is
-```
-
-So each thread has its own execution state. The most important thread-private pieces are:
+Each thread has its own execution state. The most important thread-private parts are:
 
 ```text
 thread ID
@@ -51,124 +39,25 @@ registers
 instruction pointer / program counter
 ```
 
-This is what allows one thread to be paused and another thread to run. The operating system can save one thread's CPU state and restore another thread's CPU state.
-
-#### B.1.2 The Main Thread
-
-When a process starts, it begins with one thread. That thread starts executing the program, eventually reaching:
-
-```c
-main()
-```
-
-So in a normal single-threaded program:
-
-```text
-process starts
-main thread runs main()
-main thread returns
-process exits
-```
-
-If the program creates more threads, then there are multiple execution paths inside the same process.
-
-For example:
-
-```text
-main thread       handles setup
-worker thread 1   handles task A
-worker thread 2   handles task B
-worker thread 3   handles task C
-```
-
-They are all part of the same process.
-
-#### B.1.3 Thread ID
-
-Each thread has an identifier. In POSIX threads, the thread ID type is `pthread_t`.
-
-For example:
-
-```c
-pthread_t thread;
-```
-
-This is different from a process ID:
-
-```c
-pid_t pid;
-```
-
-A useful distinction is:
-
-```text
-PID        identifies a process
-pthread_t  identifies a thread within a POSIX threads program
-```
-
-On Linux, threads also have kernel-level thread IDs, but for our COMP2017-level pthread programming, `pthread_t` is the main type we usually use.
-
-#### B.1.4 Stack
-
-Each thread has its own stack.
-
-The stack stores things like:
-
-```text
-function call frames
-local variables
-return addresses
-temporary execution state
-```
-
-For example:
+The stack stores function call frames, local variables, return addresses, and temporary execution state. If two threads call the same function, each thread gets its own local variables on its own stack:
 
 ```c
 void work(void) {
-    int x = 10;
+    int x = 10;   // each thread gets its own x
     printf("%d\n", x);
 }
 ```
 
-If two threads both call `work()`, each thread gets its own `x` because `x` is a local variable on that thread's stack.
-
-So local variables inside functions are usually separate for each thread.
-
-> [!CAUTION]
-> The stack is separate, but it is not protected from other threads. Since all threads share the same virtual address space, another thread could access a stack variable if it somehow gets a pointer to it. That is usually a bad idea unless the lifetime is very carefully controlled.
-
-#### B.1.5 Registers
-
-Each thread has its own saved register state.
-
-Registers are small storage locations inside the CPU. They hold values currently being used by the running code. For example, when one thread is running, the CPU registers contain that thread's values. When the OS switches to another thread, it saves the first thread’s registers and restores the second thread's registers. This is part of a context switch.
-
-Conceptually:
+Each thread also has its own saved register state and instruction pointer. This lets the operating system pause one thread and resume another:
 
 ```text
 thread A runs
-OS saves thread A's registers
-OS restores thread B's registers
-thread B runs
+OS saves thread A's registers and program counter
+OS restores thread B's registers and program counter
+thread B continues from where it stopped
 ```
 
-This is why each thread can continue from where it left off.
-
-#### B.1.6 Instruction Pointer / Program Counter
-
-Each thread has its own instruction pointer, also called the program counter. This tells the CPU which instruction should execute next. Different threads in the same process can be at different parts of the program at the same time. For example:
-
-```text
-thread 1 is inside read()
-thread 2 is inside calculate()
-thread 3 is inside printf()
-```
-
-They share the same program code, but each thread has its own current position in that code.
-
-#### B.1.7 What Threads Share
-
-Threads in the same process share the process's virtual address space. That means they share:
+Threads in the same process share:
 
 ```text
 program code
@@ -181,33 +70,341 @@ current working directory
 process environment
 ```
 
-This is the major difference between threads and processes.
+This is the key difference from processes. Separate processes have separate virtual address spaces, so global variables are usually not shared between them. Threads inside the same process do share globals, heap memory, and file descriptors.
 
-If two threads access the same global variable:
-
-```c
-int counter = 0;
+```text
+processes communicate using pipes, sockets, signals, shared memory, files, etc.
+threads can communicate directly through shared memory inside the same process
 ```
 
-then they are accessing the same `counter`.
+Global variables are shared across threads in the same process, not across separate processes.
 
-If one thread does:
+#### B.1.1 Creating and Joining POSIX Threads
 
-```c
-counter = 42;
-```
-
-another thread can see:
+`pthreads` is the POSIX thread API for C. To use it, include:
 
 ```c
-counter == 42
+#include <pthread.h>
 ```
 
-This makes communication between threads easy, but it also makes race conditions easy.
+Compile with `-pthread`:
 
-**Please also note Global variables are shared across threads in the same process, not across separate processes.**
+```bash
+gcc -std=c11 -Wall -Wextra -pedantic -g program.c -o program -pthread
+```
 
-#### B.1.8 Example: Shared Global Variable
+The `-pthread` flag matters because it enables pthread support during compilation and linking.
+
+A new thread starts by running a function. That function must have this shape:
+
+```c
+void *function_name(void *arg);
+```
+
+Example worker function:
+
+```c
+static void *worker(void *arg) {
+    (void)arg;
+    printf("hello from worker thread\n");
+    return NULL;
+}
+```
+
+Create a thread with `pthread_create()`:
+
+```c
+pthread_t thread;
+
+int err = pthread_create(&thread, NULL, worker, NULL);
+```
+
+The prototype is:
+
+```c
+int pthread_create(pthread_t *thread,
+                   const pthread_attr_t *attr,
+                   void *(*start_routine)(void *),
+                   void *arg);
+```
+
+The arguments are:
+
+```text
+thread          where the new thread ID is stored
+attr            thread attributes; usually NULL for defaults
+start_routine   function the new thread will run
+arg             argument passed to that function
+```
+
+`pthread_create()` returns `0` on success. On failure, it returns an error number. Many pthread functions return the error number directly, so use `strerror(err)` instead of assuming `errno` was set.
+
+Wait for a joinable thread with `pthread_join()`:
+
+```c
+int err = pthread_join(thread, NULL);
+```
+
+This means:
+
+```text
+wait until the thread finishes
+discard its return value
+clean up its joinable thread resources
+```
+
+A normal pthread is **joinable** by default. A joinable thread should be joined exactly once. If we do not need to join a thread, we can detach it:
+
+```c
+pthread_detach(thread);
+```
+
+A detached thread cannot be joined; its resources are cleaned up automatically when it finishes. For tutorial code, joinable threads are usually clearer.
+
+Simple example:
+
+```c
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void *worker(void *arg) {
+    (void)arg;
+
+    printf("hello from worker thread\n");
+    return NULL;
+}
+
+int main(void) {
+    pthread_t thread;
+
+    int err = pthread_create(&thread, NULL, worker, NULL);
+
+    if (err != 0) {
+        fprintf(stderr, "pthread_create: %s\n", strerror(err));
+        return EXIT_FAILURE;
+    }
+
+    printf("hello from main thread\n");
+
+    err = pthread_join(thread, NULL);
+
+    if (err != 0) {
+        fprintf(stderr, "pthread_join: %s\n", strerror(err));
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+
+Possible output:
+
+```text
+hello from main thread
+hello from worker thread
+```
+
+or:
+
+```text
+hello from worker thread
+hello from main thread
+```
+
+Both are valid because the threads run concurrently and the output order is not guaranteed.
+
+#### B.1.2 Passing Data to Threads
+
+The thread function receives one argument:
+
+```c
+void *arg
+```
+
+Because it is a `void *`, we usually pass a pointer and cast it back inside the thread function.
+
+```c
+static void *worker(void *arg) {
+    int id = *(int *)arg;
+
+    printf("thread %d is running\n", id);
+    return NULL;
+}
+```
+
+The pointer must still be valid when the thread uses it. This is safe:
+
+```c
+pthread_t thread;
+int id = 7;
+
+pthread_create(&thread, NULL, worker, &id);
+pthread_join(thread, NULL);
+```
+
+The variable `id` is still alive because `main()` waits for the worker before returning.
+
+A common bug is passing the address of a loop variable:
+
+```c
+for (int i = 0; i < 5; i++) {
+    pthread_create(&threads[i], NULL, worker, &i);   // wrong
+}
+```
+
+All threads receive the address of the same variable `i`. By the time a thread reads it, `i` may have changed.
+
+Use a separate array instead:
+
+```c
+int ids[5];
+
+for (int i = 0; i < 5; i++) {
+    ids[i] = i;
+    pthread_create(&threads[i], NULL, worker, &ids[i]);
+}
+```
+
+When creating multiple threads, usually create all threads first, then join all threads:
+
+```text
+create all threads
+join all threads
+```
+
+If we create and immediately join inside the same loop, the program mostly runs one worker at a time.
+
+Full example:
+
+```c
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define NTHREADS 5
+
+static void *worker(void *arg) {
+    int id = *(int *)arg;
+
+    printf("hello from thread %d\n", id);
+    return NULL;
+}
+
+int main(void) {
+    pthread_t threads[NTHREADS];
+    int ids[NTHREADS];
+
+    for (int i = 0; i < NTHREADS; i++) {
+        ids[i] = i;
+
+        int err = pthread_create(&threads[i], NULL, worker, &ids[i]);
+
+        if (err != 0) {
+            fprintf(stderr, "pthread_create: %s\n", strerror(err));
+            return EXIT_FAILURE;
+        }
+    }
+
+    for (int i = 0; i < NTHREADS; i++) {
+        int err = pthread_join(threads[i], NULL);
+
+        if (err != 0) {
+            fprintf(stderr, "pthread_join: %s\n", strerror(err));
+            return EXIT_FAILURE;
+        }
+    }
+
+    printf("all threads finished\n");
+    return EXIT_SUCCESS;
+}
+```
+
+Possible output:
+
+```text
+hello from thread 0
+hello from thread 3
+hello from thread 1
+hello from thread 4
+hello from thread 2
+all threads finished
+```
+
+The thread output order is not guaranteed.
+
+#### B.1.3 Returning Values and Exiting Threads
+
+A thread function returns a `void *`. The joining thread can collect that return value using the second argument of `pthread_join()`.
+
+```c
+static void *worker(void *arg) {
+    (void)arg;
+
+    int *result = malloc(sizeof *result);
+
+    if (result == NULL) {
+        return NULL;
+    }
+
+    *result = 42;
+    return result;
+}
+```
+
+The main thread can collect and free the result:
+
+```c
+void *retval;
+
+pthread_join(thread, &retval);
+
+int *result = retval;
+
+if (result != NULL) {
+    printf("result = %d\n", *result);
+    free(result);
+}
+```
+
+Do not return the address of a local variable:
+
+```c
+static void *worker(void *arg) {
+    int result = 42;
+    return &result;   // wrong
+}
+```
+
+`result` is on the worker thread's stack. Once the function returns, that stack frame is gone.
+
+A worker thread normally exits by returning from its start function:
+
+```c
+return NULL;
+```
+
+It can also call:
+
+```c
+pthread_exit(NULL);
+```
+
+Both end the current thread. However, `exit(0)` ends the whole process, not just the current thread.
+
+```text
+return from worker    ends that worker thread
+pthread_exit()        ends the calling thread
+exit()                ends the entire process
+```
+
+If the main thread calls `pthread_exit(NULL)`, the main thread ends but the process can keep running while other threads continue. If `main()` simply returns, that is equivalent to calling `exit()`, so the whole process exits. For most beginner programs, prefer `pthread_join()` because it makes the program lifetime clearer.
+
+#### B.1.4 Shared Data, Race Conditions, and Thread Safety
+
+Threads share memory, so a worker thread can change a global variable and the main thread can see the change:
 
 ```c
 #include <pthread.h>
@@ -215,7 +412,7 @@ This makes communication between threads easy, but it also makes race conditions
 
 int shared = 0;
 
-void *worker(void *arg) {
+static void *worker(void *arg) {
     (void)arg;
 
     shared = 100;
@@ -239,207 +436,37 @@ Possible output:
 shared = 100
 ```
 
-The worker thread changed the global variable, and the main thread saw the change. That works because both threads are inside the same process.
-
-#### B.1.9 Example: Local Variables Are Separate
+Local variables are usually separate because each thread has its own stack:
 
 ```c
-#include <pthread.h>
-#include <stdio.h>
-
-void *worker(void *arg) {
+static void *worker(void *arg) {
     int id = *(int *)arg;
     int local = id * 10;
 
     printf("thread %d local = %d\n", id, local);
     return NULL;
 }
-
-int main(void) {
-    pthread_t t1;
-    pthread_t t2;
-
-    int id1 = 1;
-    int id2 = 2;
-
-    pthread_create(&t1, NULL, worker, &id1);
-    pthread_create(&t2, NULL, worker, &id2);
-
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
-
-    return 0;
-}
 ```
 
-Each thread has its own `local` variable because `local` is on that thread's stack.
+If two threads both call `worker()`, each thread has its own `local` variable.
 
-The output order is not guaranteed:
+The heap is shared between threads. If one thread allocates memory with `malloc()`, another thread can use that memory if it receives the pointer. This is useful, but ownership must be clear:
 
 ```text
-thread 2 local = 20
-thread 1 local = 10
+which thread is allowed to write?
+which thread frees the memory?
+can another thread still use it after it is freed?
 ```
 
-or:
+File descriptors are also shared because file descriptors belong to the process. If one thread closes an fd while another thread is still using it, the other thread may fail or accidentally use a newly reused fd number.
 
-```text
-thread 1 local = 10
-thread 2 local = 20
-```
-
-Both are valid because the threads run concurrently.
-
-#### B.1.10 Creating a Thread
-
-In POSIX C programming, a thread is commonly created with `pthread_create()`.
-
-The basic shape is:
-
-```c
-pthread_t thread;
-
-pthread_create(&thread, NULL, function, argument);
-```
-
-The function must have this shape:
-
-```c
-void *function(void *arg);
-```
-
-Example:
-
-```c
-void *worker(void *arg) {
-    printf("hello from worker thread\n");
-    return NULL;
-}
-```
-
-Then:
-
-```c
-pthread_create(&thread, NULL, worker, NULL);
-```
-
-This creates a new thread that starts running `worker`.
-
-#### B.1.11 Waiting for a Thread
-
-The parent-like idea for threads is `pthread_join()`
-
-Example:
-
-```c
-pthread_join(thread, NULL);
-```
-
-This means:
-
-```text
-wait until this thread finishes
-clean up its thread resources
-```
-
-This is similar in spirit to `waitpid()` for child processes, but for threads.
-
-A thread can finish by returning from its start function:
-
-```c
-return NULL;
-```
-
-or by calling:
-
-```c
-pthread_exit(NULL);
-```
-
-#### B.1.12 Joinable vs Detached Threads
-
-A normal thread is joinable.
-
-That means another thread should eventually call:
-
-```c
-pthread_join(thread, NULL);
-```
-
-If we do not need to join a thread, we can detach it:
-
-```c
-pthread_detach(thread);
-```
-
-A detached thread cleans up its own resources when it finishes.
-
-The distinction is:
-
-```text
-joinable thread   another thread collects its result with pthread_join()
-detached thread   no join; resources are cleaned automatically on exit
-```
-
-#### B.1.13 Threads and Scheduling
-
-Threads are scheduled by the operating system.
-
-On a single CPU core, only one thread runs at a time, but the OS switches between them quickly:
-
-```text
-thread A runs briefly
-thread B runs briefly
-thread A runs again
-thread C runs briefly
-```
-
-This gives concurrency.
-
-On a multi-core CPU, multiple threads can run at the same time on different cores. That gives parallelism.
-
-The distinction is:
-
-```text
-concurrency  multiple tasks make progress over time
-parallelism  multiple tasks run at the same time
-```
-
-Threads can give concurrency. They can give true parallelism when the machine has multiple cores and the workload allows it.
-
-#### B.1.14 Threads vs Processes
-
-Processes are isolated. A process has its own virtual address space. If two processes both have a global variable called `x`, they are usually separate variables. Changing one does not automatically change the other. Processes communicate using explicit mechanisms such as:
-
-```text
-pipes
-sockets
-signals
-shared memory
-files
-```
-
-However, threads share memory. Threads inside the same process share the same virtual address space. So if thread A changes a global variable, thread B can see the change. This makes threads useful when multiple execution paths need to work on the same data. For example:
-
-```text
-one thread receives network messages
-one thread processes them
-one thread writes results to disk
-```
-
-They can all access shared queues or shared data structures in the same process. But shared memory also means bugs can affect the whole process. If one thread corrupts the heap, crashes, or writes through a bad pointer, the entire process can be affected.
-
-#### B.1.15 Race Conditions
-
-Because threads share memory, timing matters.
-
-This code looks simple:
+Because threads share memory, timing matters. This code looks simple:
 
 ```c
 counter++;
 ```
 
-But it is not actually one indivisible operation. It is more like:
+But it is really more like:
 
 ```text
 read counter
@@ -447,7 +474,7 @@ add 1
 write counter back
 ```
 
-If two threads do this at the same time, the operations can interleave.
+If two threads do this at the same time, their operations can interleave:
 
 ```text
 counter starts at 0
@@ -458,19 +485,9 @@ thread A writes counter = 1
 thread B writes counter = 1
 ```
 
-The final value is:
+The final value is `1`, not `2`. One update was lost. This is a **race condition**.
 
-```text
-1
-```
-
-not:
-
-```text
-2
-```
-
-One update was lost. This is a race condition. When multiple threads access shared data and at least one thread writes, we usually need synchronization. Common synchronization tools include:
+When multiple threads access shared data and at least one thread writes, we usually need synchronization, such as:
 
 ```text
 mutexes
@@ -479,74 +496,52 @@ semaphores
 atomic operations
 ```
 
-#### B.1.16 Heap Memory and Threads
+#### B.1.5 Useful Comparisons and Common Mistakes
 
-The heap is shared between threads. If one thread allocates memory:
-
-```c
-int *p = malloc(sizeof *p);
-```
-
-another thread can use that memory if it receives the pointer.
-
-Example:
-
-```c
-int *shared_ptr = malloc(sizeof *shared_ptr);
-*shared_ptr = 42;
-```
-
-If `shared_ptr` is shared with another thread, that other thread can read or write the same heap allocation.
-
-This is useful, but ownership matters. Important questions are:
+Threads are scheduled by the operating system. On a single CPU core, only one thread runs at a time, but the OS switches between them quickly. On a multi-core CPU, multiple threads can run at the same time on different cores.
 
 ```text
-which thread is allowed to write?
-which thread frees the memory?
-can another thread still use it after it is freed?
+concurrency  multiple tasks make progress over time
+parallelism  multiple tasks run at the same time
 ```
 
-A common bug is one thread freeing memory while another thread still has a pointer to it.
+Useful comparisons:
 
-#### B.1.17 File Descriptors and Threads
+```text
+fork()             creates a new process
+pthread_create()   creates a new thread inside the same process
 
-Threads also share file descriptors because file descriptors belong to the process.
+waitpid()          waits for a child process
+pthread_join()     waits for a thread
 
-If one thread opens a file:
-
-```c
-int fd = open("data.txt", O_RDONLY);
+PID                identifies a process
+pthread_t          identifies a POSIX thread
 ```
 
-another thread in the same process can use the same `fd` if it has access to the variable or the value is passed to it.
+Common mistakes:
 
-This also means one thread can affect another thread by closing a shared file descriptor:
-
-```c
-close(fd);
+```text
+Forgetting to compile with -pthread.
+Using the wrong thread function signature.
+Ignoring pthread_create() or pthread_join() return values.
+Joining immediately after each pthread_create(), which removes most concurrency.
+Passing &i from a loop to all threads.
+Returning a pointer to a local variable.
+Calling exit() when only the current thread should end.
+Accessing shared data without synchronization.
+Closing a file descriptor while another thread may still use it.
 ```
 
-If another thread later tries to read from that `fd`, it may fail or accidentally refer to a newly reused file descriptor.
+Short summary:
 
-So file descriptor ownership also needs care in threaded programs.
-
-#### B.1.18 Threads Are Not Fully Independent Programs
-
-A thread is not the same as a process. A thread does not have its own independent address space. It does not have its own separate heap. It does not have its own separate globals. A thread is more like another execution path inside the same program instance.
-
-This is why threads are lighter than processes, but also less isolated.
-
-If a thread calls:
-
-```c
-exit(1);
+```text
+A thread is an execution path inside a process.
+POSIX threads are created with pthread_create().
+Joinable threads are waited for with pthread_join().
+Threads share globals, heap memory, and file descriptors.
+Each thread has its own stack, registers, and program counter.
+Shared data needs synchronization when at least one thread writes.
 ```
-
-the whole process exits, not just that thread. If a thread returns from its start function, only that thread ends.
-
----
-
-### B.2
 
 ---
 
