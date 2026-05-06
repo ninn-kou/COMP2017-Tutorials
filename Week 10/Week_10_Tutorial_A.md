@@ -29,6 +29,7 @@
       - [Step 3: Wait for Events](#step-3-wait-for-events)
       - [Why `epoll()` Scales Better](#why-epoll-scales-better)
       - [Level-Triggered and Edge-Triggered `epoll`](#level-triggered-and-edge-triggered-epoll)
+      - [`epoll` Cheatsheet](#epoll-cheatsheet)
     - [A.2.5 `select()` vs `poll()` vs `epoll()`](#a25-select-vs-poll-vs-epoll)
       - [`select()`](#select)
       - [`poll()`](#poll)
@@ -738,6 +739,111 @@ while (1) {
 
 If we do not drain the `fd`, data can remain unread without another notification.
 
+##### `epoll` Cheatsheet
+
+```c
+#include <sys/epoll.h>
+```
+
+Create an epoll instance:
+
+```c
+int epfd = epoll_create1(0);
+```
+
+Register an fd:
+
+```c
+struct epoll_event ev = {0};
+
+ev.events = EPOLLIN;     // watch for readable data
+ev.data.fd = fd;         // remember this fd
+
+epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev);
+```
+
+Wait for ready fds:
+
+```c
+struct epoll_event events[10];
+
+int nready = epoll_wait(epfd, events, 10, -1);
+```
+
+Handle ready fds:
+
+```c
+for (int i = 0; i < nready; i++) {
+    int fd = events[i].data.fd;
+
+    if (events[i].events & EPOLLIN) {
+        read(fd, buf, sizeof buf);
+    }
+}
+```
+
+Remove an fd:
+
+```c
+epoll_ctl(epfd, EPOLL_CTL_DEL, fd, NULL);
+close(fd);
+```
+
+Close epoll when finished:
+
+```c
+close(epfd);
+```
+
+Main idea:
+
+```text
+epoll_create1()  create watchlist
+epoll_ctl()      add/remove/change fds
+epoll_wait()     sleep until an fd is ready
+read()/write()   handle only ready fds
+```
+
+Important notes:
+
+```text
+EPOLLIN  = ready to read
+EPOLLOUT = ready to write
+
+Default epoll is level-triggered.
+Use non-blocking fds to avoid getting stuck.
+epoll_wait() blocks efficiently; this avoids busy-waiting.
+```
+
+| Code                                   | Meaning                                      |
+| -------------------------------------- | -------------------------------------------- |
+| `epoll_create1(0)`                     | Create an epoll watchlist                    |
+| `epfd`                                 | File descriptor for the epoll watchlist      |
+| `struct epoll_event ev`                | One rule for one fd                          |
+| `ev.events = EPOLLIN`                  | Watch for readable data                      |
+| `ev.data.u32 = lane`                   | Remember the lane number                     |
+| `epoll_ctl(..., EPOLL_CTL_ADD, ...)`   | Add an fd to the watchlist                   |
+| `struct epoll_event events[NLANES]`    | Array filled by `epoll_wait()`               |
+| `epoll_wait(epfd, events, NLANES, -1)` | Sleep until one or more fds are ready        |
+| `nready`                               | Number of ready events returned              |
+| `events[i].data.u32`                   | Lane number that became ready                |
+| `events[i].events`                     | What happened: readable, error, hangup, etc. |
+| `EPOLL_CTL_DEL`                        | Remove fd from epoll                         |
+| `close(epfd)`                          | Destroy the epoll fd when finished           |
+
+The full flow is:
+
+```text
+1. Create lane fds.
+2. Create epoll object with epoll_create1().
+3. For each lane, create an epoll_event.
+4. Register each lane with epoll_ctl().
+5. Call epoll_wait() to sleep until a lane is ready.
+6. Use events[i].data.u32 to find which lane is ready.
+7. Read from that lane.
+8. Remove and close lanes when finished.
+```
+
 #### A.2.5 `select()` vs `poll()` vs `epoll()`
 
 ##### `select()`
@@ -1019,7 +1125,7 @@ The parent will still usually print `0` because the child changed its own copy. 
 
 #### A.4.2 `mmap()`
 
-`mmap()` creates a mapping in a process’s virtual address space. A mapping means this range of virtual addresses refers to this underlying object or memory region. The general shape is:
+`mmap()` creates a mapping in a process's virtual address space. A mapping means this range of virtual addresses refers to this underlying object or memory region. The general shape is:
 
 ```c
 void *mmap(void *addr,
@@ -1811,7 +1917,7 @@ poll()
 epoll()
 ```
 
-After the parent reads a child’s message, it sends that child `SIGUSR1`, allowing it to exit.
+After the parent reads a child's message, it sends that child `SIGUSR1`, allowing it to exit.
 
 The child redirects:
 
