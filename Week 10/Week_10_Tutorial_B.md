@@ -5,7 +5,26 @@
   <tr><td><b>Email</b></td><td><a href="hao.ren@sydney.edu.au">hao.ren@sydney.edu.au</a></td></tr>
 </tbody></table>
 
-[TOC]
+- [COMP2017 2026 S1 Week 10 Tutorial B](#comp2017-2026-s1-week-10-tutorial-b)
+  - [B.1 Threads and POSIX Threads (`pthreads`)](#b1-threads-and-posix-threads-pthreads)
+    - [B.1.1 Creating and Joining POSIX Threads](#b11-creating-and-joining-posix-threads)
+    - [B.1.2 Passing Data to Threads](#b12-passing-data-to-threads)
+    - [B.1.3 Returning Values and Exiting Threads](#b13-returning-values-and-exiting-threads)
+    - [B.1.4 Shared Data, Race Conditions, and Thread Safety](#b14-shared-data-race-conditions-and-thread-safety)
+    - [B.1.5 Useful Comparisons and Common Mistakes](#b15-useful-comparisons-and-common-mistakes)
+  - [B.2 Exercise: Hello From Threads](#b2-exercise-hello-from-threads)
+    - [B.2.1 Step 1: Write the Thread Function](#b21-step-1-write-the-thread-function)
+    - [B.2.2 Step 2: Create the Threads](#b22-step-2-create-the-threads)
+    - [B.2.3 Step 3: Join the Threads](#b23-step-3-join-the-threads)
+    - [B.2.4 What Happens If We Increase to 20 Threads and Remove `pthread_join()`?](#b24-what-happens-if-we-increase-to-20-threads-and-remove-pthread_join)
+  - [B.3 Exercise: Passing Arguments](#b3-exercise-passing-arguments)
+    - [B.3.1 Step 1: Give Each Thread a Stable Argument](#b31-step-1-give-each-thread-a-stable-argument)
+    - [B.3.2 Step 2: Fix the Thread Function Return Value](#b32-step-2-fix-the-thread-function-return-value)
+  - [B.4 Exercise: Summation with Threads](#b4-exercise-summation-with-threads)
+    - [B.4.1 Step 1: Define a Thread Task Struct](#b41-step-1-define-a-thread-task-struct)
+    - [B.4.2 Step 2: Split the Work Evenly](#b42-step-2-split-the-work-evenly)
+    - [B.4.3 Step 3: Join Threads and Combine Partial Sums](#b43-step-3-join-threads-and-combine-partial-sums)
+  - [B.5 Exercise: Kitchen of Hell](#b5-exercise-kitchen-of-hell)
 
 ---
 
@@ -545,16 +564,384 @@ Shared data needs synchronization when at least one thread writes.
 
 ---
 
-### B.3
+### B.2 Exercise: Hello From Threads
+
+The goal is to create multiple threads. Each thread runs the same function and prints:
+
+```text
+Hello World
+```
+
+> [!IMPORTANT]
+> Refer to [`hello.c`](./Codes/hello.c) for the solution to this exercise.
+> You need to use the `-pthread` flag when compiling.
+
+Unlike `fork()`, a new thread does not continue from the current line as a separate process. A pthread starts by calling the function we pass to `pthread_create()`.
+
+#### B.2.1 Step 1: Write the Thread Function
+
+A pthread start function must have this shape:
+
+```c
+void *function_name(void *arg)
+```
+
+For this exercise, the thread does not need an argument, so we can ignore `arg`:
+
+```c
+static void *print_hello(void *arg) {
+    (void)arg;
+
+    printf("Hello World\n");
+    return NULL;
+}
+```
+
+The return value is `NULL` because the main thread does not need to collect a result.
+
+#### B.2.2 Step 2: Create the Threads
+
+We store the thread IDs in an array:
+
+```c
+pthread_t threads[NTHREADS];
+```
+
+Then create each thread:
+
+```c
+// &threads[i]   where to store the new thread ID
+// NULL          use default thread attributes
+// print_hello   function the thread should run
+// NULL          argument passed to print_hello
+
+pthread_create(&threads[i], NULL, print_hello, NULL);
+```
+
+#### B.2.3 Step 3: Join the Threads
+
+After creating all the threads, the main thread should wait for them:
+
+```c
+pthread_join(threads[i], NULL);
+```
+
+This matters because `pthread_join()` lets the main thread wait until each worker thread has finished. Without joining, `main()` may return before the worker threads get a chance to print.
+
+#### B.2.4 What Happens If We Increase to 20 Threads and Remove `pthread_join()`?
+
+Change:
+
+```c
+#define NTHREADS 20
+```
+
+Then comment out the join loop:
+
+```c
+/*
+for (int i = 0; i < NTHREADS; i++) {
+    pthread_join(threads[i], NULL);
+}
+*/
+```
+
+Now the program may print fewer than 20 lines, or sometimes no lines at all.
+
+**Why?** Because `main()` can finish before the worker threads finish. When `main()` returns, the whole process exits. Since all threads live inside the same process, exiting the process kills the remaining threads too.
 
 ---
 
-### B.4
+### B.3 Exercise: Passing Arguments
+
+The goal is to create 10 threads and have each thread print its own thread number:
+
+```text
+Hello From Thread 0!
+Hello From Thread 1!
+...
+Hello From Thread 9!
+```
+
+The program is close, but there is one major bug:
+
+```c
+pthread_create(threads + i, NULL, routine, &i);
+```
+
+Every thread receives the address of the same loop variable `i`.
+
+**What goes wrong?**
+
+This line passes a pointer `&i` to `i`:
+
+
+But there is only one `i` variable in the loop. So all threads receive the same address:
+
+```text
+thread 0 gets &i
+thread 1 gets &i
+thread 2 gets &i
+...
+thread 9 gets &i
+```
+
+The threads do not necessarily run immediately. By the time a thread reads `*id`, the loop may have already changed `i`. So instead of each thread printing its own number, we might see output like:
+
+```text
+Hello From Thread 3!
+Hello From Thread 7!
+Hello From Thread 10!
+Hello From Thread 10!
+Hello From Thread 10!
+```
+
+The exact result changes depending on scheduling. This is a race condition involving the shared loop variable.
+
+> [!IMPORTANT]
+> Refer to [`args.c`](./Codes/args.c) for the solution to this exercise.
+> You need to use the `-pthread` flag when compiling.
+
+#### B.3.1 Step 1: Give Each Thread a Stable Argument
+
+Instead of passing `&i`, create an array of IDs:
+
+```c
+int ids[NTHREADS];
+```
+
+Then each thread gets a pointer to its own array element:
+
+```c
+ids[i] = i;
+pthread_create(&threads[i], NULL, routine, &ids[i]);
+```
+
+Now the addresses are different:
+
+```text
+thread 0 gets &ids[0]
+thread 1 gets &ids[1]
+thread 2 gets &ids[2]
+...
+```
+
+Each value remains valid until after all threads have joined, because `ids` lives in `main()`.
+
+#### B.3.2 Step 2: Fix the Thread Function Return Value
+
+The thread function has type:
+
+```c
+void *routine(void *args)
+```
+
+So it should return a `void *`.
+
+This is missing in the original code:
+
+```c
+return NULL;
+```
+
+Returning `NULL` means the thread finished normally and does not return any useful result to `pthread_join()`.
+
+Also, the output order should not be expected to be `0, 1, 2, ...`. Thread scheduling is controlled by the operating system, so the print order can change every run.
 
 ---
 
-### B.5
+### B.4 Exercise: Summation with Threads
+
+We need to add up all numbers in a large array using a user-chosen number of threads. The array is created by:
+
+```c
+int *large_array = get_nums();
+```
+
+Because `get_nums()` uses `malloc()`, the returned array must eventually be freed by `free(large_array);` to avoid any memory leak.
+
+In addition, do not have all threads update one shared `sum` directly.
+
+This would be unsafe:
+
+```c
+sum += large_array[i];
+```
+
+if multiple threads do it at the same time, because `sum += x` is not atomic. Instead, each thread stores its own result:
+
+```c
+tasks[i].partial_sum
+```
+
+Then the main thread combines the results after all threads have finished. This avoids needing a mutex.
+
+> [!IMPORTANT]
+> Refer to [`sum.c`](./Codes/sum.c) for the solution to this exercise.
+> You need to use the `-pthread` flag when compiling.
+
+#### B.4.1 Step 1: Define a Thread Task Struct
+
+Each thread needs to know:
+
+```text
+which array to read
+where its range starts
+where its range ends
+where to store its partial sum
+```
+
+So we use:
+
+```c
+typedef struct {
+    int *arr;
+    int start;
+    int end;
+    long long partial_sum;
+} ThreadTask;
+```
+
+The range is `[start, end)` meaning `start` is included and `end` is not included.
+
+#### B.4.2 Step 2: Split the Work Evenly
+
+If:
+
+```text
+SIZE = 10000
+nthreads = 3
+```
+
+then the work does not divide perfectly.
+
+So we use:
+
+```c
+base = SIZE / nthreads;
+rem  = SIZE % nthreads;
+```
+
+The first `rem` threads get one extra element. This gives balanced ranges.
 
 ---
 
-### B.6
+#### B.4.3 Step 3: Join Threads and Combine Partial Sums
+
+After creating all threads:
+
+```c
+pthread_join(threads[i], NULL);
+```
+
+Then main adds:
+
+```c
+sum += tasks[i].partial_sum;
+```
+
+This is safe because each thread has already finished writing its partial sum.
+
+Then don't forget about `free()`. The main memory leak is the array returned by `get_nums()`. Since it was allocated with `malloc()`, it must be released with `free()`.
+
+---
+
+### B.5 Exercise: Kitchen of Hell
+
+We need several threads:
+
+```text
+Rordon thread      keeps asking for the lamb sauce
+Head chef thread   creates and waits for the sous chefs
+Sous chef threads  prepare the components
+```
+
+There are 3 sous chefs:
+
+```text
+Red Wine Chef
+Lamb Stock Chef
+Herb Seasoning Chef
+```
+
+Each sous chef prepares its component `NUM_MEALS` times. Once all components are ready, the head chef prints:
+
+```text
+Head Chef: All lamb sauce ready!
+```
+
+While the lamb sauce is not ready, Rordon prints once per second:
+
+```text
+Rordon: WHERE IS THE LAMB SAUCE
+```
+
+> [!IMPORTANT]
+> Refer to [`kitchen.c`](./Codes/kitchen.c) for the solution to this exercise.
+> You need to use the `-pthread` flag when compiling.
+
+The head chef should create all 3 sous chef threads first, then join them.
+
+This allows the sous chefs to work concurrently:
+
+```text
+create Red Wine chef
+create Lamb Stock chef
+create Herb Seasoning chef
+then wait for all of them
+```
+
+Do not create and immediately join one sous chef at a time, because that would make the work mostly sequential.
+
+> [!NOTE]
+> One small correctness fix: the scaffold uses a shared `int meals_ready`. In real pthread code, one thread writing a plain `int` while another thread reads it is a data race. Since this exercise does not want locks yet, we can use a small atomic flag instead:
+>
+> ```c
+> static atomic_int meals_ready = 0;
+> ```
+>
+> his keeps the code simple without introducing mutexes.
+
+For our solution, each sous chef receives a `SousChefTask`:
+
+```c
+typedef struct {
+    const char *component;
+    void (*prep)(void);
+    int *count;
+} SousChefTask;
+```
+
+This tells the sous chef:
+
+```text
+what component to prepare
+which preparation function to call
+which counter to update
+```
+
+The head chef creates all sous chef threads:
+
+```c
+pthread_create(&sous_chefs[i], NULL, sous_chef, &tasks[i]);
+```
+
+Then waits for all of them:
+
+```c
+pthread_join(sous_chefs[i], NULL);
+```
+
+Only after all sous chefs are joined does the head chef print:
+
+```text
+Head Chef: All lamb sauce ready!
+```
+
+The Rordon thread creates the head chef thread, then keeps checking:
+
+```c
+atomic_load(&meals_ready)
+```
+
+until the head chef marks the meals as ready.

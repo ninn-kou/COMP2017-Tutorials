@@ -253,8 +253,14 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%2010/Week_10_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Week 10 Part 1</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99441/slides/733442">Week 10 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Threads</li>
+          <li>Thread Exercises</li>
+          <li>Threads vs Processes</li>
+        </ul>
+      </td>
     </tr>
         <tr>
       <td rowspan="2">Week 11</td>
