@@ -262,18 +262,24 @@ If you have questions about the tutorial content, please feel free to get in tou
         </ul>
       </td>
     </tr>
-        <tr>
+    <tr>
       <td rowspan="2">Week 11</td>
       <td><a href="./Week%2011/Week_11_Tutorial_A.md">Tutorial A</a></td>
-      <td><a href="">Week 10 Part 2</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99441/slides/682747">Week 10 Part 2</a></td>
+      <td>
+        <ul>
+          <li>Critical Sections</li>
+          <li>Mutexes</li>
+          <li>ThreadSanitizer</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%2011/Week_11_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="">Week 11 Part 1</a></td>
       <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
-        <tr>
+    <tr>
       <td rowspan="2">Week 12</td>
       <td><a href="./Week%2012/Week_12_Tutorial_A.md">Tutorial A</a></td>
       <td><a href="">Week 11 Part 2</a></td>
@@ -281,7 +287,18 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%2012/Week_12_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Week 12 Part 1</a></td>
+      <td><a href="">Week 12 All</a></td>
+      <td><i>Tutorial notes have not yet been released.</i></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Week 13</td>
+      <td><del>Tutorial A</del></td>
+      <td><del>N/A</del></td>
+      <td><u><i>Assignment P2 Code Interview</u></i></td>
+    </tr>
+    <tr>
+      <td><a href="./Week%2013/Week_13_Tutorial_B.md">Tutorial B</a></td>
+      <td><a href="">Revision</a></td>
       <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
   </tbody>
