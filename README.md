@@ -276,8 +276,13 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%2011/Week_11_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Week 11 Part 1</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99442/slides/682754">Week 11 Part 1</a></td>
+      <td>
+        <ul>
+          <li>Deadlocks</li>
+          <li>Read-Write Locks</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td rowspan="2">Week 12</td>
