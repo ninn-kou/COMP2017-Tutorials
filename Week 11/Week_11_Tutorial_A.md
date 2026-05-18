@@ -401,18 +401,21 @@ Without the mutex, the final value may be smaller because some updates can be lo
 
 ![An example I taught during tutorials to explain mutexes.](../assets/img/mutexes.svg)
 
-> Author: Hao Ren, 19 May 2026
-> Feel to reuse under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en).
+> Author: *Hao Ren, 19 May 2026*
+>
+> Thanks to *Liuyuzi He* and *Yidong Liu* for their assistance in designing this diagram.
+>
+> This diagram may be reused under the terms of the [*CC BY-SA 4.0 license*]((https://creativecommons.org/licenses/by-sa/4.0/deed.en)).
 
-The thing being locked is the storage cage, not the shared resource. Multiple resources (`x` and `y`) could be protected by a single door lock.
+The thing being locked is the storage cage, not the shared resource. Multiple resources (`a` and `b`) could be protected by a single door lock.
 
 One person can be treated as one thread. Only one thread can access the shared resource at a time: the one that holds the key.
 
 One lock is like one door. It only restricts the threads that use that access door (`M1`). If other threads use another door (`M2`), they can interfere at any time.
 
-Only the thread that locked the door can unlock it.
+Only the thread that locked the door can unlock it (1 key for 1 door).
 
-If a thread does not use a lock at all, it always has access to the shared resource.
+If a thread does not use a lock at all (by helicopter), it always has access to the shared resource.
 
 ---
 
