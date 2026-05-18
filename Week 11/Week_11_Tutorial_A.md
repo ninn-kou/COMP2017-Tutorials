@@ -11,6 +11,7 @@
     - [A.1.2 Shared Data vs Local Data](#a12-shared-data-vs-local-data)
     - [A.1.3 `volatile`](#a13-volatile)
   - [A.2 Mutexes](#a2-mutexes)
+    - [A.2.1 One Diagram to Remember](#a21-one-diagram-to-remember)
   - [A.3 Mutex Initialisation and Attributes](#a3-mutex-initialisation-and-attributes)
   - [A.4 Exercise: Joey Doesn't Share Food](#a4-exercise-joey-doesnt-share-food)
   - [A.5 Exercise: Concurrent Linked List in C](#a5-exercise-concurrent-linked-list-in-c)
@@ -395,6 +396,23 @@ because:
 ```
 
 Without the mutex, the final value may be smaller because some updates can be lost.
+
+#### A.2.1 One Diagram to Remember
+
+![An example I taught during tutorials to explain mutexes.](../assets/img/mutexes.svg)
+
+> Author: Hao Ren, 19 May 2026
+> Feel to reuse under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en).
+
+The thing being locked is the storage cage, not the shared resource. Multiple resources (`x` and `y`) could be protected by a single door lock.
+
+One person can be treated as one thread. Only one thread can access the shared resource at a time: the one that holds the key.
+
+One lock is like one door. It only restricts the threads that use that access door (`M1`). If other threads use another door (`M2`), they can interfere at any time.
+
+Only the thread that locked the door can unlock it.
+
+If a thread does not use a lock at all, it always has access to the shared resource.
 
 ---
 

@@ -5,7 +5,26 @@
   <tr><td><b>Email</b></td><td><a href="hao.ren@sydney.edu.au">hao.ren@sydney.edu.au</a></td></tr>
 </tbody></table>
 
-[TOC]
+- [COMP2017 2026 S1 Week 11 Tutorial B](#comp2017-2026-s1-week-11-tutorial-b)
+  - [B.1 Deadlocks](#b1-deadlocks)
+    - [B.1.1 How A Simple Deadlock Happens](#b11-how-a-simple-deadlock-happens)
+    - [B.1.2 The Four Conditions For Deadlock](#b12-the-four-conditions-for-deadlock)
+    - [B.1.3 Diagnosing Deadlocks](#b13-diagnosing-deadlocks)
+    - [B.1.4 Diagnosis Example: Three Mutexes](#b14-diagnosis-example-three-mutexes)
+    - [B.1.5 Preventing Deadlocks](#b15-preventing-deadlocks)
+    - [B.1.6 Common Deadlock Patterns](#b16-common-deadlock-patterns)
+    - [B.1.7 Short Summary](#b17-short-summary)
+  - [B.2 Exercise: Dining Philosophers](#b2-exercise-dining-philosophers)
+    - [B.2.1 Design Choice](#b21-design-choice)
+    - [B.2.2 Step 1: Work Out the Two Chopsticks](#b22-step-1-work-out-the-two-chopsticks)
+    - [B.2.3 Step 2: Lock in a Consistent Order](#b23-step-2-lock-in-a-consistent-order)
+    - [B.2.4 Step 3: Eat, Then Unlock](#b24-step-3-eat-then-unlock)
+    - [B.2.5 Notes](#b25-notes)
+  - [B.3 Exercise: DNS Cache I](#b3-exercise-dns-cache-i)
+    - [B.3.1 Explanations](#b31-explanations)
+    - [B.3.2 Common Mistakes](#b32-common-mistakes)
+  - [B.4 Read-Write Locks](#b4-read-write-locks)
+  - [B.5 Exercise: DNS Cache II](#b5-exercise-dns-cache-ii)
 
 ---
 
