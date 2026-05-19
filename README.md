@@ -246,7 +246,7 @@ If you have questions about the tutorial content, please feel free to get in tou
           <li><code>select()</code>, <code>poll()</code>, and <code>epoll()</code></li>
           <li><code>socketpair()</code></li>
           <li>Shared Memory</li>
-          <li>Semaphore</li>
+          <li><i>Brief Intro to Semaphores (Comprehensive Learning Notes will be in <a href="./Week%2012/Week_12_Tutorial_A.md">W12 Tutorial A</a>)</i></li>
           <li>Advanced IPC Exercises</li>
         </ul>
       </td>

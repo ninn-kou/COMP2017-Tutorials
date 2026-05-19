@@ -52,14 +52,7 @@
     - [A.5.2 Step 2: Search Case-Insensitively](#a52-step-2-search-case-insensitively)
     - [A.5.3 Step 3: Print Matching Lines and Count Occurrences](#a53-step-3-print-matching-lines-and-count-occurrences)
     - [A.5.4 Notes](#a54-notes)
-  - [A.6 Semaphore](#a6-semaphore)
-    - [A.6.1 Basic POSIX Semaphore Functions](#a61-basic-posix-semaphore-functions)
-    - [A.6.2 Simple Writer Idea](#a62-simple-writer-idea)
-    - [A.6.3 Simple Reader Idea](#a63-simple-reader-idea)
-    - [A.6.4 Important Idea](#a64-important-idea)
-    - [A.6.5 Binary Semaphore](#a65-binary-semaphore)
-    - [A.6.6 Counting Semaphore](#a66-counting-semaphore)
-    - [A.6.7 Cleanup](#a67-cleanup)
+  - [A.6 Brief Introduction to Semaphores](#a6-brief-introduction-to-semaphores)
   - [A.7 Advanced Exercise: Real-time Stock Ticker](#a7-advanced-exercise-real-time-stock-ticker)
     - [A.7.1 Codes and Usages](#a71-codes-and-usages)
     - [A.7.2 How Does the Subscriber Know There Is an Update?](#a72-how-does-the-subscriber-know-there-is-an-update)
@@ -1429,198 +1422,78 @@ if (match_at(data + pos, needle, needle_len)) {
 
 The line is printed once if it has at least one match, but the total count increases for every occurrence.
 
-### A.6 Semaphore
+---
 
-A **semaphore** is a synchronization tool used to control access to shared resources or to signal between processes/threads.
+### A.6 Brief Introduction to Semaphores
 
-Think of a semaphore as a **counter**.
+> [!IMPORTANT]
+> **This brief introduction is just for usage of semaphores in the advanced exercise. We will comprehensively learn more about the semaphores in [Week 12 Tutorial A](../Week%2012/Week_12_Tutorial_A.md).**
 
-```text
-sem_wait():
-    If the counter is greater than 0, decrease it and continue.
-    If the counter is 0, block and wait.
+A **semaphore** is a small synchronization object used to control access or order between threads/processes.
 
-sem_post():
-    Increase the counter.
-    Wake up one waiting process/thread if there is one.
-```
-
-Shared memory allows two processes to access the same memory, but it does **not** control timing. For example, a reader might try to read before the writer has written anything:
-
-```text
-Writer: writes data into shared memory
-Reader: reads data from shared memory
-```
-
-Without synchronization, this can happen:
-
-```text
-Reader reads too early
-Reader gets old or invalid data
-```
-
-A semaphore can fix this by making the reader wait until the writer says:
-
-```text
-The data is ready.
-```
-
-#### A.6.1 Basic POSIX Semaphore Functions
-
-For separate programs, such as:
-
-```bash
-./shared_memory_writer
-./shared_memory_reader
-```
-
-you usually use a **named semaphore**.
-
-Common functions:
+For now, think of it as an integer counter:
 
 ```c
-sem_open()    // create or open a named semaphore
-sem_wait()    // wait / lock / block if not ready
-sem_post()    // signal / unlock / wake someone
-sem_close()   // close this process's reference
-sem_unlink()  // remove the named semaphore from the system
+sem_wait(sem);   // wait until counter > 0, then decrement it
+sem_post(sem);   // increment counter, wake one waiting process/thread
 ```
 
-You need:
+It does **not** send data like a pipe. It only says: you may continue now.
+
+Example: parent releases child after 1 second.
 
 ```c
-#include <semaphore.h>
-```
-
-and often:
-
-```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <fcntl.h>
-```
+#include <semaphore.h>
+#include <sys/wait.h>
 
-#### A.6.2 Simple Writer Idea
+#define SEM_NAME "/my_demo_sem"
 
-The writer creates shared memory, writes data, then signals the reader:
+int main(void) {
+    sem_unlink(SEM_NAME); // cleanup old semaphore if it exists
 
-```c
-sem_t *sem = sem_open("/my_semaphore", O_CREAT, 0600, 0);
+    sem_t *sem = sem_open(SEM_NAME, O_CREAT | O_EXCL, 0600, 0);
+    if (sem == SEM_FAILED) {
+        perror("sem_open");
+        exit(1);
+    }
 
-if (sem == SEM_FAILED) {
-    perror("sem_open");
-    return 1;
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        printf("Child: waiting...\n");
+
+        sem_wait(sem);
+
+        printf("Child: allowed to continue!\n");
+
+        sem_close(sem);
+        exit(0);
+    }
+
+    sleep(1);
+    printf("Parent: posting semaphore\n");
+
+    sem_post(sem);
+
+    wait(NULL);
+
+    sem_close(sem);
+    sem_unlink(SEM_NAME);
+
+    return 0;
 }
-
-/* Write data into shared memory here. */
-
-sem_post(sem);   // tell the reader: data is ready
-
-sem_close(sem);
 ```
 
-The initial semaphore value is `0`, meaning:
+Main idea:
 
-```text
-Reader must wait.
-Data is not ready yet.
-```
+- `sem_wait()` blocks until permission is available.
+- `sem_post()` gives permission.
 
-After writing the data, the writer calls:
-
-```c
-sem_post(sem);
-```
-
-That changes the semaphore so the reader can continue.
-
-#### A.6.3 Simple Reader Idea
-
-The reader opens the same semaphore and waits:
-
-```c
-sem_t *sem = sem_open("/my_semaphore", 0);
-
-if (sem == SEM_FAILED) {
-    perror("sem_open");
-    return 1;
-}
-
-sem_wait(sem);   // wait until writer says data is ready
-
-/* Read data from shared memory here. */
-
-sem_close(sem);
-```
-
-This line may block:
-
-```c
-sem_wait(sem);
-```
-
-It means:
-
-```text
-Do not continue until the writer posts the semaphore.
-```
-
-#### A.6.4 Important Idea
-
-For shared memory:
-
-```text
-Shared memory = where the data is stored
-Semaphore     = controls when it is safe to access the data
-```
-
-A simple pattern is:
-
-```text
-Reader waits.
-Writer writes data.
-Writer posts semaphore.
-Reader wakes up.
-Reader reads data.
-```
-
-#### A.6.5 Binary Semaphore
-
-A semaphore used with values `0` and `1` is often called a **binary semaphore**.
-
-```text
-0 = not available / must wait
-1 = available / can continue
-```
-
-It is similar to a lock, but semaphores can also be used for signaling between processes.
-
-#### A.6.6 Counting Semaphore
-
-A semaphore can also count more than one resource.
-
-Example:
-
-```text
-Semaphore value = 3
-```
-
-This could mean:
-
-```text
-Three workers may enter.
-The fourth worker must wait.
-```
-
-But for beginner shared memory examples, you usually use a binary-style semaphore.
-
-#### A.6.7 Cleanup
-
-Named semaphores should be removed when no longer needed:
-
-```c
-sem_unlink("/my_semaphore");
-```
-
-Usually one program, often the writer or a cleanup section, does this.
+For exercises, you can use semaphores to make processes run in a specific order, limit how many processes enter a section, or coordinate shared resources. Unlike `pipe()` or `epoll()`, a semaphore is not mainly for data transfer; it is for synchronization.
 
 ---
 
