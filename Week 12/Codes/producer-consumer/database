@@ -1,0 +1,18 @@
+#!/bin/bash
+
+QUERY=$1
+SLEEP_TIME=$(( (RANDOM % 19) + 2 ))
+sleep $SLEEP_TIME
+if [[ "$QUERY" == *"SELECT"* ]]; then
+    echo "ID | NAME    | STATUS"
+    echo "---|---------|--------"
+    echo "1  | Student | ONLINE"
+    echo "2  | Admin   | BUSY"
+    echo "Rows returned: 2"
+elif [[ "$QUERY" == *"INSERT"* ]]; then
+    echo "Query OK, 1 row affected (${SLEEP_TIME}.2 sec)"
+elif [[ "$QUERY" == *"UPDATE"* ]]; then
+    echo "Query OK, 1 row affected (${SLEEP_TIME}.3 sec)"
+else
+    echo "ERROR 1064 (42000): You have an error in your SQL syntax near '$QUERY'"
+fi

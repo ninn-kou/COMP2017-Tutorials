@@ -288,7 +288,13 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td rowspan="2">Week 12</td>
       <td><a href="./Week%2012/Week_12_Tutorial_A.md">Tutorial A</a></td>
       <td><a href="">Week 11 Part 2</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td>
+        <ul>
+          <li>Semaphores</li>
+          <li>Semaphore Exercises</li>
+          <li>Condition Variables</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td><a href="./Week%2012/Week_12_Tutorial_B.md">Tutorial B</a></td>
