@@ -12,6 +12,19 @@ If you have questions about the tutorial content, please feel free to get in tou
 
 ---
 
+### 2026 S1 Feedback for Teachers (FFT)
+
+<mark>As your tutor, your feedback really matters to me. It helps me understand what is working well and how I can better support your learning. Please take a few minutes to complete the "**Feedback for Teachers**" survey honestly and thoughtfully.</mark>
+
+<mark>I would especially appreciate any comments you are willing to share. If you have enjoyed our tutorials, please let me know what you found most helpful or memorable. If you think there is something I could improve, I would also be grateful for your kind suggestions. The survey is completely **voluntary and anonymous**, and your feedback will help make our tutorials more effective, engaging, and meaningful for everyone.<mark>
+
+> Your Unit of Study Survey (USS) / Feedback for teachers (FFT) feedback is **confidential**. It's a way to share what you enjoyed and found most useful in your learning, and to provide constructive feedback. It's also a way to "pay it forward" for the students coming behind you, so that their **learning experience** in this class is as good, or even better, than your own.
+>
+> **<https://student-surveys.sydney.edu.au/students/>**
+> ![](./assets/others/student-surveys-QR.png)
+
+---
+
 ### Tutor
 
 <table><tbody>
