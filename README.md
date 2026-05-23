@@ -299,7 +299,13 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td><a href="./Week%2012/Week_12_Tutorial_B.md">Tutorial B</a></td>
       <td><a href="https://edstem.org/au/courses/31567/lessons/99443/slides/742943">Week 12 All</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td>
+        <ul>
+          <li>Recursion</li>
+          <li>Recursion Overhead</li>
+          <li>Recursion with Multi-Threads</li>
+        </ul>
+      </td>
     </tr>
     <tr>
       <td rowspan="2">Week 13</td>
