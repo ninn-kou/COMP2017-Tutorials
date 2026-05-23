@@ -287,7 +287,7 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td rowspan="2">Week 12</td>
       <td><a href="./Week%2012/Week_12_Tutorial_A.md">Tutorial A</a></td>
-      <td><a href="">Week 11 Part 2</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99442/slides/682759">Week 11 Part 2</a></td>
       <td>
         <ul>
           <li>Semaphores</li>
@@ -298,7 +298,7 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%2012/Week_12_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Week 12 All</a></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99443/slides/742943">Week 12 All</a></td>
       <td><i>Tutorial notes have not yet been released.</i></td>
     </tr>
     <tr>
