@@ -87,17 +87,17 @@ However, there are still some problems with our design. Let's look at the follow
 
 In WcDonald's, suppose we have two types of shared resources: fries and burgers. Each type of resource may have multiple available instances. Customers who request these resources can be treated as threads.
 
-![Semaphore Bad Design by Busy Wait - 1](../assets/img/semaphore_busy_wait_1.png)
+<img src="../assets/img/semaphore_busy_wait_1.png" alt="Semaphore Busy Wait 1" width="75%">
 
 Now, Customer `A` requests the last available order of fries. Customer `B` also wants to order fries. However, the cashier does not know how many orders of fries are still in stock. As a result, the cashier goes to the kitchen and repeatedly asks, "Are the fries ready yet?" for 10 minutes until another order of fries becomes available. Only then can the cashier bring the fries back to Customer `B`.
 
 Now let's look at Customer `C`. Customer `C` only wants a burger, and we know that burgers are still in stock. However, Customer `C` still has to wait because the cashier is busy waiting for fries for Customer `B`.
 
-![Semaphore Bad Design by Busy Wait - 2](../assets/img/semaphore_busy_wait_2.png)
+<img src="../assets/img/semaphore_busy_wait_2.png" alt="Semaphore Busy Wait 2" width="75%">
 
-![Semaphore Bad Design by Busy Wait - 3](../assets/img/semaphore_busy_wait_3.png)
+<img src="../assets/img/semaphore_busy_wait_3.png" alt="Semaphore Busy Wait 3" width="75%">
 
-![Semaphore Bad Design by Busy Wait - 4](../assets/img/semaphore_busy_wait_4.png)
+<img src="../assets/img/semaphore_busy_wait_4.png" alt="Semaphore Busy Wait 4" width="75%">
 
 This is extremely inefficient. The problem is that one waiting thread can block everyone behind it.
 
@@ -105,7 +105,7 @@ How can we improve this design?
 
 Instead of making the cashier repeatedly check whether the fries are ready, what if the cashier takes the order first and gives the customer a number ticket? If there are currently no fries in stock, the customer can wait in a queue. Once the fries are ready, the cashier can notify the next customer in the queue.
 
-![Semaphore Design without Data Structure Queue - 1](../assets/img/semaphore_counting_1.png)
+<img src="../assets/img/semaphore_counting_1.png" alt="Counting Semaphores 1" width="75%">
 
 Now we need to modify our data structure. Each semaphore should maintain both a counter and a waiting queue. The counter tells us how many resources are available, while the waiting queue stores the threads that are currently blocked.
 
@@ -141,21 +141,21 @@ void V(Semaphore *S) {
 }
 ```
 
-![Semaphore Design without Data Structure Queue - 2](../assets/img/semaphore_counting_2.png)
+<img src="../assets/img/semaphore_counting_2.png" alt="Counting Semaphores 2" width="75%">
 
 Now every customer has a known position in the waiting queue.
 
-![Semaphore Design without Data Structure Queue - 3](../assets/img/semaphore_counting_3.png)
+<img src="../assets/img/semaphore_counting_3.png" alt="Counting Semaphores 3" width="75%">
 
-![Semaphore Design without Data Structure Queue - 4](../assets/img/semaphore_counting_4.png)
+<img src="../assets/img/semaphore_counting_4.png" alt="Counting Semaphores 4" width="75%">
 
-![Semaphore Design without Data Structure Queue - 5](../assets/img/semaphore_counting_5.png)
+<img src="../assets/img/semaphore_counting_5.png" alt="Counting Semaphores 5" width="75%">
 
 Once a resource becomes available because another thread or process releases it, the semaphore wakes up all waiting thread and add `1` (or more if multiple resources are released) to their values. Then, every thread will check if the current one is their order (if `value < 0` means no). Even no, they will at least know their updated position in the queue.
 
 The important improvement is that waiting threads no longer need to repeatedly check whether the resource is available. Instead, they are blocked and placed into a queue. When the resource becomes available, the semaphore wakes up the appropriate waiting thread.
 
-![Semaphore Design without Data Structure Queue - 6](../assets/img/semaphore_counting_6.png)
+<img src="../assets/img/semaphore_counting_6.png" alt="Counting Semaphores 6" width="75%">
 
 However, there are still one thing could be improved. Waking all waiting threads would create unnecessary contention and may cause another busy-wait-like problem.
 
