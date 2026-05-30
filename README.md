@@ -328,8 +328,13 @@ If you have questions about the tutorial content, please feel free to get in tou
     </tr>
     <tr>
       <td><a href="./Week%2013/Week_13_Tutorial_B.md">Tutorial B</a></td>
-      <td><a href="">Revision</a></td>
-      <td><i>Tutorial notes have not yet been released.</i></td>
+      <td><a href="https://edstem.org/au/courses/31567/lessons/99440/slides/682730">Revision</a></td>
+      <td>
+        <ul>
+          <li><b><a href="./Week%2013/Week_13_Course_Revision.md">Revision Cheetsheets</a></b></li>
+          <li>More resources are still in developing...</li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>
