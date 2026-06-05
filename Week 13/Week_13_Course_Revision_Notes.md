@@ -1,4 +1,4 @@
-## COMP2017 2026 S1 Revision Cheatsheets: Systems Programming
+## COMP2017 2026 S1 Course Revision Notes: Systems Programming
 
 <table><tbody>
   <tr><td><b>Tutor</b></td><td>Hao Ren</td></tr>
@@ -7,7 +7,7 @@
 
 ### Part NULL: Table of Contents and Compiling
 
-- [COMP2017 2026 S1 Revision Cheatsheets: Systems Programming](#comp2017-2026-s1-revision-cheatsheets-systems-programming)
+- [COMP2017 2026 S1 Course Revision Notes: Systems Programming](#comp2017-2026-s1-course-revision-notes-systems-programming)
   - [Part NULL: Table of Contents and Compiling](#part-null-table-of-contents-and-compiling)
     - [0. How to Compile during Revision](#0-how-to-compile-during-revision)
   - [Part A: C Memory and Data Model](#part-a-c-memory-and-data-model)
