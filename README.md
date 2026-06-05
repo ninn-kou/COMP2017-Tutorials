@@ -17,21 +17,24 @@ If you have questions about the tutorial content, please feel free to get in tou
 
 ### 2026 S1 Feedback for Teachers (FFT)
 
-<mark>As your tutor, your feedback really matters to me. It helps me understand what is working well and how I can better support your learning. Please take a few minutes to complete the "**Feedback for Teachers**" survey honestly and thoughtfully.</mark>
-
-<mark>I would especially appreciate any comments you are willing to share. If you have enjoyed our tutorials, please let me know what you found most helpful or memorable. If you think there is something I could improve, I would also be grateful for your kind suggestions. The survey is completely **voluntary and anonymous**, and your feedback will help make our tutorials more effective, engaging, and meaningful for everyone.<mark>
-
-> Your Unit of Study Survey (USS) / Feedback for teachers (FFT) feedback is **confidential**. It's a way to share what you enjoyed and found most useful in your learning, and to provide constructive feedback. It's also a way to "pay it forward" for the students coming behind you, so that their **learning experience** in this class is as good, or even better, than your own.
->
-> **<https://student-surveys.sydney.edu.au/students/>**
-> 
-> <img src="./assets/others/student-surveys-QR.png" width="30%">
+<table style="width: 100%"><thead>
+  <tr>
+    <td style="width: 75%">
+      As your tutor, your feedback really matters to me. It helps me understand what is working well and how I can better support your learning. Please take a few minutes to complete the "<b>Feedback for Teachers</b>" survey honestly and thoughtfully. I would especially appreciate any comments you are willing to share. If you have enjoyed our tutorials, please let me know what you found most helpful or memorable. If you think there is something I could improve, I would also be grateful for your kind suggestions. The survey is completely <b>voluntary and anonymous</b>, and your feedback will help make our tutorials more effective, engaging, and meaningful for everyone.
+      <br>
+      <a href="https://student-surveys.sydney.edu.au/students/">https://student-surveys.sydney.edu.au/students/</a>
+    </td>
+    <td style="width: 25%">
+      <img src="./assets/others/student-surveys-QR.png">
+    </td>
+  </tr>
+</thead></table>
 
 ---
 
 ### Table of Contents
 
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>Weeks</th>
@@ -311,8 +314,9 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td><a href="https://edstem.org/au/courses/31567/lessons/99440/slides/682730">Revision</a></td>
       <td>
         <ul>
-          <li><b><a href="./Week%2013/Week_13_Course_Revision.md">Revision Cheetsheets</a></b></li>
-          <li>More resources are still in developing...</li>
+          <li>Revision Roadmap</li>
+          <li><b><a href="./Week%2013/Week_13_Course_Revision_Notes.md">Revision Notes/Cheetsheets</a></b></li>
+          <li>Extra Exercises for Revision</li>
         </ul>
       </td>
     </tr>
