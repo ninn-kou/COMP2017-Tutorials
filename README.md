@@ -19,12 +19,12 @@ If you have questions about the tutorial content, please feel free to get in tou
 
 <table style="width: 100%"><thead>
   <tr>
-    <td style="width: 75%">
+    <td style="width: 70%">
       As your tutor, your feedback really matters to me. It helps me understand what is working well and how I can better support your learning. Please take a few minutes to complete the "<b>Feedback for Teachers</b>" survey honestly and thoughtfully. I would especially appreciate any comments you are willing to share. If you have enjoyed our tutorials, please let me know what you found most helpful or memorable. If you think there is something I could improve, I would also be grateful for your kind suggestions. The survey is completely <b>voluntary and anonymous</b>, and your feedback will help make our tutorials more effective, engaging, and meaningful for everyone.
       <br>
       <a href="https://student-surveys.sydney.edu.au/students/">https://student-surveys.sydney.edu.au/students/</a>
     </td>
-    <td style="width: 25%">
+    <td style="width: 30%">
       <img src="./assets/others/student-surveys-QR.png">
     </td>
   </tr>
