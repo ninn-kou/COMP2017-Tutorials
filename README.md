@@ -194,7 +194,7 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td rowspan="2">Week 8</td>
       <td><del>Tutorial A</del></td>
       <td><del>N/A</del></td>
-      <td><u><i>Assignment P1 Code Interview</u></i></td>
+      <td><u><i>Assignment P1 Code Interview</i></u></td>
     </tr>
     <tr>
       <td><a href="./Week%208/Week_8_Tutorial_B.md">Tutorial B</a></td>
@@ -307,7 +307,7 @@ If you have questions about the tutorial content, please feel free to get in tou
       <td rowspan="2">Week 13</td>
       <td><del>Tutorial A</del></td>
       <td><del>N/A</del></td>
-      <td><u><i>Assignment P2 Code Interview</u></i></td>
+      <td><u><i>Assignment P2 Code Interview</i></u></td>
     </tr>
     <tr>
       <td><a href="./Week%2013/Week_13_Tutorial_B.md">Tutorial B</a></td>
@@ -319,6 +319,18 @@ If you have questions about the tutorial content, please feel free to get in tou
           <li>Extra Exercises for Revision</li>
         </ul>
       </td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1">
+  <tbody>
+    <tr>
+      <td rowspan="2">Passway to Pass Workshop</td>
+      <td><a href="./P2P/P2P_Workshop_Part_2_v2.3.pdf">Part 2 Slides</a></td>
+    </tr>
+    <tr>
+      <td><a href="./P2P/P2P_Workshop_Part_2_Exercises_Q.md">Part 2 Exercises - Questions</a></td>
     </tr>
   </tbody>
 </table>
