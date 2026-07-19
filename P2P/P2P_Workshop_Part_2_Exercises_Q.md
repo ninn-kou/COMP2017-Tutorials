@@ -90,7 +90,7 @@ Answer all parts.
    - an ownership-and-waiting table;
    - a wait-for or resource-allocation graph containing a directed cycle;
    - the four Coffman conditions and the evidence for each condition in this execution. **(3 marks)**
-3. Describe a repeatable debugging procedure for confirming this deadlock in a hung process. State what `thread apply all bt` in GDB should reveal. **(2 marks)**
+3. Describe, in general terms, how you would investigate a program that appears to have stopped making progress and determine whether deadlock is the cause. State what evidence about the threads, mutex ownership, and waiting relationships would confirm this deadlock. **(2 marks)** Describe a repeatable debugging procedure by using GDB for confirming this deadlock in a hung process. State what `thread apply all bt` in GDB should reveal. **(Optional)**
 4. Repair the program while keeping both mutexes and preserving at least the original protection of every helper. Identify the affected lines and show the corrected lock and unlock operations. Do not use sleeps, cancellation, timeouts, or recursive mutexes. **(3 marks)**
 5. Give a short proof that the repair prevents circular wait. Merely stating that the unlock calls will eventually run is not sufficient. **(1 mark)**
 
