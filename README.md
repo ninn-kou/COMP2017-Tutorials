@@ -332,6 +332,9 @@ If you have questions about the tutorial content, please feel free to get in tou
     <tr>
       <td><a href="./P2P/P2P_Workshop_Part_2_Exercises_Q.md">Part 2 Exercises - Questions</a></td>
     </tr>
+      <tr>
+      <td><a href="./P2P/P2P_Workshop_Part_2_Exercises_A.md">Part 2 Exercises - Solutions</a></td>
+    </tr>
   </tbody>
 </table>
 
